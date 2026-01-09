@@ -1,0 +1,5 @@
+#pmake: bootstrap
+
+bootstrap = 1
+
+!include ../../mif/makelib.mif

@@ -1,0 +1,57 @@
+name = cl
+
+#
+# Define the name(s) of the program(s) to build.
+#
+!ifeq      host_OS nt
+!   define cl_stub cl.$(ext)
+!else
+!   define cl_stub
+!endif
+
+# Give the build targets an extension other than .exe so that they don't
+# get in the way when building on platforms where files with .exe
+# extension are executable
+ext = nex
+additional_cleanup = *.$(ext)
+
+done: $(cl_stub) cl386.$(ext) claxp.$(ext) clppc.$(ext)
+
+!include ../../master.mif
+
+clstub_objs     = clstub.obj $(mstools_stub_obj) $(mstools_objs)
+cl_common_objs  = macro.obj $(mstools_objs)
+cl386_objs      = cl386.obj mesg386.obj parse386.obj xlate386.obj $(cl_common_objs)
+claxp_objs      = claxp.obj mesgaxp.obj parseaxp.obj xlateaxp.obj $(cl_common_objs)
+clppc_objs      = clppc.obj mesgppc.obj parseppc.obj xlateppc.obj $(cl_common_objs)
+cl386_hdrs      = optp386h.gh
+claxp_hdrs      = optpaxph.gh
+clppc_hdrs      = optpppch.gh
+
+#
+# Instructions for building the executables.
+#
+
+cl.$(ext) :  $(clstub_objs) $(cl_objs) $(version_res_$(host_os)_$(host_cpu))
+        $(cl) $(clflags) $(clstub_objs) $(cl_objs)
+!ifdef version_res_$(host_os)_$(host_cpu)
+        $(rc) -k $(version_res_$(host_os)_$(host_cpu)) $^@
+!endif
+
+cl386.$(ext) :  $(cl386_hdrs) $(cl386_objs) $(cl_objs) $(ver386_res_$(host_os)_$(host_cpu))
+        $(cl) $(clflags) $(cl386_objs) $(cl_objs)
+!ifdef ver386_res_$(host_os)_$(host_cpu)
+        $(rc) -k $(ver386_res_$(host_os)_$(host_cpu)) $^@
+!endif
+
+claxp.$(ext) :  $(claxp_hdrs) $(claxp_objs) $(veraxp_res_$(host_os)_$(host_cpu))
+        $(cl) $(clflags) $(claxp_objs) $(cl_objs)
+!ifdef veraxp_res_$(host_os)_$(host_cpu) $^@
+        $(rc) -k $(veraxp_res_$(host_os)_$(host_cpu)) $^@
+!endif
+
+clppc.$(ext) :  $(clppc_hdrs) $(clppc_objs) $(verppc_res_$(host_os)_$(host_cpu))
+        $(cl) $(clflags) $(clppc_objs) $(cl_objs)
+!ifdef verppc_res_$(host_os)_$(host_cpu) $^@
+        $(rc) -k $(verppc_res_$(host_os)_$(host_cpu)) $^@
+!endif

@@ -1,0 +1,7 @@
+#pmake: bootstrap
+
+bootstrap = 1
+
+target_cpu = axp
+
+!include ../alpha.mif

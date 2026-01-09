@@ -1,0 +1,7 @@
+#pmake: bootstrap
+
+bootstrap = 1
+
+target_cpu = mps
+
+!include ../mips.mif

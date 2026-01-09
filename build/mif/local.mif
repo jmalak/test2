@@ -1,0 +1,352 @@
+# global definition which tool is quiet
+linker     += op q
+librarian  += -q
+as         += -q
+rc         += -q
+rcaui      += -q
+
+bcl        += -zq
+bas        += -q
+blib       += -q
+brc        += -q
+
+#TODO: The Watcom and non-Watcom specific options should really be in separate files...
+# Preprocessing option (NB: Overridden later for other compilers)
+preproc_opts = -p
+
+# redirect standard tools to pre-build versions
+as = $(bas)
+vi = $(bvi)
+librarian = $(blib)
+rc = $(brc)
+rcaui = $(brc)
+
+!if 0
+# This seems to be causing trouble and is of questionable utility
+!ifndef __NTAXP__
+
+use_bld_incs    = 0
+!ifeq host_cpu axp
+use_bld_incs    = 1
+!endif
+!ifeq $(proj_name)_rtdll 1
+use_bld_incs    = 1
+!endif
+!ifdef clib_rtdll
+# C runtime library must compile against local headers!!!!
+use_bld_incs    = 0
+!endif
+
+!ifeq use_bld_incs 1
+cc_386          += $(bld_incs)
+cpp_386         += $(bld_incs)
+!endif
+
+!endif
+!endif
+
+!ifdef __LOADDLL__
+!loaddll wcc    wccd.dll
+!loaddll wcc386 wccd386.dll
+!loaddll wccaxp wccdaxp.dll
+!loaddll wlib   wlibd.dll
+!loaddll wlink  wlinkd.dll
+!loaddll wpp    wppdi86.dll
+!loaddll wpp386 wppd386.dll
+!loaddll wppaxp wppdaxp.dll
+!endif
+
+# TODO: atomize this file and create separate files for various host
+# platforms/compilers
+
+!ifdef __UNIX__
+#common UNIXy stuff - assumes a more or less POSIX compatible cc implementation
+host_cl = cc
+host_cl_opts = $(clflags_$(host_cpu)) -D__UNIX__ -I$(watcom_dir)/h $(inc_dirs) -o $^@
+host_cl_objs = clibext.obj
+
+.c : $(watcom_dir)/c
+
+!ifdef bootstrap
+librarian = ar
+libflags = crs $^@
+
+# options for linking via cc
+clflags = $(clflags_$(host_cpu)) -o $@
+cl_objs = clibext.obj
+
+preproc_opts = -E
+shrlib_ext   = .so
+
+!endif
+
+!endif
+
+#common bootstrap definitions for Linux
+!ifdef __LINUX__
+!ifdef bootstrap
+
+cc = gcc
+cpp = g++
+cl = $(cc)
+clpp = $(cpp)
+
+# Flag to force source files to be compiled as C++; needed for
+# non-standard extensions like .gh
+cpp_force = -xc++
+
+bld_incs = $(bld_extra_incs) -I$(watcom_dir)/h
+
+cdefs_386  = -D_M_IX86 -D__386__
+cdefs_ppc  = -D__PPC__
+cdefs_mips = -D__MIPS__ -Umips
+
+# $(inc_dirs_lang_$(host_os)) must be defined to override default OW headers
+inc_dirs_lang_linux =
+inc_dirs_lang_osi =
+
+# Warning flags: all enabled except the ones that only annoy people
+cflags_wng = -Wall -Wno-switch -Wno-missing-braces -Wno-parentheses
+
+cdefs = -D__LINUX__ -DBOOTSTRAP
+
+cflags_comp = -fno-asm -fno-common -pipe
+
+# Uncomment to enable undefined behavior sanitizer
+#ubsan_flags = -fno-omit-frame-pointer -fsanitize-address-use-after-scope  -fsanitize=undefined -fsanitize=address -fsanitize=pointer-compare -fsanitize=pointer-subtract -fno-sanitize=alignment
+
+cflags_dbg = $(ubsan_flags) -g
+cflags_rel = $(ubsan_flags) -g -O2
+clflags    = $(ubsan_flags) $(clflags)
+
+# Flags for building shared libs
+cflags_shared  = -fPIC
+clflags_shared = -shared
+
+!endif
+!endif
+
+#common definitions for building on FreeBSD (using clang)
+!ifdef __FREEBSD__
+!ifdef bootstrap
+
+cc = cc
+cpp = c++
+cl = $(cc)
+clpp = $(cpp)
+
+cpp_force = -xc++
+
+cdefs_386  = -D_M_IX86 -D__386__
+
+cflags_wng =
+cdefs = -D__FREEBSD__ -D__BSD__ -DBOOTSTRAP
+cflags_rel = -g -O2
+cflags_dbg = -g
+
+# Flags for building shared libs
+cflags_shared  = -fPIC
+clflags_shared = -shared
+
+!endif
+!endif
+
+#common definitions for building on OS X (using GCC)
+!ifdef __OSX__
+!ifdef bootstrap
+
+cc = cc
+cpp = c++
+cl = $(cc)
+clpp = $(cpp)
+
+cpp_force = -xc++
+
+cdefs_386  = -D_M_IX86 -D__386__
+
+cflags_wng =
+cdefs = -D__OSX__ -DBOOTSTRAP
+cflags_comp = -fno-common
+
+cflags_dbg = -g
+cflags_rel = -g -O2
+
+# Flags for building shared libs; -fPIC is on by default, and the linking
+# flag on Darwin is different from everyone else's...
+clflags_shared = -dynamiclib
+
+!endif
+!endif
+
+#common definitions for building on Solaris (using SunPro tools)
+!ifdef __SOLARIS__
+# Solaris 10 sticks to crappy old awk as the default
+awk = nawk
+
+!ifdef bootstrap
+
+!ifdef %OW_SUNSTUDIO
+sunstudio = 1
+!endif
+
+!ifdef sunstudio
+cc = cc
+cpp = CC
+# Sun Studio 12 (cc 5.9) needs this to grok xfloat.h
+cflags_comp = -features=extensions
+!else
+cc = gcc
+cpp = g++
+!endif
+cl = $(cc)
+clpp = $(cpp)
+
+cpp_force = -xc++
+
+# On Solaris 10, librt is required for nanosleep() used by ncurses
+cl_libs = -lrt
+
+cdefs_386  = -m32 -D__386__ -D_M_IX86
+cdefs_x64  = -m64 -D__X64__ -DLONG_IS_64BITS
+clflags_x64   = -m64 -DLONG_IS_64BITS
+
+cflags_wng =
+cdefs = -D__SOLARIS__ -DBOOTSTRAP
+
+cflags_rel = -g -O2 # Warning: O3 and higher may produce buggy code!
+cflags_dbg = -g -O0
+
+# Flags for building shared libs
+cflags_shared  = -fPIC
+clflags_shared = -shared
+
+!endif
+
+!ifndef sunstudio
+host_cl = gcc
+!endif
+
+!endif
+
+#common definitions for targeting QNX Neutrino
+!ifeq host_os nto
+!ifdef bootstrap
+
+cc = qcc
+cpp = qcc
+cl = $(cc)
+!ifdef __QNX__
+bld_incs = $(bld_extra_incs) -I$(watcom_dir)/h
+!endif
+librarian += -fa
+
+cdefs_386  = -D_M_IX86 -D__386__
+cdefs_ppc  = -D__PPC__
+cdefs_mips = -D__MIPS__ -Umips
+
+# $(inc_dirs_lang_$(host_os)) must be defined to override default OW headers
+inc_dirs_lang_nto =
+inc_dirs_lang_osi =
+
+# Warning flags: all enabled except the ones that only annoy people
+cflags_wng = -Wall -Wno-switch -Wno-missing-braces -Wno-parentheses
+
+cdefs = -D__QNX__
+
+cflags_comp = -funsigned-char -fno-asm -fno-common -pipe
+
+cflags_rel = -g -O
+cflags_dbg = -g
+
+!endif
+!endif
+
+!ifdef __UNIX__
+!ifdef bootstrap
+
+# Final common UNIX bootstrap setup
+
+cflgs1= -c $(extra_c_flags) $(cdefs_$(host_cpu))
+cflgs2 = -D__UNIX__ $(defines) $(cdefs) $(cflags_wng) $(cflags_comp)
+
+!ifeq release 1
+cflags = $(cflgs1) $(cflgs2) -DNDEBUG $(cflags_rel) -o $@
+!else
+cflags = $(cflgs1) $(cflgs2) $(cflags_dbg) -o $@
+!endif
+
+!endif
+!endif
+
+
+!ifdef __OS2__
+
+# Bootstrapping is currently only possible with Watcom C/C++. In the
+# future, using IBM C/C++ could perhaps be possible.
+!ifdef bootstrap
+.c : $(watcom_dir)/c
+# Add compatibility header directory for <unistd.h> and similar
+# NB: This solves a problem where OW 1.9 unistd.h does not declare
+# getcwd() as it should.
+inc_dirs_lang_osi = -I"$(watcom_dir)/ch"
+
+# Flags for owcc
+clflags_shared = -shared
+!endif
+
+!endif
+
+
+!ifdef __NT__
+!ifdef bootstrap
+
+# MSVC
+cc = cl
+cpp = cl
+cl = $(cc)
+clpp = $(cpp)
+
+# Flag to force source files to be compiled as C++; needed because
+# there aren't separate C and C++ compiler drivers
+cpp_force = -TP
+
+bld_incs = $(bld_extra_incs) -I"$(watcom_dir)/h"
+librarian = lib
+libflags = -nologo -out:$^@
+
+# Add compatibility header directory for <unistd.h> and similar
+inc_dirs_lang_osi = -I"$(watcom_dir)/ch"
+
+cdefs_386 = -D_M_IX86=400 -D__386__ -D__NT__ -D_X86_
+cdefs = -D__FLAT__ -DBOOTSTRAP $(cdefs_$(host_cpu))
+
+cflags_rel = -Ox -DNDEBUG
+cflags_dbg = -Zi
+# Would be useful for Microsoft C++ but Watcom's CL doesn't recognize it
+#cppflags   = -EHsc
+
+preproc_opts = -E
+
+# options for linking via cl
+clflags = -nologo -Fe$@
+cl_objs = clibext.obj
+.c : $(watcom_dir)/c
+
+!ifeq release 1
+cflags = -c -nologo $(extra_c_flags) $(cdefs) $(cflags_rel) -Fo$@
+!else
+cflags = -c -nologo $(extra_c_flags) $(cdefs) $(cflags_dbg) -Fo$@
+clflags = -Zi $(clflags)
+!endif
+
+# Flags for building DLLs
+cflags_shared  =
+clflags_shared = -LD
+shrlib_ext     = .dll
+!endif
+
+# Host compile and link utility used for both bootstrap and regular builds
+host_cl = cl
+host_cl_opts = -nologo -I"$(watcom_dir)/h" -I"$(watcom_dir)/ch" $(inc_dirs) -Fe$^@
+
+!endif

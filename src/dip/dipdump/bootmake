@@ -1,0 +1,10 @@
+#pmake: bootstrap
+
+bootstrap = 1
+
+# This is really hacky and probably should be handled in shared .mif files
+!ifdef __UNIX__
+cl_libs = -ldl
+!endif
+
+!include ../dipdump.mif

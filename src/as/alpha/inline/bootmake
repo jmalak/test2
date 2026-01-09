@@ -1,0 +1,10 @@
+#pmake: bootstrap
+
+bootstrap = 1
+
+target_cpu = axp
+
+inline_as = 1
+asi_build_lib = 1
+
+!include ../../alpha.mif

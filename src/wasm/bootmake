@@ -1,0 +1,7 @@
+#pmake: bootstrap
+
+bootstrap = 1
+
+proj_path = ..
+
+!include ../mif/master.mif

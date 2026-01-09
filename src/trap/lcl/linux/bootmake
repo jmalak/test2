@@ -1,0 +1,43 @@
+#pmake: bootstrap 
+#
+# Create the Linux std.trp
+#
+host_os  = linux
+host_cpu = 386
+
+bootstrap         = 1
+substitute_linker = 1
+
+os      = linux
+srv     = lcl
+which   = TRAP
+
+extra_objs = &
+        lnxacc.obj &
+        lnxmap.obj &
+        lnxcomm.obj &
+        lnxfile.obj &
+	lnxutl.obj &
+        supp.obj &
+        core.obj
+
+!ifeq host_cpu 386
+cpu     = x86
+extra_objs += lnxx86.obj x86cpu.obj #misc7386.obj
+!else ifeq host_cpu ppc
+cpu     = ppc
+extra_objs += lnxppc.obj
+!else ifeq host_cpu mips
+cpu     = mips
+extra_objs += lnxmips.obj
+!else
+!error Unknown CPU architecture
+!endif
+
+extra_c_flags = -fPIC
+
+!include $(trap_dir)/lcl/lcl.mif
+!include $(trap_dir)/master.mif
+
+$(target) : $(objs) $(extra_libs) $(resource_file) $(extra_deps) $(__MAKEFILES__) $(nversion_tmp)
+        $(cl) -shared $(clflags) $(objs) $(extra_libs) $(cl_libs)

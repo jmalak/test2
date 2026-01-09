@@ -1,0 +1,42 @@
+proj_name       = ncurses
+inc_dirs        = -I"../h"
+
+!include cproj.mif
+!include deftarg.mif
+!include defrule.mif
+
+.c: ../c
+
+ncurses_objs = &
+    access.obj &
+    comp_err.obj &
+    doalloc.obj &
+    fallback.obj &
+    free_tty.obj &
+    getenv_n.obj &
+    home_ter.obj &
+    lib_baud.obj &
+    lib_beep.obj &
+    lib_cur_.obj &
+    lib_napm.obj &
+    lib_setu.obj &
+    lib_tpar.obj &
+    lib_tput.obj &
+    lib_ttyf.obj &
+    read_ent.obj
+
+!ifdef nctrace
+extra_c_flags += -DTRACE
+
+ncurses_objs += &
+    lib_data.obj &
+    lib_trce.obj &
+    lib_trcb.obj &
+    tracebuf.obj &
+    version.obj &
+    visbuf.obj
+!endif
+
+
+ncurses.lib : $(ncurses_objs)
+    $(librarian) $(libflags) $<

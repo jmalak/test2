@@ -1,0 +1,7 @@
+#pmake: bootstrap
+
+bootstrap = 1
+
+target_cpu = ppc
+
+!include ../ppc.mif

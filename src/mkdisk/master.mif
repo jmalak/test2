@@ -1,0 +1,35 @@
+proj_name = mkdisk
+
+mkdisk_autodepends = .autodepend
+
+!ifdef bootstrap
+ziplib = ../../ziplib/$(%OWOBJDIR)/ziplib.lib
+zlib   = ../../zlib/$(%OWOBJDIR)/zlib.lib
+!else
+ziplib = ../../ziplib/$(host_os)$(host_cpu)/ziplib.lib
+zlib   = ../../zlib/$(host_os)$(host_cpu)/zlib.lib
+!endif
+
+inc_dirs = -I"$(libzip_dir)/lib" -I"$(zlib_dir)" -I"$(src_dir)/builder/h" -I"$(src_dir)/builder/h" -I"$(src_dir)/setupgui/h"
+
+!include cproj.mif
+!include deftarg.mif
+!include defrule.mif
+
+commands = mkexezip.exe uzip.exe splitfil.exe packsize.exe genmkfil.exe langdat.exe mkinf.exe
+
+all : $(commands) .SYMBOLIC
+
+.c: ..;$(src_dir)/builder/c
+
+.obj.exe: $(cl_objs)
+    $(cl) $(clflags) $<
+
+# Additional dependencies
+langdat.exe : langdat.obj  utils.obj $(cl_objs)
+mkexezip.exe: mkexezip.obj $(cl_objs)
+splitfil.exe: splitfil.obj $(cl_objs)
+mkinf.exe:    mkinf.obj    $(cl_objs)
+
+uzip.exe: microzip.obj $(ziplib) $(zlib) $(cl_objs)
+    $(cl) $(clflags) $<

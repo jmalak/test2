@@ -1,0 +1,31 @@
+proj_name       = zlib
+zlib_autodepends = .autodepend
+
+!include cproj.mif
+!include defrule.mif
+!include deftarg.mif
+
+.c: $(zlib_dir)
+.h: $(zlib_dir)
+
+inc_dirs = -I"$(zlib_dir)"
+
+!ifeq cc $(cc_$(host_cpu))
+extra_c_flags = -wcd201
+!endif
+
+objs = adler32.obj  &
+       compress.obj &
+       crc32.obj    &
+       deflate.obj  &
+       gzio.obj     &
+       infback.obj  &
+       inffast.obj  &
+       inflate.obj  &
+       inftrees.obj &
+       trees.obj    &
+       uncompr.obj  &
+       zutil.obj 
+
+$(proj_name).lib : $(objs)
+        $(librarian) $(libflags) $<

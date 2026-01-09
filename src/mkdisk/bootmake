@@ -1,0 +1,7 @@
+#pmake: bootstrap
+
+bootstrap = 1
+
+target_cpu = all
+
+!include ../master.mif

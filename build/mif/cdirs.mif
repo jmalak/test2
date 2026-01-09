@@ -1,0 +1,260 @@
+# todo: remove unused macros
+!ifndef awk_dir
+awk_dir         = $(src_dir)/awk
+!endif
+!ifndef bench_dir
+bench_dir       = $(src_dir)/bench
+!endif
+!ifndef brinfo_dir
+brinfo_dir      = $(src_dir)/brinfo
+!endif
+!ifndef fe_misc_dir
+fe_misc_dir     = $(src_dir)/fe_misc
+!endif
+!ifndef cg_dir
+cg_dir          = $(src_dir)/cg
+!endif
+!ifndef cc_dir
+cc_dir          = $(src_dir)/cc
+!endif
+!ifndef cfloat_dir
+cfloat_dir      = $(src_dir)/cfloat
+!endif
+!ifndef cmnui_dir
+cmnui_dir       = $(src_dir)/commonui
+!endif
+!ifndef plusplus_dir
+plusplus_dir    = $(src_dir)/plusplus
+!endif
+!ifndef cpplib_dir
+cpplib_dir      = $(src_dir)/cpplib
+!endif
+!ifndef dwarf_dir
+dwarf_dir       = $(src_dir)/dwarf
+!endif
+!ifndef wrc_dir
+wrc_dir         = $(src_dir)/rc/rc
+!endif
+!ifndef sdk_dir
+sdk_dir         = $(src_dir)/sdk
+!endif
+!ifndef wzoom_dir
+wzoom_dir       = $(sdk_dir)/zoom
+!endif
+!ifndef wddespy_dir
+wddespy_dir     = $(sdk_dir)/ddespy
+!endif
+!ifndef wimgedit_dir
+wimgedit_dir    = $(sdk_dir)/imgedit
+!endif
+!ifndef wspy_dir
+wspy_dir        = $(sdk_dir)/spy
+!endif
+!ifndef wr_dir
+wr_dir          = $(sdk_dir)/wr
+!endif
+!ifndef misc_dir
+misc_dir        = $(sdk_dir)/misc
+!endif
+!ifndef wheapwlk_dir
+wheapwlk_dir    = $(sdk_dir)/heapwalk
+!endif
+!ifndef owl_dir
+owl_dir         = $(src_dir)/owl
+!endif
+!ifndef as_dir
+as_dir          = $(src_dir)/as
+!endif
+!ifndef wpack_dir
+wpack_dir       = $(src_dir)/wpack
+!endif
+!ifndef wtouch_dir
+wtouch_dir      = $(src_dir)/touch
+!endif
+!ifndef wmake_dir
+wmake_dir       = $(src_dir)/wmake
+!endif
+!ifndef wdump_dir
+wdump_dir       = $(src_dir)/wdump
+!endif
+!ifndef disasm_dir
+disasm_dir      = $(src_dir)/disasm
+!endif
+!ifndef orl_dir
+orl_dir         = $(src_dir)/orl
+!endif
+!ifndef watcom_dir
+watcom_dir      = $(src_dir)/watcom
+!endif
+!ifndef comp_cfg_dir
+comp_cfg_dir    = $(src_dir)/comp_cfg
+!endif
+!ifndef wpi_dir
+wpi_dir         = $(src_dir)/wpi
+!endif
+!ifndef trmem_dir
+trmem_dir       = $(src_dir)/trmem
+!endif
+!ifndef diff_dir
+diff_dir        = $(src_dir)/diff
+!endif
+!ifndef bdiff_dir
+bdiff_dir       = $(src_dir)/bdiff
+!endif
+!ifndef cpp_dir
+cpp_dir         = $(src_dir)/cpp
+!endif
+!ifndef vi_dir
+vi_dir          = $(src_dir)/vi
+!endif
+!ifndef posix_dir
+posix_dir       = $(src_dir)/posix
+!endif
+!ifndef rcsdll_dir
+rcsdll_dir      = $(src_dir)/rcsdll
+!endif
+!ifndef ncurses_dir
+ncurses_dir     = $(src_dir)/ncurses
+!endif
+!ifndef ide_dir
+ide_dir         = $(src_dir)/ide
+!endif
+!ifndef wlink_dir
+wlink_dir       = $(src_dir)/wl
+!endif
+!ifndef wasm_dir
+wasm_dir        = $(src_dir)/wasm
+!endif
+!ifndef wasmtest_dir
+wasmtest_dir    = $(src_dir)/wasm/test
+!endif
+!ifndef hdr_dir
+hdr_dir         = $(src_dir)/hdr
+!endif
+!ifndef os2api_dir
+os2api_dir      = $(src_dir)/os2api
+!endif
+!ifndef w32api_dir
+w32api_dir      = $(src_dir)/w32api
+!endif
+!ifndef w16api_dir
+w16api_dir      = $(src_dir)/w16api
+!endif
+!ifndef nwoss_dir
+nwoss_dir       = $(src_dir)/os_supp/novell
+!endif
+!ifndef plustest_dir
+plustest_dir    = $(src_dir)/plustest
+!endif
+!ifndef ctest_dir
+ctest_dir       = $(src_dir)/ctest
+!endif
+!ifndef linktest_dir
+linktest_dir    = $(src_dir)/linktest
+!endif
+!ifndef f77_dir
+f77_dir         = $(src_dir)/f77
+!endif
+!ifndef ftest_dir
+ftest_dir       = $(src_dir)/f77/regress
+!endif
+!ifndef clib_dir
+clib_dir        = $(src_dir)/clib
+!endif
+!ifndef emu387_dir
+emu387_dir      = $(src_dir)/emu387
+!endif
+!ifndef emu87_dir
+emu87_dir       = $(src_dir)/emu87
+!endif
+!ifndef mathlib_dir
+mathlib_dir     = $(src_dir)/mathlib
+!endif
+!ifndef rtdll_dir
+rtdll_dir       = $(src_dir)/rtdll
+!endif
+!ifndef lib_misc_dir
+lib_misc_dir    = $(src_dir)/lib_misc
+!endif
+!ifndef womp_dir
+womp_dir        = $(src_dir)/womp
+!endif
+!ifndef cw_dir
+cw_dir          = $(src_dir)/causeway
+!endif
+!ifndef win386_dir
+win386_dir      = $(src_dir)/win386
+!endif
+!ifndef wclass_dir
+wclass_dir      = $(src_dir)/wclass
+!endif
+!ifndef batch_dir
+batch_dir       = $(src_dir)/idebatch
+!endif
+!ifndef editdll_dir
+editdll_dir     = $(src_dir)/editdll
+!endif
+!ifndef gui_dir
+gui_dir         = $(src_dir)/gui
+!endif
+!ifndef trap_dir
+trap_dir        = $(src_dir)/trap
+!endif
+!ifndef browse_dir
+browse_dir      = $(src_dir)/browser
+!endif
+!ifndef wres_dir
+wres_dir        = $(src_dir)/wres
+!endif
+!ifndef dip_dir
+dip_dir         = $(src_dir)/dip
+!endif
+!ifndef dig_dir
+dig_dir         = $(src_dir)/dig
+!endif
+!ifndef mad_dir
+mad_dir         = $(src_dir)/mad
+!endif
+!ifndef dbg_dir
+dbg_dir         = $(src_dir)/dbg
+!endif
+!ifndef wdisasm_dir
+wdisasm_dir     = $(src_dir)/wdisasm
+!endif
+!ifndef yacc_dir
+yacc_dir        = $(src_dir)/yacc
+!endif
+!ifndef whpcvt_dir
+whpcvt_dir      = $(src_dir)/whpcvt
+!endif
+!ifndef aui_dir
+aui_dir         = $(src_dir)/aui
+!endif
+!ifndef sampler_dir
+sampler_dir     = $(src_dir)/sampler
+!endif
+!ifndef editdll_dir
+editdll_dir     = $(src_dir)/editdll
+!endif
+!ifndef ui_dir
+ui_dir          = $(src_dir)/ui
+!endif
+!ifndef hlpview_dir
+hlpview_dir     = $(src_dir)/hlpview
+!endif
+!ifndef dbg_dir
+dbg_dir         = $(src_dir)/dbg
+!endif
+!ifndef pil_dir
+pil_dir         = $(src_dir)/pil
+!endif
+!ifndef re2c_dir
+re2c_dir        = $(src_dir)/re2c
+!endif
+!ifndef libzip_dir
+libzip_dir      = $(contrib_dir)/libzip
+!endif
+!ifndef zlib_dir
+zlib_dir        = $(contrib_dir)/zlib
+!endif
+

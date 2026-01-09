@@ -1,0 +1,13 @@
+#
+# Miscellaneous Tests
+#
+# Test For Metacharacter Detection
+#  
+#
+test1: .symbolic
+    (echo foo)                  # Metacharacter, outputs 'foo'
+    echo (foo)                  # No metacharacter, outputs '(foo)'
+    echo foo & echo bar         # Metacharacter, outputs 'foo\nbar'
+    # The following was broken in 1.9, incorrectly done through shell
+    set MYVAR=(text)            # No metacharacter, must be internal
+    echo $(%MYVAR)              # Checks if MYVAR was set correctly

@@ -1,0 +1,104 @@
+proj_name = wspy
+
+!ifndef wspy_autodepends
+wspy_autodepends = .AUTODEPEND
+!endif
+
+sys_windowed = 1
+
+!include cproj.mif
+!include deftarg.mif
+!include defrule.mif
+
+.EXTENSIONS: .res .rc
+
+!ifeq host_os nt
+dllname = ntspyhk
+!else
+dllname = wspyhk
+!endif
+
+objs_win = spy.obj spyglob.obj spybox.obj spyproc.obj spymsgs.obj &
+           spyfilt.obj spypick.obj spymdlgs.obj spyarray.obj &
+           spymisc.obj spycfg.obj spylog.obj spytool.obj spysel.obj
+
+objs_nt =  spy.obj spyglob.obj spybox.obj spyproc.obj spymsgs.obj &
+           spyfilt.obj spypick.obj spymdlgs.obj spyarray.obj spyzord.obj &
+           spymisc.obj spycfg.obj spylog.obj spytool.obj spysel.obj
+
+objs = $(objs_$(host_os))
+
+dllobjs = spydll.obj
+
+extra_c_flags     += -s -fh
+extra_c_flags_i86 += -zu -2 -zW
+extra_c_flags_386 += -4
+!ifeq host_os win
+extra_c_flags_spydll = -bd -mc -fh=spydll.pch
+!else ifeq host_os nt
+extra_c_flags_spydll = -bd -fh=spydll.pch
+!endif
+
+!ifeq release 0
+wspy_non_release_option = option rwr
+dll_debug_all           = debug all
+dll_debug_axp           = debug codeview
+!endif
+
+extra_l_flags_win = option stack=9k, heapsize=2k lib $(dllname).lib
+
+extra_l_flags_nt  = lib $(dllname).lib
+
+extra_l_flags     = option map
+
+wspy_dll_lflags_wini86 = $(dll_debug_$(host_cpu)) &
+                         system windows_dll font mem name $(dllname).dll &
+                         $(wspy_non_release_option) &
+                         lib windows.lib &
+                         option map, rwr &
+                         segment CLASS 'CODE' PRELOAD FIXED &
+                         export WEP RESIDENT &
+                         file { $(dllobjs) }
+
+wspy_dll_lflags_nt386  = $(dll_debug_$(host_cpu)) &
+                         system nt_dll initglobal name $(dllname).dll &
+                         option map &
+                         file { $(dllobjs) }
+
+wspy_dll_lflags_ntaxp  = $(dll_debug_$(host_cpu)) &
+                         system ntaxp_dll initglobal name $(dllname).dll &
+                         option map &
+                         file { $(dllobjs) }
+
+.c: $(wspy_dir);$(sdk_dir)/misc
+.h: $(wspy_dir);$(sdk_dir)/misc
+
+inc_dirs = -I"$(wspy_dir)" -I"$(cmnui_dir)/$(host_os)$(host_cpu)"
+inc_dirs += -I"$(cmnui_dir)/h" -I"$(wpi_dir)/h"
+
+xlibs = $(wpi_dir)/$(host_os)$(host_cpu)/wpi.lib &
+        $(cmnui_dir)/$(host_os)$(host_cpu)/commonui.lib
+
+# systems where version resource must be added to .EXE
+version_res_nt_386 = exever.res
+
+$(proj_name).exe : rcstr.gh $(objs) $(xlibs) $(proj_name).res $(dllname).lib $(version_res)
+        $(linker) name $^@ $(lflags) file { $(objs) } lib { $(xlibs) }
+        $(rc) -k $(proj_name).res $^@ $(bind_version_res)
+
+rcstr.gh : rcstrmsg.gh
+        $(awk) -f $(build_dir)/msgtoh.awk $[@ > $^@
+
+rcstrmsg.gh : $(wspy_dir)/spy.msg
+        $(cc) $(preproc_opts) $(c_japan_charset) $(inc_path) $[@ -fo=$^@
+
+$(dllname).lib : $(dllname).dll
+        $(librarian) $(libflags) +$[@
+
+$(dllname).dll : $(dllobjs)
+        $(linker) $(wspy_dll_lflags_$(host_os)$(host_cpu))
+
+$(proj_name).res: ../$(proj_name).rc .AUTODEPEND
+        $(rc) $(rc_flags) -ad -zk0 $(inc_path) $[@ -fo=$^@
+
+!include verrc.mif

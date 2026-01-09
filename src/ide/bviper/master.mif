@@ -1,0 +1,26 @@
+proj_name = ide2make
+
+!ifndef ide2make_autodepends
+ide2make_autodepends = .AUTODEPEND
+!endif
+
+!include cproj.mif
+!include deftarg.mif
+!include defrule.mif
+
+!include $(wclass_dir)/mif/client.mif
+
+objs = bviper.obj
+
+inc_dirs = $(wclass_inc_dirs) -I"$(ide_dir)/mviper"
+
+.cpp: ..
+
+!ifdef bootstrap
+LIBS = $(ide_dir)/mviper/bootstrp/mviper.lib $(wclass_lib)
+!else
+LIBS = $(ide_dir)/mviper/$(host_os)$(host_cpu)/mviper.lib $(wclass_lib) 
+!endif
+
+$(proj_name).exe : $(objs) $(cl_objs) $(LIBS)
+    $(clpp) $(clflags) $(objs) $(cl_objs) $(LIBS)

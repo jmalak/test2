@@ -1,0 +1,73 @@
+/****************************************************************************
+*
+*                            Open Watcom Project
+*
+*    Portions Copyright (c) 1983-2002 Sybase, Inc. All Rights Reserved.
+*
+*  ========================================================================
+*
+*    This file contains Original Code and/or Modifications of Original
+*    Code as defined in and that are subject to the Sybase Open Watcom
+*    Public License version 1.0 (the 'License'). You may not use this file
+*    except in compliance with the License. BY USING THIS FILE YOU AGREE TO
+*    ALL TERMS AND CONDITIONS OF THE LICENSE. A copy of the License is
+*    provided with the Original Code and Modifications, and is also
+*    available at www.sybase.com/developer/opensource.
+*
+*    The Original Code and all software distributed under the License are
+*    distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+*    EXPRESS OR IMPLIED, AND SYBASE AND ALL CONTRIBUTORS HEREBY DISCLAIM
+*    ALL SUCH WARRANTIES, INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF
+*    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR
+*    NON-INFRINGEMENT. Please see the License for the specific language
+*    governing rights and limitations under the License.
+*
+*  ========================================================================
+*
+* Description:  Compatibility header for Microsoft C.
+*
+****************************************************************************/
+
+
+/* Microsoft has no <fnmatch.h>, supply our own that is
+ * essentially a copy of Watcom's <fnmatch.h>
+ */
+
+#if defined(_MSC_VER) || defined(__WATCOMC__)
+/* Allow Watcom bootstrap builds to use this (building with cl). */
+
+#ifdef __WATCOMC__
+#ifndef __COMDEF_H_INCLUDED
+ #include <_comdef.h>
+#endif
+#else
+#define _WCRTLINK
+#endif
+
+#define FNM_NOMATCH     1           /* Failed to match. */
+
+#define FNM_NOESCAPE    0x01        /* No backslash escaping. */
+#define FNM_PATHNAME    0x02        /* Slash in string only matched by slash in pattern. */
+#define FNM_PERIOD      0x04        /* Leading period in string only matched by period in pattern. */
+
+#define FNM_NOSYS       (-1)        /* Reserved, obsolete. */
+
+#if !defined(NO_EXT_KEYS) /* extensions enabled */
+#define FNM_IGNORECASE  0x08        /* Case insensitive matching. */
+#define FNM_LEADING_DIR 0x10        /* Ignore final path component. */
+#define FNM_CASEFOLD    FNM_IGNORECASE
+#endif /* extensions enabled */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+_WCRTLINK extern int    fnmatch( const char *__pattern, const char *__string, int __flags );
+
+#ifdef __cplusplus
+} /* extern "C" */
+#endif
+
+#else
+#error This header is only intended for Microsoft C!
+#endif

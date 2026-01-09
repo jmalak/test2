@@ -1,0 +1,135 @@
+
+ The Open Watcom Build System
+ ============================
+
+ This document provides a brief overview of the build system used by Open
+Watcom.	The build system is designed to be portable across DOS-like operating
+systems (Windows, OS/2, even DOS), as well as UNIX-like systems (Linux, OS X,
+Solaris). The build system is intended to have only a minimum number of
+dependencies beyond the tools commonly found on a host operating system.
+
+ Two-Stage Cross Building
+ ------------------------
+
+ The build system is designed for cross compilation and works even on
+platforms which Open Watcom does not target.
+
+ The build tools -- wmake, pmake, builder
+ ----------------------------------------
+
+ The build system is hierarchically structured. At the lowest levels, wmake
+(Watcom's make utility) processes traditional makefiles. Each makefile
+typically produces a single executable or a library.
+
+ On a higher level, the pmake utility invokes wmake multiple times to build
+all components of a given project, such as executables for all supported
+host platforms. The pmake utility is controlled by special comments in
+makefiles.
+
+ On the highest level, the builder utility drives the build process. Builder
+is used to ensure that projects are built in the correct order, and also to
+include or exclude certain projects depending on the host OS. In addition,
+builder writes console output to a log file. The builder utility can also
+optionally copy files to a separate output directory structure. The builder
+utility is essentially a batch processor controlled by builder.ctl files.
+
+ The boot stage
+ --------------
+
+ The 'boot' build stage, invoked by running 'builder boot', uses a bootstrap
+compiler (typically Open Watcom or GCC) to create the bootstrap versions of
+all requisite build tools. In addition to wmake/pmake/builder, that includes
+the C and C++ compilers, assemblers, linker, and librarian.
+
+ The build tools should therefore be written to be maximally portable, using
+only standard ISO C constructs whenever possible. It is assumed that the build
+tools could be used on operating systems and CPU architectures which are not
+supported by Open Watcom.
+
+ The build/rel stage
+ -------------------
+
+ Once the boot stage completes, the 'build' stage can start. The build stage
+produces the final versions of all executables, libraries, and ancillary
+files shipped as part of the Open Watcom package. It starts with run-time
+library and OS API headers, C/C++/math/graph libraries, and continues to
+build all other Open Watcom tools.
+
+ The build stage creates new versions of nearly all tools used as part of the
+boot stage, but cross compiled using Open Watcom tools rather than built for
+the host platform.
+
+ The 'rel' target is a superset of 'build' and additionally copies all
+delivered files to the release directory tree. The release directory tree is
+intended to contain an exact image of a fully installed Open Watcom package.
+
+ There is also the 'cprel' target which only copies files but does not
+attempt to build anything.
+
+
+ Advantages and Disadvantages
+ ----------------------------
+
+ The advantage of the two-stage build process is that updated tools can be
+immediately used. For example, compiler fixes and enhancements are immediately
+reflected in the final executables and libraries.
+
+ This is also a disadvantage; any new bugs will be likewise propagated to the
+final binaries.
+
+ The two-stage build process is also somewhat longer, but not significantly
+so because only a small subset of the tools and libraries is built twice.
+
+ This may also be an advantage; the boot phase produces produces working
+cross-development tools for host platforms which are not natively supported.
+
+
+ Building on Windows Hosts
+ -------------------------
+
+ On Windows hosts, there are two options for the bootstrap stage: Either
+Microsof C/C++, or a previous version of Open Watcom C/C++. These two
+variants have somewhat different advantages and pitfalls.
+
+ In either case, Microsoft-style commands (cl, lib, link) are used for
+building binaries intended to run on the host system. For cross compiling
+(i.e. building the actual shipped executables), projects use wcc(386) for
+compiling and either owcc or wlink for linking.
+
+ To make bootstrapping with Microsoft C/C++ work, the cl/lib/link etc.
+utilities are *not* built during bootstrap; it is essential that the
+Microsoft cl/lib/link etc. tools are used instead of the Watcom ones.
+
+ The OWBOOTSTRAP environment variable, when set, enables bootstrapping
+using Open Watcom C/C++. It is expected that OWBOOTSTRAP is the equivalent
+of the WATCOM environment variable for the given Open Watcom installation.
+
+ Note that for bootstrapping with Open Watcom C/C++, it is not required
+to fully set up the environment; the boot.bat script sets up PATH,
+WATCOM, etc. as needed.
+
+ When bootstrapping with Microsoft C/C++, the PATH, INCLUDE, LIB and
+any other required environment variables must be already set by running
+VsDevCmd.bat or similar.
+
+
+ Building on Unix Hosts
+ ----------------------
+
+ When building on Unix or Unix-like hosts (Linux, FreeBSD, macOS etc.), it
+is assumed that Open Watcom C/C++ may not be able to generate executables
+for the host platform. The bootstrap stage usually uses gcc or clang, and
+these are also used to build any small utility executables needed during
+the build.
+
+
+ Path Restrictions
+ -----------------
+
+ The OWROOT path should not contain any spaces. The presence of spaces
+will likely break things.
+
+ On Unix-y systems, the path to the source tree may contain symlinks. The
+setenv.sh script attempts to determine the real absolute OWROOT path.
+Note that if OWROOT does not contain an absolute path, building the IDE
+examples will fail.

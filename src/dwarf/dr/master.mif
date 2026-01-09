@@ -1,0 +1,21 @@
+proj_name = dwarfr
+
+!ifndef dwarfr_autodepends
+dwarfr_autodepends = .AUTODEPEND
+!endif
+
+!include cproj.mif
+!include defrule.mif
+!include deftarg.mif
+
+extra_wcc_flags = -s
+
+.c: ../c
+
+inc_dirs = -I"../h"
+
+extra_wcc_flags_i86 = -zc -zu
+extra_wcc_flags_386 = -zc
+extra_wcc_flags_win = -zW
+
+!include ../dr.mif

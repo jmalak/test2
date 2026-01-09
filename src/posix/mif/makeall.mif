@@ -1,0 +1,51 @@
+!ifeq bootstrap 1
+!ifdef __UNIX__
+bootstrap_posix_host = 1
+!endif
+bootstrp_flag = bootstrap=1
+!endif
+
+!ifdef bootstrap_posix_host
+
+all : .symbolic
+clean : .symbolic
+!else
+
+!include $(posix_dir)/mif/commands.mif
+!include $(posix_dir)/mif/targos.mif
+!include $(posix_dir)/mif/common.mif
+
+all : lib $(commands) .symbolic
+        @%null
+
+lib : .symbolic $(__MAKEFILES__)
+curr_dir_all=$+ $(%CWD) $-
+        @cd $(posixlibdir)
+        !@wmake -h release=$(release) verbose=$(verbose) $(bootstrp_flag)
+!ifdef altposixlibdir
+        @cd $(altposixlibdir)
+        !@wmake -h release=$(release) verbose=$(verbose) $(bootstrp_flag)
+!endif
+        @cd $(curr_dir_all)
+
+$(commands) : .symbolic $(__MAKEFILES__)
+        !@wmake -h -f $(posix_dir)/src/$^@/makefile targos=$(targos) make_all=1 release=$(release) verbose=$(verbose) $(bootstrp_flag)
+
+clean : .symbolic
+curr_dir_all=$+ $(%CWD) $-
+        @echo clean $(posixlibdir)
+        @cd $(posixlibdir)
+        rm -f *.ex? *.?bj *.map *.lst *.smp *.lnk *.lbc *.lib *.err *.sym
+!ifdef altposixlibdir
+        @echo clean $(altposixlibdir)
+        @cd $(altposixlibdir)
+        rm -f *.ex? *.?bj *.map *.lst *.smp *.lnk *.lbc *.lib *.err *.sym
+!endif
+        @cd $(curr_dir_all)
+!ifdef bootstrap
+        @for %i in ($(commands)) do rm -f $(%OWBINDIR)/%i.exe
+!else
+        @echo clean $(curr_dir_all)
+        rm -f *.ex? *.?bj *.map *.lst *.smp *.lnk *.lbc *.lib *.err *.sym
+!endif
+!endif

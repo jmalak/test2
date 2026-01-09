@@ -1,0 +1,8 @@
+$(host_os)_3d.dll: $(host_os)_3d.mk1
+        wmake -i -h -f project.mk
+
+$(host_os)_3d.mk1: $(host_os)_3d.tgt
+        ide2make -r $< -c ../../../ide/cfg/ide.cfg
+
+clean: .SYMBOLIC
+        rm -f *.obj *.mk *.mk1 *.lk1 *.ilk *.dll *.lib *.map *.err

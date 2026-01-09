@@ -1,0 +1,103 @@
+proj_name = wde
+name = wde
+
+.EXTENSIONS: .res
+.EXTENSIONS: .rc
+
+sys_windowed = 1
+
+memory_model_i86 = l
+
+!include cproj.mif
+!include deftarg.mif
+!include defrule.mif
+
+WINDOWS=1
+!include wres.mif
+
+# path names used in the script
+!ifndef fmedit_dir
+fmedit_dir      = $(sdk_dir)/fmedit
+!endif
+
+extra_c_flags     = -DWIN_GUI -s -fh
+
+extra_c_flags_win = -zu-zw-zc
+extra_c_flags_nt  = -DNOUSE3D
+
+of_386  = -of+
+of_i86  = -of+
+
+TRMEM   = $(of_$(host_cpu))
+!ifeq wde_trmem 1
+TRMEM   += -DTRMEM
+!endif
+
+extra_c_flags_trmem = $(TRMEM)
+extra_c_flags_trmemcvr = $(TRMEM)
+
+extra_c_flags_preproc = -zm -fh=preproc.pch
+extra_c_flags_ppexpr  = -zm -fh=preproc.pch
+extra_c_flags_ppmacro = -zm -fh=preproc.pch
+
+OBJS =  wde_wres.obj wdealign.obj wdecsize.obj wdecust.obj  wdedebug.obj &
+        wdedefin.obj wdeedit.obj  wdefbase.obj wdefbutt.obj wdefcbox.obj &
+        wdefcntl.obj wdefcust.obj wdefdiag.obj wdefdlg.obj  wdefedit.obj &
+        wdefinit.obj wdeflbox.obj wdefmenu.obj wdefont.obj  wdefordr.obj &
+        wdefscrl.obj wdefstat.obj wdefutil.obj wdegeted.obj wdegetfn.obj &
+        wdehash.obj  wdehints.obj wdeinfo.obj  wdelist.obj  &
+        wdemain.obj  wdemsgbx.obj wdeopts.obj  &
+        wderes.obj   wderesin.obj wdesdlg.obj  wdesdup.obj  &
+        wdestat.obj  wdestyle.obj &
+        wdesym.obj   wdetest.obj  &
+        wdetfile.obj wdetoolb.obj &
+        wdeppmem.obj wdemem.obj wdewait.obj wdedefsz.obj wdetxtsz.obj &
+        wdetmenu.obj wdectool.obj wdezordr.obj wderibbn.obj &
+        wdeselft.obj wdei2mem.obj wdeldres.obj wdesvres.obj wdesvobj.obj &
+        wdestken.obj wdectl3d.obj wdesvdlg.obj wdedde.obj &
+        wdeclear.obj wdecurr.obj wdegoto.obj &
+        wdefsbar.obj wdeflvw.obj wdeftvw.obj wdefhdr.obj wdeftabc.obj &
+        wdefani.obj wdefupdn.obj wdeftrak.obj wdefprog.obj wdefhtky.obj &
+        windlg.obj windlg32.obj &
+        preproc.obj ppexpr.obj ppmacro.obj
+
+fmedit_lib = $(fmedit_dir)/$(host_os)$(host_cpu)/fmedit.lib
+wr_lib = $(wr_dir)/$(host_os)$(host_cpu)/wr.lib
+
+# where to look for various files
+.c  : c;../c;$(cpp_dir)
+.rc : ../h
+
+inc_dirs  = -Ih -I"../h" -I"$(fmedit_dir)/dev" -I"$(wres_dir)/h"
+inc_dirs += -I"$(wr_dir)/h" -I"$(cpp_dir)" -I"$(wpi_dir)/h" -I"$(misc_dir)"
+inc_dirs += -I"$(cmnui_dir)/h" -I"$(cmnui_dir)/$(host_os)$(host_cpu)"
+
+extra_l_flags      = op map, verbose, symfile
+extra_l_flags_win  = op stack=32k, rwr
+extra_l_flags_win += library commdlg, ddeml
+
+xlibs = $(wres_lib) $(fmedit_lib) $(wr_lib) &
+        $(cmnui_dir)/$(host_os)$(host_cpu)/commonui.lib &
+	$(wpi_dir)/$(host_os)$(host_cpu)/wpi.lib
+
+# systems where version resource must be added to .EXE
+version_res_nt_386 = exever.res
+
+$(name).exe: rcstr.gh $(objs) $(name).res $(xlibs) $(version_res)
+        $(linker) $(lflags) name $^@ file { $(objs) } lib { $(xlibs) }
+        $(rc) -k $(name).res $^@ $(bind_version_res)
+
+# implicit rules
+#################
+.rc.res: .AUTODEPEND
+        $(rc) $(rc_flags) -r -ad -zk0 $(inc_path) $[@ -fo=$^@
+
+# explicit rules
+#################
+rcstr.gh: rcstrmsg.gh
+        $(awk) -f $(build_dir)/msgtoh.awk $[@ > $^@
+
+rcstrmsg.gh: ../h/wde.msg
+        $(cc) $(preproc_opts) $(c_japan_charset) $(inc_path) $[@ -fo=$^@
+
+!include verrc.mif

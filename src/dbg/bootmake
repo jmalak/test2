@@ -1,0 +1,36 @@
+#pmake: bootstrap
+
+bootstrap = 1
+
+syshdir = .
+
+# By definition, wmake is running on the host/target platform
+# so we can just check the built-in macros.
+
+!ifdef __UNIX__
+syscdir = ../linux/c
+sysobjs = linuxcmd.obj &
+          linuxio.obj &
+          lnxinit.obj &
+          lnxscrn.obj &
+          lnxlkup.obj &
+          lnxchk.obj
+!endif
+
+!ifdef __NT__
+syscdir = ../nt/c
+sysobjs = autoenv.obj &
+          ntinit.obj &
+          ntscrn.obj &
+          ntfilio.obj &
+          ntfinfo.obj &
+          ntcmd.obj &
+          winchk.obj &
+          winlkup.obj
+!endif
+
+!ifndef sysobjs
+!error Unsupported build platform!
+!endif
+
+!include ../master.mif

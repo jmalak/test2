@@ -1,0 +1,3421 @@
+Change 38993 on 2025/12/05 by MichalN@MICHALN_RYZEN
+
+	Fixed an obscure bug when emitting CodeView DBI for
+	partially optimized code, causing the cg to crash.
+
+Change 38992 on 2025/12/05 by MichalN@MICHALN_RYZEN
+
+	Always check the size of locals, even in unoptimized builds.
+	Helps with not emitting unnecessary __GRO calls when using
+	the -sg switch in debug builds.
+
+Change 38991 on 2025/12/05 by MichalN@MICHALN_RYZEN
+
+	Clean up a bit more in btclean.bat.
+
+Change 38990 on 2025/11/19 by MichalN@MICHALN_RYZEN
+
+	ChangeList: Previous Change 38980 and its ChangeList message
+	referred to the IBM IPMD debugger. Instead of IPMD, it should
+	have referred to ICAT. Oops!
+
+Change 38989 on 2025/11/18 by MichalN@MICHALN_RYZEN
+
+	Fixed a daft bug in a portable _lrotl() replacement. Allows wd to
+	find 'main' in CV DBI properly.
+
+Change 38988 on 2025/11/18 by MichalN@MICHALN_RYZEN
+
+	Integrated dummy DIP source changes (no actual change).
+
+Change 38987 on 2025/11/18 by MichalN@MICHALN_RYZEN
+
+	Integrated DIP part of Change 37517 (minor fixes).
+
+Change 38986 on 2025/11/18 by MichalN@MICHALN_RYZEN
+
+	Rearranged subsections output by cvpack to better match Microsoft
+	CVPACK 4.26 (Watcom C/C++ 10.6) and 4.27 (MSVC 2.0).
+
+Change 38985 on 2025/11/18 by MichalN@MICHALN_RYZEN
+
+	ChangeList: The Microsoft clone tools now produce CodeView debugging.
+	information. This is because the clone tools are most useful when
+	used in conjunction with 3rd-party tooling that expects CodeView DBI.
+
+Change 38984 on 2025/11/18 by MichalN@MICHALN_RYZEN
+
+	Print subsection names when dumping CV debug info.
+
+Change 38982 on 2025/11/18 by MichalN@MICHALN_RYZEN
+
+	Linker may only write CV misc debug type to PE modules, not elsewhere.
+	
+	This fixes among other things the inability of IBM IPMD debugger to
+	recognize CV debug info in executable images, because IPMD expects
+	the debug info offset in the LX header to point to the NB0x signature
+	and not some random other chunk of data.
+
+Change 38980 on 2025/11/18 by MichalN@MICHALN_RYZEN
+
+	ChangeList: The cvpack utility now produces CodeView type information
+	that is recognized by the IBM IPMD remote debugger for OS/2.
+	
+	Implementation note: IPMD was written to work with the Watcom 10.5/10.6
+	tools which used original Microsoft CVPACK. The homegrown cvpack shipped
+	with Watcom 11.0 and later did not write the '1' signature at the start
+	of the sstGlobalTypes subsection (it wrote a zero instead) which caused
+	IPMD to ignore that subsection, with the consequence that the debugger
+	couldn't understand any structs, unions, enums, and other user-defined
+	types.
+
+Change 38972 on 2025/10/02 by MichalN@MICHALN_RYZEN
+
+	ChangeList: The ms2wlink utility now turns off case sensitivity
+	by default, to retain compatibility with other vendors' tools.
+	The /NOIGNORECASE switch can be used to turn case sensitivity on.
+
+Change 38971 on 2025/09/30 by MichalN@MICHALN_RYZEN
+
+	Added -Gc option to the MS-compatible CL compiler drivers, made
+	the -Gd, -Gr, -Gz options actually do something.
+
+Change 38967 on 2025/09/30 by MichalN@MICHALN_RYZEN
+
+	Added -ND, -NM, and -NT option translation for MS-compatible CL compiler driver.
+
+Change 38959 on 2025/08/09 by MichalN@MICHALN_RYZEN
+
+	Buffer for 'cmp' must use unsigned char to avoid funny output.
+
+Change 38958 on 2025/08/07 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Fixed further gcc warnings in linker.
+
+Change 38957 on 2025/08/07 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Tabs to spaces.
+
+Change 38956 on 2025/08/07 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Fixed several gcc warnings in dwarf/dw project.
+
+Change 38955 on 2025/08/07 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Fixed several gcc warnings.
+
+Change 38953 on 2025/08/06 by MichalN@MICHALN_WATCOM_OS2VM
+
+	Build cmp during bootstrap as it's required for some regression tests.
+
+Change 38952 on 2025/08/01 by MichalN@MICHALN_WATCOM_OS2VM
+
+	Implemented SHARED/NONSHARED as alias for PURE/IMPURE in OS/2 wrc. Also changed discardable flag default when RCDATA memory options are specified.
+
+Change 38951 on 2025/08/01 by MichalN@MICHALN_WATCOM_OS2VM
+
+	Allow an empty DIALOG (just BEGIN/END); silly, but IBM RC allows it.
+
+Change 38950 on 2025/08/01 by MichalN@MICHALN_WATCOM_OS2VM
+
+	Recovered somewhat from Change 33629 which disallowed string PRESPARAMS and broke the regression tests (ugh).
+
+Change 38949 on 2025/08/01 by MichalN@MICHALN_WATCOM_OS2VM
+
+	Do not claim that Win16 resources are default on OS/2.
+
+Change 38948 on 2025/07/30 by MichalN@MICHALN_RYZEN
+
+	Integrated wdump changes to V2 branch.
+
+Change 38928 on 2025/04/15 by MichalN@michaln-owc
+
+	Re-fixed non-portable function calls in wgml.
+
+Change 38927 on 2025/04/15 by MichalN@MICHALN_RYZEN
+
+	Integrated wgml updates to V2 branch.
+
+Change 38925 on 2025/04/15 by MichalN@MICHALN_RYZEN
+
+	Integrated documentation changes to V2 branch.
+	This includes Change 38568, 38570, 38592, 38604.
+
+Change 38924 on 2025/04/15 by MichalN@MICHALN_RYZEN
+
+	Integrated Change 37394 to V2 branch.
+
+Change 38923 on 2025/04/15 by MichalN@MICHALN_RYZEN
+
+	ChangeList: See Change 38916
+	
+	Integrated Change 38916 to V2 clib, dirname() fixes.
+
+Change 38922 on 2025/04/15 by MichalN@MICHALN_RYZEN
+
+	ChangeList: See Change 38569
+	
+	Integrated Change 38569 to V2 branch (strtof()/strtold() functions).
+
+Change 38921 on 2025/04/15 by MichalN@MICHALN_RYZEN
+
+	ChangeList: New C run-time startup modules maint31r.obj and maint31s.obj (for register
+	and stack calling convention, respectively) can be used for linking executables
+	suitable for running on Windows NT 3.1 and Win32s. This is necessitated by Win32 API
+	changes related to environment strings management made by Microsoft.
+	
+	ChangeList: See Change 37853 for additional unrelated fix.
+	
+	This integrates following clib changes to V2 branch: Change 37413, 37853, 38223, 38509, 38511, 38528
+
+Change 38920 on 2025/04/15 by MichalN@MICHALN_RYZEN
+
+	Integrated the following to V2 clib: Change 37544, 37546, 38582, 38583, 38593.
+
+Change 38918 on 2025/04/14 by MichalN@MICHALN_RYZEN
+
+	Integrated Change 37543 into V2 branch (moved binmode.obj, added
+	txtmode.obj which is not currently shipped, prevented iob from
+	being always dragged in).
+
+Change 38917 on 2025/04/14 by MichalN@MICHALN_RYZEN
+
+	Integrated Change 37529 and Change 37530 to V2 branch (module descriptions, no functional change).
+
+Change 38915 on 2025/04/14 by MichalN@MICHALN_RYZEN
+
+	Integrated C compiler regression test updates to V2 branch. The requisite fixes have already been integrated.
+
+Change 38914 on 2025/04/14 by MichalN@MICHALN_RYZEN
+
+	Integrated Change 38594 from main branch. See there for ChangeList description.
+
+Change 38913 on 2025/04/14 by MichalN@MICHALN_RYZEN
+
+	ChangeList: The C compiler now supports a -zis option which turns off
+	the history scan feature for #include files. See the C/C++ User's Guide
+	for details.
+	
+	This integrates Change 37490 from the main branch. Documentation changes
+	had already been integrated.
+
+Change 38912 on 2025/04/12 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Fixed some warnings in DWARF reader and DIP.
+
+Change 38910 on 2025/04/12 by MichalN@MICHALN_WATCOM_M1
+
+	Workaround for likely clang bug on macOS Sonoma.
+
+Change 38909 on 2025/04/11 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Added missing header to wbind.
+
+Change 38908 on 2025/04/11 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Fixed warnings in dwdump.
+
+Change 38907 on 2025/04/11 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Fixed incorrect function prototype.
+
+Change 38906 on 2025/04/09 by MichalN@MICHALN_RYZEN
+
+	Append to extra_cpp_flags instead of overwriting in wipfc makefile.
+
+Change 38905 on 2025/04/09 by MichalN@MICHALN_RYZEN
+
+	Implemented better solution for WClass static initialization order problem.
+
+Change 38904 on 2025/04/09 by MichalN@MICHALN_WATCOM_OS2VM
+
+	ChangeList: The wmake utility no longer crashes under very rare
+	circumstances when processing lines ending with the '<' character.
+	
+	This was a very old bug where wmake could erroneously skip the
+	terminating null character if a makefile line ended with '<' (and
+	wmake was looking for '<<'). Under extremely rare circumstances,
+	this led to running off the end of a page. The crash was only seen
+	in the cg/intel/386/os2386 makefile and only when running wmake
+	through builder which itself had to be run through bootos2.cmd
+	for the crash to occur, and that only if the files in the
+	os2386 directory were already built.
+
+Change 38902 on 2025/04/07 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Removed unnecessary restrict keywords from mini Safer C implementation.
+
+Change 38901 on 2025/04/07 by MichalN@MICHALN_WATCOM_M1
+
+	Removed struct packing, added alignment padding.
+
+Change 38900 on 2025/04/07 by MichalN@MICHALN_WATCOM_M1
+
+	Removed unnecessary struct packing.
+
+Change 38899 on 2025/04/06 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Forgot to submit several files that are part of Change 38898.
+
+Change 38898 on 2025/04/06 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Removed several environment variables related to bootstrap builds.
+
+Change 38897 on 2025/04/05 by MichalN@michaln-owc
+
+	Added basic error checking to setvars.sh.
+
+Change 38896 on 2025/04/05 by MichalN@MICHALN_WATCOM_M1
+
+	Fixed typo.
+
+Change 38895 on 2025/04/05 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Use natural packing for DIP interface structs.
+
+Change 38894 on 2025/04/05 by MichalN@MICHALN_RYZEN
+
+	Made function prototype in hcdos C99 compliant.
+
+Change 38893 on 2025/04/04 by MichalN@MICHALN_RYZEN
+
+	Use off_t instead of long in wtouch resSeek() prototype.
+
+Change 38892 on 2025/04/04 by MichalN@MICHALN_RYZEN
+
+	Fixed missing !endif.
+
+Change 38891 on 2025/04/04 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Set runtime DLL name/library based on the rtdll_release macro, not the release macro. Avoids trouble with trying to use nonexistent debug libraries.
+
+Change 38890 on 2025/04/04 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	More fixes for debug bootstrap build.
+
+Change 38889 on 2025/04/04 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Fixed 'as' debug bootstrap build.
+
+Change 38888 on 2025/04/04 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Fixed bootstrap wasm with TRMEM compilation.
+
+Change 38887 on 2025/04/04 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Wall off Watcom specific function.
+
+Change 38886 on 2025/04/04 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Can't use -of+ flag when bootstrapping.
+
+Change 38885 on 2025/04/04 by MichalN@MICHALN_WATCOM_MBP12
+
+	Pick the bootstrpped wgml on OS X.
+
+Change 38884 on 2025/04/04 by MichalN@MICHALN_RYZEN
+
+	Killed one more extraneous backslash.
+
+Change 38883 on 2025/04/04 by MichalN@MICHALN_RYZEN
+
+	Avoid overlapping strcpy() when processing whpcvt arguments file.
+
+Change 38882 on 2025/04/04 by MichalN@MICHALN_RYZEN
+
+	Removed extraneous backslashes.
+
+Change 38881 on 2025/04/04 by MichalN@MICHALN_RYZEN
+
+	Merged whpcvt updates to V2 branch.
+
+Change 38880 on 2025/04/04 by MichalN@MICHALN_WATCOM_MBP12
+
+	There's no malloc.h on OS X and we don't generally need it.
+
+Change 38879 on 2025/04/04 by MichalN@MICHALN_WATCOM_MBP12
+
+	Added OS X to wstd.h
+
+Change 38877 on 2025/04/04 by MichalN@MICHALN_WATCOM_MBP12
+
+	Fixed incorrect #ifdef.
+
+Change 38876 on 2025/04/03 by MichalN@MICHALN_RYZEN
+
+	Implemented mechanism for setting Microsoft-specific compiler flags.
+
+Change 38875 on 2025/04/03 by MichalN@MICHALN_RYZEN
+
+	Fixed mixed-up line endings in text.hpp.
+
+Change 38874 on 2025/04/03 by MichalN@MICHALN_WIN7
+
+	Introduced Watcom-specific extra_wcc_flags macros.
+
+Change 38873 on 2025/04/03 by MichalN@MICHALN_RYZEN
+
+	Leave OWBOOTSTRAP commented out by default in Unix setvars.
+
+Change 38872 on 2025/04/03 by MichalN@michaln-owc
+
+	Added build system note.
+
+Change 38871 on 2025/04/02 by MichalN@MICHALN_RYZEN
+
+	Worked around MSVC lying in their __cplusplus macro.
+
+Change 38870 on 2025/04/01 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Fixed C++ compiler crash on diag0177.c testcase caused by over-eager warning elimination.
+
+Change 38869 on 2025/04/01 by MichalN@MICHALN_RYZEN
+
+	Integrated C++ regression tests into V2 branch.
+
+Change 38868 on 2025/04/01 by MichalN@MICHALN_RYZEN
+
+	Updated (mostly) C++ headers in V2 branch, largely namespace changes.
+
+Change 38867 on 2025/04/01 by MichalN@MICHALN_RYZEN
+
+	Fixed up C header mini regression test makefile.
+
+Change 38866 on 2025/04/01 by MichalN@MICHALN_RYZEN
+
+	Print usage help for POSIX utilities on stdout, not stderr.
+
+Change 38865 on 2025/04/01 by MichalN@MICHALN_RYZEN
+
+	Made setvar.sh non-executable, since it needs to be sourced.
+
+Change 38863 on 2025/03/31 by MichalN@MICHALN_RYZEN
+
+	Quick update of the V2 Developer's Guide to better match reality.
+
+Change 38862 on 2025/03/31 by MichalN@MICHALN_RYZEN
+
+	Corrected env var name.
+
+Change 38861 on 2025/03/31 by MichalN@MICHALN_RYZEN
+
+	Updated w32api in V2 branch.
+
+Change 38860 on 2025/03/31 by MichalN@MICHALN_RYZEN
+
+	Updated w16api in V2 branch.
+
+Change 38859 on 2025/03/31 by MichalN@MICHALN_RYZEN
+
+	Merged os2api updates to V2 branch.
+
+Change 38858 on 2025/03/31 by MichalN@MICHALN_RYZEN
+
+	Updated os2api in V2 branch.
+
+Change 38856 on 2025/03/31 by MichalN@MICHALN_RYZEN
+
+	Fixed crash when starting Windows 3.1 wdc debugger.
+	
+	To avoid the crash, wdc must be linked with the wini86 wres library
+	(not DOS!), and the ui library needs the WINAPI macro defined, which
+	was removed in Change 25484, clearly without considering potential
+	consequences.
+
+Change 38855 on 2025/03/31 by MichalN@MICHALN_RYZEN
+
+	Added helpful comments to the two slightly different variants of wressetr.h.
+
+Change 38854 on 2025/03/31 by MichalN@MICHALN_RYZEN
+
+	Build DOS hosted wresdmp too, removed old makefile.
+
+Change 38853 on 2025/03/31 by MichalN@MICHALN_RYZEN
+
+	Build and copy additional resource utilities.
+
+Change 38852 on 2025/03/27 by MichalN@michaln-owc
+
+	Enable building IDE demo after resolving symlinked path problem.
+
+Change 38851 on 2025/03/27 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Use 'pwd -P' to set OWROOT env var to avoid failures when building IDE samples on Unix.
+
+Change 38850 on 2025/03/23 by MichalN@MICHALN_WATCOM_OS2VM
+
+	Call .cmd file, not .bat file when we're a .cmd file.
+
+Change 38849 on 2025/03/22 by MichalN@MICHALN_RYZEN
+
+	Bootstrap the wgrep utility, it's so handy.
+
+Change 38848 on 2025/03/22 by MichalN@MICHALN_WATCOM_OS2VM
+
+	Forgot to submit OS/2 bootstrap makefile.
+
+Change 38847 on 2025/03/21 by MichalN@MICHALN_WATCOM_OS2VM
+
+	Added setvars template for OS/2.
+
+Change 38846 on 2025/03/21 by MichalN@MICHALN_WATCOM_OS2VM
+
+	Started adding batch files for OS/2 bootstrap build.
+
+Change 38845 on 2025/03/21 by MichalN@MICHALN_WATCOM_OS2VM
+
+	Ensure C++ exceptions are enabled when bootstrapping with Watcom.
+
+Change 38844 on 2025/03/21 by MichalN@MICHALN_WATCOM_OS2VM
+
+	Workaround for old unistd.h in wgml.
+
+Change 38843 on 2025/03/21 by MichalN@MICHALN_WATCOM_OS2VM
+
+	Reduced bootstrap build to bare minimum on non-Unix hosts.
+
+Change 38842 on 2025/03/21 by MichalN@MICHALN_WATCOM_OS2VM
+
+	Keep library builds quiet after changing local.mif.
+
+Change 38841 on 2025/03/21 by MichalN@MICHALN_WATCOM_OS2VM
+
+	Slightly reworked zlib build.
+
+Change 38840 on 2025/03/21 by MichalN@MICHALN_WATCOM_OS2VM
+
+	ChangeList: The owcc and wcl utilities now correctly parse
+	pathnames with mixed path separators on non-Unix hosts.
+	
+	It was possible to confuse owcc and wcl with pathnames
+	such as D:\owv2/src/wclass/bootstrp/wclass.obj. The utility
+	would find the last backslash, completely ignoring the forward
+	slashes, and ended up transforming the pathname to D:\wclass.obj
+	which of course did not exist.
+
+Change 38839 on 2025/03/21 by MichalN@MICHALN_WATCOM_OS2VM
+
+	Adjusted core .mif files to work better for OS/2 bootstrap build.
+
+Change 38838 on 2025/03/21 by MichalN@MICHALN_WATCOM_OS2VM
+
+	Worked around missing getpid() declaration in OW 1.9 unistd.h.
+
+Change 38837 on 2025/03/21 by MichalN@MICHALN_WATCOM_OS2VM
+
+	Workaround for half broken path parsing in owcc.
+
+Change 38836 on 2025/03/21 by MichalN@MICHALN_WATCOM_OS2VM
+
+	Don't try including windows.h when building on OS/2 (windows.h may not be available when bootstrapping).
+
+Change 38835 on 2025/03/21 by MichalN@MICHALN_WATCOM_OS2VM
+
+	Fixed command line quoting when building with wcc on OS/2. This
+	may need a better solution (tell makefiles whether wcc or some
+	other front end is used).
+
+Change 38834 on 2025/03/21 by MichalN@MICHALN_WATCOM_OS2VM
+
+	Made POSIX utilities bootstrap build only a tiny bit less hacky.
+
+Change 38833 on 2025/03/21 by MichalN@MICHALN_WATCOM_OS2VM
+
+	Don't set wres memory model in bootstrap builds.
+
+Change 38832 on 2025/03/21 by MichalN@MICHALN_WATCOM_OS2VM
+
+	Use cl for linking, not cc.
+
+Change 38831 on 2025/03/20 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	A crude port of catfile utility to gcc/Linux.
+
+Change 38830 on 2025/03/20 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Need host_cl_opts too on Unix, not just host_cl.
+
+Change 38829 on 2025/03/20 by MichalN@MICHALN_RYZEN
+
+	Reworked x86 host test, checking PROCESSOR_ARCHITECTURE is not reliable.
+
+Change 38828 on 2025/03/20 by MichalN@MICHALN_WIN7
+
+	Made clib QA tests a bit easier to run on NT.
+
+Change 38827 on 2025/03/20 by MichalN@MICHALN_RYZEN
+
+	Fixed C regression test makefile.
+
+Change 38826 on 2025/03/19 by MichalN@MICHALN_RYZEN
+
+	Added mkdisk nt386 makefile for development.
+
+Change 38825 on 2025/03/19 by MichalN@michaln-owc
+
+	Improved mkexezip portability.
+
+Change 38824 on 2025/03/19 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Re-fixed wmake tests to run with dash.
+
+Change 38823 on 2025/03/19 by MichalN@michaln-owc
+
+	Fixed wmake regression tests so they run on FreeBSD.
+
+Change 38822 on 2025/03/18 by MichalN@MICHALN_RYZEN
+
+	Made names of env vars controlling help controllers more consistent and understandable.
+
+Change 38821 on 2025/03/18 by MichalN@michaln-owc
+
+	Quick fix to make ide2make do something useful on FreBSD.
+
+Change 38820 on 2025/03/18 by MichalN@michaln-owc
+
+	Got ide2make building on FreeBSD and enabled for bootstrap.
+
+Change 38819 on 2025/03/18 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Crude fix for wclass initialization order problem.
+
+Change 38818 on 2025/03/18 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Made wclass and mviper libraries build with g++, bviper not yet working.
+
+Change 38817 on 2025/03/17 by MichalN@MICHALN_RYZEN
+
+	Made bviper (ide2make) bootstrappable with Microsoft C++.
+
+Change 38816 on 2025/03/17 by MichalN@MICHALN_RYZEN
+
+	Added missing setenv() declaration to clibext.h.
+
+Change 38815 on 2025/03/17 by MichalN@MICHALN_RYZEN
+
+	Set the WATCOM env var to something sensible when building the IDE demo.
+
+Change 38814 on 2025/03/17 by MichalN@MICHALN_RYZEN
+
+	Made it possible to bootstrap wclass library with Microsoft C++.
+
+Change 38813 on 2025/03/17 by MichalN@MICHALN_RYZEN
+
+	Improved bootstrapping with OW on Windows.
+
+Change 38812 on 2025/03/17 by MichalN@MICHALN_RYZEN
+
+	Made mstools more bootstrappable, but perhaps it won't be needed.
+
+Change 38811 on 2025/03/16 by MichalN@MICHALN_RYZEN
+
+	Plugged in several forgotten bits into the build.
+
+Change 38810 on 2025/03/16 by MichalN@MICHALN_RYZEN
+
+	Replaced strlcpy() with slightly more portable snprintf() in C++ code.
+
+Change 38809 on 2025/03/15 by MichalN@MICHALN_RYZEN
+
+	Reworked mstools build; avoided cl.exe clashes, fixed top level builder.ctl
+
+Change 38808 on 2025/03/14 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Removed a redundant fclose() call from cwc.
+
+Change 38807 on 2025/03/14 by MichalN@michaln-owc
+
+	Avoid cwc failure when tmpnam() generates a pathname pointing to a different file system.
+
+Change 38805 on 2025/03/14 by MichalN@MICHALN_RYZEN
+
+	Fixed an 'expecting Form Qualifier' warning.
+
+Change 38804 on 2025/03/14 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Also look for DOS emulation mathl.lib etc.
+
+Change 38803 on 2025/03/14 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Avoid including wattcp headers when building host utilities.
+
+Change 38802 on 2025/03/14 by MichalN@MICHALN_RYZEN
+
+	Microsoft C needs a different way to increase the number of open files in microzip.
+
+Change 38801 on 2025/03/14 by MichalN@MICHALN_RYZEN
+
+	Fixed GUI installer makefile.
+
+Change 38800 on 2025/03/14 by MichalN@MICHALN_RYZEN
+
+	Updated V2 version of rtdll/files.dat to remove duplicates.
+
+Change 38799 on 2025/03/14 by MichalN@MICHALN_RYZEN
+
+	Fixed up various missing build bits.
+
+Change 38798 on 2025/03/14 by MichalN@MICHALN_RYZEN
+
+	Integrated wattcp library into V2 branch.
+
+Change 38797 on 2025/03/14 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Don't try building idedemo because id2make aka bviper is not portable.
+
+Change 38796 on 2025/03/14 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Prep to maybe get bviper bootstrapped.
+
+Change 38795 on 2025/03/14 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Fixed some gcc warnings in wipfc, dropped to std=c++03 to minimize noise.
+
+Change 38794 on 2025/03/14 by MichalN@MICHALN_RYZEN
+
+	Integrated Changes 36740 and 36749 to V2 branch, needed to build CauseWay.
+
+Change 38793 on 2025/03/14 by MichalN@MICHALN_RYZEN
+
+	Copy wipfc executables to rel tree.
+
+Change 38792 on 2025/03/14 by MichalN@MICHALN_RYZEN
+
+	Branched over awk scripts needed to build NT and CHM documentation.
+
+Change 38791 on 2025/03/13 by MichalN@MICHALN_RYZEN
+
+	Hacky way to work around owcc and wlink incremental builds trying
+	to run the wrong executable (exe in current directory but for different platform).
+
+Change 38790 on 2025/03/13 by MichalN@MICHALN_RYZEN
+
+	Fixed incorrect detection of parentheses as shell metacharacters on NT and OS/2.
+	
+	ChangeList: The wmake utility no longer misdentifies parentheses as metacharacters.
+	Although parentheses may be metacharacters, often they are not. This caused problems
+	e.g. when manipulating the PATH environment variable when it contained components
+	such as 'C:\Program Files (x86)' because wmake ran the SET command in a child
+	shell instead of executing it internally, and intended changes had no effect.
+
+Change 38789 on 2025/03/13 by MichalN@MICHALN_RYZEN
+
+	Fixed 'sleep' to work with Microsoft C.
+
+Change 38788 on 2025/03/13 by MichalN@MICHALN_RYZEN
+
+	Bootstrap more POSIX utilities so that wmake testing can run.
+
+Change 38787 on 2025/03/13 by MichalN@MICHALN_RYZEN
+
+	Again force system name so that linking succeeds.
+
+Change 38786 on 2025/03/13 by MichalN@MICHALN_RYZEN
+
+	Force system name so that linking succeeds with bootstrap wlsystem.lnk.
+
+Change 38785 on 2025/03/13 by MichalN@MICHALN_RYZEN
+
+	Ensure 'false' always returns 1; the exact value of EXIT_FAILURE is not defined.
+
+Change 38784 on 2025/03/13 by MichalN@MICHALN_RYZEN
+
+	Don't want forward slashes in executable paths.
+
+Change 38783 on 2025/03/13 by MichalN@michaln-owc
+
+	Force older C++ standard for wipfc on FreeBSD (clang). Ugly but works.
+
+Change 38782 on 2025/03/13 by MichalN@MICHALN_RYZEN
+
+	Re-fixed wgml to build with Microsoft C.
+
+Change 38781 on 2025/03/13 by MichalN@MICHALN_RYZEN
+
+	Plugged more bits into the overall build.
+
+Change 38780 on 2025/03/13 by MichalN@MICHALN_RYZEN
+
+	Fixed temp file name generation with Microsoft CRT.
+	
+	The MS CRT already includes the TMP path in tmpnam() strings.
+	Thus if TMP + tmpnam() are combined, an invalid pathname results.
+	It is not safe to combine tmpnam() results with anything. Perhaps
+	the Watcom clib should change its tmpnam() implementation.
+
+Change 38779 on 2025/03/13 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Re-fixed wipfc to build with g++.
+
+Change 38778 on 2025/03/13 by MichalN@MICHALN_RYZEN
+
+	Got wipfc compiling with Microsoft C++.
+
+Change 38777 on 2025/03/13 by MichalN@MICHALN_RYZEN
+
+	Fixed path to WIPFC auxiliary files.
+
+Change 38776 on 2025/03/13 by MichalN@MICHALN_RYZEN
+
+	Use _MAX_PATH instead of PATH_MAX to help Microsoft C++.
+
+Change 38775 on 2025/03/13 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Got wipfc building with g++ again.
+
+Change 38774 on 2025/03/12 by MichalN@MICHALN_RYZEN
+
+	Microsoft needs strlcpy() declared in clibext.h.
+
+Change 38773 on 2025/03/12 by MichalN@MICHALN_RYZEN
+
+	Fixed up memory usage for whc.
+
+Change 38772 on 2025/03/12 by MichalN@MICHALN_RYZEN
+
+	Fixed indentation so I could read the code.
+
+Change 38771 on 2025/03/12 by MichalN@MICHALN_RYZEN
+
+	Fixed incorrect use of renew() which failed in case realloc()
+	could not extend the current memory allocation.
+
+Change 38769 on 2025/03/12 by MichalN@MICHALN_RYZEN
+
+	Branched over the 'distrib' directory needed to build installers.
+
+Change 38768 on 2025/03/12 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Massaged whc help compiler to build with g++.
+
+Change 38767 on 2025/03/12 by MichalN@MICHALN_RYZEN
+
+	Added forgotten bootmake.
+
+Change 38766 on 2025/03/12 by MichalN@MICHALN_RYZEN
+
+	Branched over Windows 3.1 help compiler.
+
+Change 38765 on 2025/03/12 by MichalN@MICHALN_RYZEN
+
+	Don't use template keyword as argument name.
+
+Change 38764 on 2025/03/12 by MichalN@MICHALN_RYZEN
+
+	More build fixes.
+
+Change 38763 on 2025/03/12 by MichalN@MICHALN_RYZEN
+
+	Fixed up a few builder control files.
+
+Change 38762 on 2025/03/12 by MichalN@MICHALN_RYZEN
+
+	Do not pass null pointers to printf() %s specifier.
+
+Change 38761 on 2025/03/12 by MichalN@MICHALN_RYZEN
+
+	Branched over the 'misc' directory.
+
+Change 38760 on 2025/03/12 by MichalN@MICHALN_RYZEN
+
+	Sorted out a few files needed for the build.
+
+Change 38759 on 2025/03/12 by MichalN@MICHALN_RYZEN
+
+	Branched over DOS extender redistributables.
+
+Change 38758 on 2025/03/12 by MichalN@MICHALN_RYZEN
+
+	Integrated command line editor (cmdedit) utility.
+
+Change 38757 on 2025/03/12 by MichalN@MICHALN_RYZEN
+
+	Branched CodeView debug info packer (cvpack).
+
+Change 38756 on 2025/03/12 by MichalN@MICHALN_RYZEN
+
+	Deleted redundant lines.
+
+Change 38755 on 2025/03/12 by MichalN@MICHALN_RYZEN
+
+	Branched over executable dumper (wdump).
+
+Change 38754 on 2025/03/12 by MichalN@MICHALN_RYZEN
+
+	Branched over example source code (formerly src) directory.
+
+Change 38753 on 2025/03/11 by MichalN@MICHALN_RYZEN
+
+	Fixed whelp makefile.
+
+Change 38752 on 2025/03/11 by MichalN@MICHALN_RYZEN
+
+	Avoid writing past the end of allocated memory.
+
+Change 38751 on 2025/03/11 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Plugged more installer bits into the build.
+
+Change 38750 on 2025/03/11 by MichalN@MICHALN_RYZEN
+
+	Moved mkdisk tools to their own directory and make them build with Microsoft C.
+
+Change 38748 on 2025/03/11 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Keep .exe suffix when building with owcc on Unix.
+
+Change 38747 on 2025/03/11 by MichalN@MICHALN_RYZEN
+
+	Use owcc instead of wcl.
+
+Change 38746 on 2025/03/11 by MichalN@MICHALN_RYZEN
+
+	Fixed owcc to properly use the compiler name from specs file. Required for building 16-bit code.
+
+Change 38745 on 2025/03/11 by MichalN@MICHALN_RYZEN
+
+	Brought over setupgui and required projects (wpack, bdiff) to V2 branch.
+
+Change 38744 on 2025/03/11 by MichalN@MICHALN_RYZEN
+
+	Quick and dirty port of ziplib to Microsoft C.
+
+Change 38743 on 2025/03/11 by MichalN@MICHALN_RYZEN
+
+	Branched contrib/zlib and contrib/ziplib required by installer.
+
+Change 38742 on 2025/03/11 by MichalN@MICHALN_RYZEN
+
+	Removed dlgprs copy from the browser directory.
+
+Change 38740 on 2025/03/11 by MichalN@MICHALN_RYZEN
+
+	Avoid trying to link with extra files an EXE might depend on.
+
+Change 38739 on 2025/03/11 by MichalN@MICHALN_RYZEN
+
+	Made dlgprs build with Microsoft C++ again.
+
+Change 38738 on 2025/03/11 by MichalN@michaln-owc
+
+	Ditch the rest of wstd.h from dlgprs tool.
+
+Change 38737 on 2025/03/11 by MichalN@michaln-owc
+
+	Pick the right wgml executable on FreeBSD.
+
+Change 38736 on 2025/03/11 by MichalN@michaln-owc
+
+	There's more to UNIX than just QNX and Linux.
+
+Change 38735 on 2025/03/11 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Made dlgprs build with g++ on Linux.
+
+Change 38734 on 2025/03/11 by MichalN@MICHALN_RYZEN
+
+	Added dlgprs makefiles.
+
+Change 38733 on 2025/03/11 by MichalN@MICHALN_RYZEN
+
+	Avoid redefining Microsoft CRT functions in clibext.h.
+
+Change 38732 on 2025/03/11 by MichalN@MICHALN_RYZEN
+
+	Reverted Change 38731 (accidental submit).
+
+Change 38731 on 2025/03/11 by MichalN@MICHALN_RYZEN
+
+	Avoid redefining Microsoft CRT functions in clibext.h.
+
+Change 38730 on 2025/03/11 by MichalN@MICHALN_RYZEN
+
+	Define cpp_force macro so that CL can explicitly compile C++ source files.
+
+Change 38729 on 2025/03/10 by MichalN@MICHALN_RYZEN
+
+	Work around different read() semantic for O_TEXT files in MS CRT.
+
+Change 38727 on 2025/03/10 by MichalN@MICHALN_RYZEN
+
+	Cloned chfile.cpp/chbffile.cpp from 'browser' and modified to use
+	C++ STL instead of Watcom's template library. Now compiles with
+	Microsoft C++ but does not yet work.
+
+Change 38725 on 2025/03/10 by MichalN@MICHALN_RYZEN
+
+	Placed dlgprs tool (required by source browser) into its own directory
+	and started rewriting it to replace old Watcom container templates
+	with C++ STL equivalents. Work in progress.
+
+Change 38724 on 2025/03/07 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Plugged source browser into the build.
+
+Change 38723 on 2025/03/07 by MichalN@MICHALN_RYZEN
+
+	Merged source browser and info merger tool into V2 branch.
+
+Change 38722 on 2025/03/07 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Quick fix for wgml to avoid semi-uninitialized variable.
+
+Change 38721 on 2025/03/06 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Added a miniature Safer C library and massaged wgml to build with gcc on Linux.
+
+Change 38720 on 2025/03/06 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	After stabilizing yacc output, we can diff y.out when building C++ compiler.
+
+Change 38719 on 2025/03/06 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Adjusted YACC (and its local qsort) to behave the same on 32-bit and 64-bit host platforms.
+
+Change 38718 on 2025/03/06 by MichalN@MICHALN_RYZEN
+
+	Typos, phrasing.
+
+Change 38717 on 2025/03/06 by MichalN@MICHALN_RYZEN
+
+	Added rdos_dll to wlink.lnk; required for RDOS std trap file.
+
+Change 38716 on 2025/03/05 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Fixed up YACC qsort to work with 64-bit compilers.
+
+Change 38715 on 2025/03/05 by MichalN@MICHALN_RYZEN
+
+	Cloned a local qsort() implementation into YACC in order to obtain stable results.
+
+Change 38714 on 2025/03/04 by MichalN@MICHALN_RYZEN
+
+	Stabilized the sort algorithm used by yacc so that it does not depend
+	on memory addresses of symbols (which may be randomized).
+
+Change 38712 on 2025/03/03 by MichalN@MICHALN_RYZEN
+
+	wgml.exe built with Microsoft C now passes the mini regression tests.
+
+Change 38711 on 2025/03/03 by MichalN@MICHALN_RYZEN
+
+	Microsoft doesn't understand 'u' modifier for fopen_s, sigh.
+
+Change 38710 on 2025/03/03 by MichalN@MICHALN_RYZEN
+
+	Removed a silly buffer overflow.
+
+Change 38709 on 2025/03/03 by MichalN@MICHALN_RYZEN
+
+	Made wgml compilable with Microsoft C. Runnable will be next.
+
+Change 38708 on 2025/03/03 by MichalN@MICHALN_RYZEN
+
+	Reworked __MakeDOSDT() to be consistent (hopefully) with the Microsoft CRT.
+	
+	This is needed so that comparing timestamps obtained through various means
+	produces the desired results. Prior to this change, wmake kept rebuilding
+	object files because autodependency timestamps stored in .obj files did not
+	exactly match timestamps queried from the file system.
+	NB: stat() et al. currently produce different timestamps between the
+	Microsoft and Watcom runtimes. Watcom relies on 
+
+Change 38707 on 2025/03/01 by MichalN@MICHALN_RYZEN
+
+	When bootstrapping with Open Watcom, %OWROOT%\build must not be on the PATH
+	before %WATCOM%\binw so that the correct wlink.lnk is picked up (the one in
+	%OWROOT%\build does cannot be used until libraries have been built).
+
+Change 38705 on 2025/02/28 by MichalN@MICHALN_RYZEN
+
+	Got win386/conv tool building with Microsoft C.
+
+Change 38704 on 2025/02/28 by MichalN@MICHALN_RYZEN
+
+	Added a fake strings.h for Microsoft C.
+
+Change 38703 on 2025/02/27 by MichalN@MICHALN_RYZEN
+
+	Fixed potential stack corruption (overrunning 'codebuf').
+	
+	The problem was visible with Microsoft C 19.29.30146 for x86
+	but only in optimized builds when frame pointer omission was enabled.
+	Analyzing wasm logic showed that 'codebuf' does need to be a few bytes
+	longer than MAX_LEDATA_THRESHOLD; wasm understandably does not want
+	to split fixups across LEDATA record, hence the threshold is slightly
+	lower than the actual maximum buffer size.
+
+Change 38702 on 2025/02/27 by MichalN@MICHALN_RYZEN
+
+	Fixed MSVC analyze complaint.
+
+Change 38701 on 2025/02/27 by MichalN@MICHALN_RYZEN
+
+	Avoid potential variable scope confusion.
+
+Change 38700 on 2025/02/26 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Fixed many gcc warnings in wasm, no obvious real problem found.
+
+Change 38699 on 2025/02/26 by MichalN@MICHALN_RYZEN
+
+	Hacked around defective Microsoft C compiler.
+
+Change 38697 on 2025/02/25 by MichalN@MICHALN_RYZEN
+
+	More <strings.h> fun.
+
+Change 38696 on 2025/02/25 by MichalN@MICHALN_RYZEN
+
+	Ensure the __alloca symbol exists on non-UNIX too.
+
+Change 38695 on 2025/02/25 by MichalN@MICHALN_RYZEN
+
+	Undid a chunk of Change 38638 (unistd.h porting).
+
+Change 38694 on 2025/02/25 by MichalN@MICHALN_RYZEN
+
+	Added getopt() to clibext.c for Microsoft C.
+
+Change 38693 on 2025/02/25 by MichalN@MICHALN_RYZEN
+
+	Don't diff yacc output in bootstrap builds, either.
+
+Change 38692 on 2025/02/25 by MichalN@MICHALN_RYZEN
+
+	Use a relative include path.
+
+Change 38691 on 2025/02/25 by MichalN@MICHALN_RYZEN
+
+	Added fnmatch() to clibext.c for Microsoft C.
+
+Change 38690 on 2025/02/25 by MichalN@MICHALN_RYZEN
+
+	Got wbind building with Microsoft C.
+
+Change 38689 on 2025/02/25 by MichalN@MICHALN_RYZEN
+
+	Don't include strings.h for Microsoft C.
+
+Change 38688 on 2025/02/25 by MichalN@MICHALN_RYZEN
+
+	Remove unused functions completely to avoid warning about mixing/nesting comments.
+
+Change 38687 on 2025/02/25 by MichalN@MICHALN_RYZEN
+
+	Replaced read() with fread() because for text files, Microsoft's read()	does
+	not return a useful value (usually smaller than buffer size even in absence of errors).
+
+Change 38685 on 2025/02/23 by MichalN@MICHALN_RYZEN
+
+	Fixed a few more re2c warnings.
+
+Change 38684 on 2025/02/23 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Fixed g++ warnings in re2c (except for unused labels).
+
+Change 38683 on 2025/02/23 by MichalN@MICHALN_RYZEN
+
+	Cleared a silly misunderstanding; 'cppflags' are meant to be C++ compiler flags,
+	not C preprocessor flags. 
+
+Change 38682 on 2025/02/23 by MichalN@MICHALN_RYZEN
+
+	Made boot.bat a little more robust.
+
+Change 38681 on 2025/02/23 by MichalN@MICHALN_RYZEN
+
+	Clean out the posix/misc/bootstrp directory as needed. Not doing that
+	causes annoyance when switching between bootstrap compilers.
+
+Change 38680 on 2025/02/23 by MichalN@MICHALN_RYZEN
+
+	Undid most of Change 38628 with a better unistd.h solution in place.
+
+Change 38679 on 2025/02/23 by MichalN@MICHALN_RYZEN
+
+	Microsoft's cl.exe needs escaped double quotes on command line like Unix compilers.
+
+Change 38678 on 2025/02/23 by MichalN@MICHALN_RYZEN
+
+	Avoid setvbuf() crashes (invalid parameter erros) with Microsoft C runtime.
+
+Change 38677 on 2025/02/23 by MichalN@MICHALN_RYZEN
+
+	Use _ismbblead() instead of _mbislead() for Microsoft compatibility.
+
+Change 38676 on 2025/02/23 by MichalN@MICHALN_RYZEN
+
+	Make sure F_OK is defined the same in clibext.h and fake unistd.h.
+
+Change 38675 on 2025/02/23 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Make sure PATH_MAX is defined.
+
+Change 38674 on 2025/02/23 by MichalN@michaln-owc
+
+	Fixed clang warning in owcc.
+
+Change 38673 on 2025/02/23 by MichalN@MICHALN_RYZEN
+
+	Microsoft C does not supply fully qualified path in argv[0].
+
+Change 38672 on 2025/02/21 by MichalN@MICHALN_RYZEN
+
+	Got owcc building with Microsoft C.
+
+Change 38671 on 2025/02/21 by MichalN@MICHALN_RYZEN
+
+	Binary mode needed on all non-Unix platforms (certainly for Microsoft C).
+
+Change 38670 on 2025/02/21 by MichalN@MICHALN_RYZEN
+
+	A very hacky way to place posix.lib in a separate directory in bootstrap builds.
+
+Change 38669 on 2025/02/21 by MichalN@MICHALN_RYZEN
+
+	Create cp destination in binary mode to avoid trouble.
+
+Change 38668 on 2025/02/20 by MichalN@MICHALN_RYZEN
+
+	Partially undid and simplified unistd./io.h changes.
+
+Change 38667 on 2025/02/20 by MichalN@MICHALN_RYZEN
+
+	Fixed backwards access() constants.
+
+Change 38666 on 2025/02/20 by MichalN@MICHALN_RYZEN
+
+	Reassessed porting approach. Instead of adding hundreds of #ifdefs around
+	<unistd.h>, add our own compatibility header for Microsoft C.
+
+Change 38665 on 2025/02/20 by MichalN@MICHALN_RYZEN
+
+	Microsoft C has no ftruncate(), only chsize().
+
+Change 38664 on 2025/02/20 by MichalN@MICHALN_RYZEN
+
+	Adjusted include order, fixed style, added comment.
+
+Change 38663 on 2025/02/20 by MichalN@MICHALN_RYZEN
+
+	Microsoft's runtime disables %n printf specifier by default. But we don't need it.
+
+Change 38662 on 2025/02/20 by MichalN@MICHALN_RYZEN
+
+	Only use _grow_handles() with Watcom C.
+
+Change 38661 on 2025/02/19 by MichalN@MICHALN_RYZEN
+
+	Don't let awk define its own isblank() to avoid conflicts.
+
+Change 38660 on 2025/02/19 by MichalN@MICHALN_RYZEN
+
+	Get the POSIX utilities bootstrappable with Microsoft C.
+
+Change 38659 on 2025/02/19 by MichalN@MICHALN_RYZEN
+
+	Avoid closing an already closed file (Microsoft's runtime objects).
+
+Change 38658 on 2025/02/19 by MichalN@MICHALN_RYZEN
+
+	Brought boot.bat in line with boot.sh (do 'build rel', not just 'build boot').
+
+Change 38657 on 2025/02/19 by MichalN@MICHALN_RYZEN
+
+	Un-screwed-up the posix project makefiles somewhat, so that 'builder build' works.
+
+Change 38655 on 2025/02/18 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Fixed copying of wrc.exe.
+
+Change 38654 on 2025/02/18 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Atomized remote debugging builder.ctl files.
+
+Change 38653 on 2025/02/18 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Reverted previous commit.
+
+Change 38652 on 2025/02/18 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Clean up the .sys file, too.
+
+Change 38651 on 2025/02/18 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Might as well do 'builder rel' instead of 'builder build' in boot.sh.
+
+Change 38649 on 2025/02/16 by MichalN@michaln-owc
+
+	Added a trial builder.ctl for TCP/IP trap files.
+
+Change 38648 on 2025/02/16 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Reorganized remote trap directories to make it easier to bootstrap.
+
+Change 38647 on 2025/02/16 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Set things up for a bootstrap build of debugger.
+
+Change 38646 on 2025/02/16 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Accept colon as trap file argument separator. Doesn't need quoting on *nix.
+
+Change 38645 on 2025/02/16 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Don't try to dlopen() empty file name.
+
+Change 38644 on 2025/02/16 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Look for trap .so files along PATH, analogous to DIG/MAD files.
+
+Change 38643 on 2025/02/15 by MichalN@michaln-owc
+
+	Use sprintf() instead of deprecated gcvt().
+
+Change 38642 on 2025/02/15 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Moved some dbgutil.c functions into a proper header file.
+
+Change 38641 on 2025/02/15 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Fixed malloc()/realloc() compatible prototypes.
+
+Change 38640 on 2025/02/15 by MichalN@michaln-owc
+
+	Fixed my_ecvt() prototype.
+
+Change 38639 on 2025/02/14 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Fixes for g++ wipfc compilation errors. Many warnings remain!
+
+Change 38638 on 2025/02/14 by MichalN@MICHALN_RYZEN
+
+	Another round of porting to Microsoft C.
+
+Change 38637 on 2025/02/14 by MichalN@MICHALN_RYZEN
+
+	Fixed silly typo in builder master.ctl file.
+
+Change 38636 on 2025/02/14 by MichalN@MICHALN_RYZEN
+
+	More unistd.h porting fun.
+
+Change 38635 on 2025/02/14 by MichalN@MICHALN_RYZEN
+
+	Added _bgetcmd() for MSVC.
+
+Change 38634 on 2025/02/14 by MichalN@MICHALN_RYZEN
+
+	For Windows debug buils, -Zi needs to be passed to the link stage as well.
+
+Change 38633 on 2025/02/13 by MichalN@MICHALN_RYZEN
+
+	NULL may not be an integer.
+
+Change 38632 on 2025/02/13 by MichalN@michaln-owc
+
+	Sorted out several unsigned vs size_t mismatches.
+
+Change 38631 on 2025/02/13 by MichalN@michaln-owc
+
+	C++17 rejects 'register' keywords.
+
+Change 38630 on 2025/02/13 by MichalN@michaln-owc
+
+	Makefile can't include the same object file twice when linking.
+
+Change 38629 on 2025/02/13 by MichalN@michaln-owc
+
+	More portability fixes for utime.h.
+
+Change 38628 on 2025/02/13 by MichalN@MICHALN_RYZEN
+
+	There's still no unistd.h in Microsoft C.
+
+Change 38627 on 2025/02/13 by MichalN@MICHALN_RYZEN
+
+	Small portability fixes to build 'builder' with Microsoft C.
+
+Change 38626 on 2025/02/13 by MichalN@MICHALN_RYZEN
+
+	Fat clibext update to get wmake/builder building with Microsoft C.
+
+Change 38625 on 2025/02/13 by MichalN@MICHALN_RYZEN
+
+	Small portability fixes to get wmake built with Microsoft C.
+
+Change 38624 on 2025/02/13 by MichalN@MICHALN_RYZEN
+
+	Use _open_osfhandle() instead of _hdopen() on NT because MS only has the former.
+
+Change 38623 on 2025/02/13 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Added UBSan flags to Linux makefile; not enabled.
+
+Change 38622 on 2025/02/13 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Workaround for a gcc 11.4.8 problem (see comments).
+
+Change 38621 on 2025/02/13 by MichalN@michaln-owc
+
+	Fixed two very minor clang warnings.
+
+Change 38620 on 2025/02/13 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Fixed some warnings in troublemaking source module.
+
+Change 38619 on 2025/02/13 by MichalN@michaln-owc
+
+	Fixed typo in include guard.
+
+Change 38618 on 2025/02/13 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Fixed some warnings in the C++ compiler.
+
+Change 38617 on 2025/02/13 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	On second thought, zero-sized arrays are not legal C99.
+
+Change 38616 on 2025/02/13 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	When reading the code alignment FE aux info, figure out the
+	actual size from the front end.
+
+Change 38615 on 2025/02/13 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Fixed a bunch of fairly harmless gcc warnings.
+
+Change 38614 on 2025/02/12 by MichalN@MICHALN_RYZEN
+
+	Typo fix.
+
+Change 38612 on 2025/02/11 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Reworked flexible array usage; gcc refuses to believe
+	that arr[2] could be a flexible array.
+
+Change 38611 on 2025/02/11 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Replaced questionable strncpy() use with memcpy().
+
+Change 38610 on 2025/02/11 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Fixed gcc warning on sprintf() caused by 'count' potentially being negative.
+
+Change 38522 on 2023/07/31 by MichalN@michaln-owc
+
+	Made wtouch bootstrap build on non-Linux Unix.
+
+Change 38521 on 2023/07/30 by MichalN@MICHALN_LINUX_VM_GS60
+
+	Fixed up wtouch build and plugged it into overall build.
+
+Change 38520 on 2023/07/30 by MichalN@MICHALN_LINUX_VM_GS60
+
+	Integrated wtouch utility to V2 branch, since it is used by
+	various makefiles (especially tests). Not yet plugged in.
+
+Change 38517 on 2023/07/28 by MichalN@MICHALN_RYZEN
+
+	Branched the mstools project into the V2 branch. Not yet plugged
+	into the build. Required for the V2 branch to be able to build
+	itself since cl.exe/link.exe are used for building on Windows hosts.
+
+Change 38516 on 2023/07/28 by MichalN@MICHALN_RYZEN
+
+	Now that wlink supports it, put an IOPL segment directly into the
+	32-bit OS/2 parallel port server/trap and ditch separate wdio.dll.
+
+Change 38515 on 2023/07/28 by MichalN@MICHALN_RYZEN
+
+	Integrated forgotten file to V2 branch. Required for correct OS/2 LX
+	IOPL segment support.
+
+Change 38514 on 2023/07/28 by MichalN@MICHALN_RYZEN
+
+	Build the NT parallel port debug support driver to avoid bit rot.
+
+Change 38513 on 2023/07/28 by MichalN@MICHALN_RYZEN
+
+	Integrated changes to make NT startup 3.1 compatible to V2 branch.
+
+Change 38512 on 2023/07/26 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Fixed several GCC warnings in C++ compiler.
+
+Change 38504 on 2023/07/17 by MichalN@michaln-owc
+
+	Copy a subset of bootstrapped tools to rel/bin directory. The idea
+	is that this directory should be usable for cross compiling from
+	'any' host. NB: Only tools that get shipped end up in rel/bin,
+	build-only tools are not included.
+
+Change 38503 on 2023/07/16 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Copy RDOS runtime libs. Needed if we want to use the V2 branch
+	to build the main branch.
+
+Change 38501 on 2023/07/16 by MichalN@MICHALN_WATCOM_GS60
+
+	Attempting to fix a very old bug in MembPtrExtend(). The 'sym' pointer
+	must be taken from the original 'expr' and not the modified one.
+	
+	This looks like an ancient bug which happened to pop up in the V2
+	branch only. Calling NodeUnaryCopy() changes the type of 'expr' and
+	it no longer has a valid expr->u.symcg.symbol. This causes SymClass()
+	to crash when compiling eddlldg.cpp in the browser project.
+	
+	It appears that the problem exists in the main branch as well, but
+	happens to not cause crashes because the bogus symcg.symbol has
+	different and harmless flags due to different layout of the structures.
+
+Change 38500 on 2023/07/15 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Need a default case for non-debug builds too; helps get rid of
+	compiler warnings.
+
+Change 38499 on 2023/07/15 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Replace lltoa() with sprintf() as the former is non-standard.
+
+Change 38498 on 2023/07/15 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Added makefile for debug build of Linux C 386 compiler, too.
+
+Change 38497 on 2023/07/14 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Added makefiles to build a debug C++ compiler on Linux hosts.
+
+Change 38496 on 2023/07/14 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Tacking additional compiler flags onto the cflags macro causes
+	it to be expanded too early. Add to extra_c_flags instead.
+
+Change 38495 on 2023/07/14 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Fixed warning and also error in optimized GCC builds.
+	Somehow the double wasn't passed correctly, causing the
+	compiler to go haywire when using floating-point constants.
+
+Change 38494 on 2023/07/14 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Reverse object/library file order to work with GNU ld symbol lookup.
+
+Change 38493 on 2023/07/14 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Fixed scoping problem in C++ compiler, function emit_virtual_file,
+	plus miscellaneous warnings.
+	
+	The code was written so as to restrict the scope of variables only
+	used in 3-4 cases of a switch statement. This worked if the compiler
+	placed the variables in unique stack locations (e.g. Watcom C). If the
+	compiler reused stack locations for two or more variables with non-
+	overlapping scope, bad things happened. Solved by declaring such
+	variables in global scope.
+	
+	The bug caused wpp386 to generate incorrect C++ runtime library
+	code, which in turn caused the re2c build utility to crash.
+
+Change 38491 on 2023/07/11 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Make the V2 branch report itself as version 2000. Previously
+	this was 1300 which was lower than the main branch.
+
+Change 38455 on 2023/04/02 by MichalN@MICHALN_LINUX_VM_GS60
+
+	Got hcdos building in V2 branch.
+
+Change 38454 on 2023/04/02 by MichalN@MICHALN_LINUX_VM_GS60
+
+	Brought hcdos project over to V2 branch.
+
+Change 38453 on 2023/04/02 by MichalN@MICHALN_WATCOM_GS60
+
+	Minor build fixes for IDE in V2 branch.
+
+Change 38452 on 2023/04/02 by MichalN@MICHALN_WATCOM_GS60
+
+	Got docs partially building in V2 branch.
+
+Change 38451 on 2023/04/02 by MichalN@MICHALN_LINUX_VM_GS60
+
+	Added missing cpplib paths to build-time wlink.lnk.
+
+Change 38450 on 2023/04/02 by MichalN@MICHALN_LINUX_VM_GS60
+
+	Build fixes for bootstrap build of whpcvt.
+
+Change 38449 on 2023/04/02 by MichalN@MICHALN_LINUX_VM_GS60
+
+	Fixed IDE project path in V2 branch.
+
+Change 38448 on 2023/04/02 by MichalN@MICHALN_LINUX_VM_GS60
+
+	Brought whpcvt project to V2 branch.
+
+Change 38447 on 2023/04/02 by MichalN@MICHALN_LINUX_VM_GS60
+
+	Improved docs makefiles in V2 branch a little.
+
+Change 38446 on 2023/04/02 by MichalN@MICHALN_LINUX_VM_GS60
+
+	More WGML makefiles to V2 branch.
+
+Change 38445 on 2023/04/02 by MichalN@MICHALN_LINUX_VM_GS60
+
+	Merged IDE project changes into V2 branch.
+
+Change 38444 on 2023/04/02 by MichalN@MICHALN_LINUX_VM_GS60
+
+	Quick fix to bmp2eps to build with 64-bit compiler. 
+
+Change 38443 on 2023/04/02 by MichalN@MICHALN_LINUX_VM_GS60
+
+	Merged wgmlcmd.mif to V2 branch.
+
+Change 38442 on 2023/04/02 by MichalN@MICHALN_LINUX_VM_GS60
+
+	Merged the bmp2eps project into the V2 branch. WIP.
+
+Change 38441 on 2023/04/02 by MichalN@MICHALN_LINUX_VM_GS60
+
+	Merged most of docs into V2 branch. Work in progress.
+
+Change 38440 on 2023/04/02 by MichalN@MICHALN_LINUX_VM_GS60
+
+	Brought core WGML into the V2 branch.
+
+Change 38435 on 2023/03/29 by MichalN@michaln-owc
+
+	Forgot to submit edits related to Change 38432.
+
+Change 38434 on 2023/03/29 by MichalN@michaln-owc
+
+	Eliminated a few clang warnings in V2 cg.
+
+Change 38433 on 2023/03/29 by MichalN@michaln-owc
+
+	Removed another instance of clang #pragma pack warning.
+
+Change 38432 on 2023/03/28 by MichalN@michaln-owc
+
+	Restructured wstub build in V2 branch to match other projects,
+	added wstub to the build so that the linker can use it.
+
+Change 38430 on 2023/03/27 by MichalN@michaln-owc
+
+	Disabled helpful clang warning that defeats the purpose
+	of isolating push/pack pragmas in an include file.
+
+Change 38424 on 2023/03/17 by MichalN@MICHALN_LINUX_VM_GS60
+
+	Fixed copying of w32api files (forgotten .rh, uppercase g/GL).
+
+Change 38423 on 2023/03/17 by MichalN@michaln-owc
+
+	Quick and dirty set of changes to get V2 branch
+	building on FreeBSD.
+
+Change 38221 on 2021/02/18 by MichalN@MICHALN_RYZEN
+
+	Integrated changes related to IOPL segments in LX modules to V2 branch.
+
+Change 38220 on 2021/02/18 by MichalN@MICHALN_RYZEN
+
+	Integrated ms2wlink changes from main branch to V2.
+
+Change 38201 on 2020/12/17 by MichalN@MICHALN_RYZEN
+
+	Merged fixes to disable NT console Quick Edit Mode to the V2 branch.
+	Helps on Windows 10.
+
+Change 38196 on 2020/12/14 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Split out custom fnmatch implementation into a separate file to
+	facilitate easier sharing. Updated wgrep to use it on *nix. Note
+	that opendir() performs pattern matching on DOS, OS/2, and Windows,
+	but not on POSIX platforms; we need to do the matching ourselves.
+
+Change 38195 on 2020/12/14 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Integrated wgrep Unix porting tweaks from main branch.
+
+Change 38194 on 2020/12/14 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	That buffer was probably optimized for very low memory environments...
+
+Change 38193 on 2020/12/14 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Attempted to clarify error output shown when a message corresponding
+	to the error number could not be found, such as when the messages
+	aren't bound into the executable and EDPATH could not be determined.
+
+Change 38191 on 2020/12/11 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	ChangeList: The declaration of execv(), execve(), and execvp() in the
+	Linux runtime libraries has been adjusted to match POSIX 1003.1 and
+	later specifications. POSIX declares (in unistd.h) the argv and envp
+	arguments as arrays of const pointers to non-const strings, while DOS,
+	Windows, and OS/2 declare them (in process.h, optionally also unistd.h)
+	as arrays of const pointers to const strings.
+	
+	Implementor's Note: This is an annoying discrepancy which has its origin
+	in distant history. Starting with Microsoft C 6.0 in 1989, Microsoft
+	defined argv/envp as const pointers to const strings. UNIX systems
+	starting circa 1990 defined them as const pointers to non-const strings.
+	The POSIX standard explicitly notes that the double const would be in
+	fact logical but would "disallow existing correct code".
+	 The issue is purely a syntactic problem because if the exec functions
+	succeed, there is no caller left to worry about the strings being
+	modified, and if they faili, they indeed do not modify the memory.
+	 It would be nice to keep process.h and unistd.h consistent across
+	platforms, but clashing declarations in process.h vs. unistd.h would
+	be worse than platform differences in the execv family of functions.
+	
+	This changeset modifies both the library and several instances where
+	using the POSIX declarations in fact makes casts redundant in Linux
+	specific code.
+
+Change 38160 on 2020/04/28 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Added more dependencies to bootstrap POSIX make to avoid problems
+	with parallel builds.
+
+Change 38159 on 2020/04/28 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Added a new vi error message used when the UI library fails to
+	initialize. This almost always indicates some problem with the
+	terminal, such as missing terminfo entries.
+
+Change 38110 on 2019/09/06 by MichalN@DQ77CP
+
+	Moved usb100.h and usb200.h into usbspec.h, added USB 3.0 stuff. This
+	is how current Windows DDKs are structured and should be backward
+	compatible.
+
+Change 38107 on 2019/09/04 by MichalN@DQ77CP
+
+	Added USB GUIDs.
+
+Change 38106 on 2019/09/04 by MichalN@DQ77CP
+
+	 CM_Get_Device_ID_Size has no A/W versions since it returns the number of characters.
+
+Change 37975 on 2019/04/03 by MichalN@MICHALN_WATCOM_S11
+
+	Removed stray semicolon.
+
+Change 37956 on 2018/12/17 by MichalN@MICHALN_LINUX_I7
+
+	Added DOS 286 makefile for vi, has XMS support built in.
+
+Change 37952 on 2018/12/12 by MichalN@MICHALN_I7
+
+	Merged vi updates from main branch (mostly 16-bit fixes).
+
+Change 37951 on 2018/12/12 by MichalN@MICHALN_I7
+
+	Allow linking with C++ runtime for 16-bit DOS, too.
+
+Change 37941 on 2018/10/31 by MichalN@MICHALN_WATCOM_OSX
+
+	Fixed wlib crash triggered by passing no command line arguments but
+	providing a WLIB (or AR) environment variable. Noticed by clang.
+
+Change 37919 on 2018/09/24 by MichalN@MICHALN_LINUX_32VM
+
+	Workaround/fix for broken output on Linux console (VT). I do not fully
+	understand the interaction between UTF-8 and VT100-style control
+	sequences, but modified code skipping wcstomb() (which does not
+	currently work right in the Linux Watcom clib) has been
+	experimentally determined to work well on current Linux kernels.
+
+Change 37914 on 2018/09/09 by MichalN@MICHALN_LINUX_32VM
+
+	Corrected Linux wmake build copy.
+
+Change 37913 on 2018/09/08 by MichalN@MICHALN_LINUX_32VM
+
+	Imported ncurses bits to enable tracing. Use by passing 'nctrace=1'
+	to wmake when building ncurses, set NCURSES_TRACE environment variable to 1 or 2 to
+	create a 'trace' file in current directory when running ncurses-based applications.
+
+Change 37907 on 2018/08/24 by MichalN@MICHALN_LINUX_32VM
+
+	Cleaned up several rc warnings.
+
+Change 37906 on 2018/08/24 by MichalN@MICHALN_LINUX_32VM
+
+	Fixed type-punning warning.
+
+Change 37905 on 2018/08/24 by MichalN@MICHALN_LINUX_32VM
+
+	Warning fix.
+
+Change 37904 on 2018/08/24 by MichalN@MICHALN_LINUX_32VM
+
+	Warning fixes.
+
+Change 37902 on 2018/08/23 by MichalN@MICHALN_LINUX_32VM
+
+	Integrated Change 37901. This fixes a problem with wd hanging on
+	loading an ELF executable with export symbols. If 'main' is a data
+	symbol, wd puts a breakpoint on it but fails to recognize it as 'main'
+	when the breakpoint hits. Distinguishing between code and data symbols
+	cures the hang.
+
+Change 37900 on 2018/08/23 by MichalN@MICHALN_LINUX_32VM
+
+	Fixed warnings and one genuine bug (printf taking integer but expecting
+	a string) in objread utility.
+
+Change 37899 on 2018/08/23 by MichalN@MICHALN_WATCOM_OSX
+
+	Do not feed a Watcom-specific compiler switch to other compilers.
+
+Change 37898 on 2018/08/23 by MichalN@MICHALN_WATCOM_OSX
+
+	Defining inline as an empty macro is a bad idea with newer Xcode versions.
+	It causes random internal C run-time functions to be generated out-of-line into
+	every object file, resulting in linker errors (duplicate symbols).
+
+Change 37897 on 2018/08/23 by MichalN@MICHALN_LINUX_32VM
+
+	Added missing error checking, hopefully it won't upset the wres lib.
+
+Change 37896 on 2018/08/23 by MichalN@MICHALN_LINUX_32VM
+
+	Fixed 'builder' gcc warnings, including adding half-hearted error
+	checking.
+
+Change 37894 on 2018/08/20 by MichalN@MICHALN_LINUX_I7
+
+	Fixed gcc warnings in wlib.
+
+Change 37893 on 2018/08/20 by MichalN@MICHALN_LINUX_I7
+
+	Fixed an odd import type enum mismatch. Locally defined enum in
+	coffimpl.c appeared to be completely bogus.
+
+Change 37892 on 2018/08/20 by MichalN@MICHALN_LINUX_I7
+
+	Fixed set but unused variable warnings in orl.
+
+Change 37891 on 2018/08/20 by MichalN@MICHALN_LINUX_I7
+
+	Fixed gcc unused function return value warnings in wmake.
+
+Change 37890 on 2018/08/15 by MichalN@MICHALN_LINUX_32VM
+
+	Fixed harmless warning.
+
+Change 37889 on 2018/08/14 by MichalN@MICHALN_LINUX_32VM
+
+	Fixed unsigned/bool mismatch in UseRepForm() prototype. With 32-bit
+	gcc 5.4 (but not 64-bit gcc 7.3), this caused bad code to be generated,
+	producing 'rep movsd' but not initializing ecx.
+
+Change 37888 on 2018/08/14 by MichalN@MICHALN_I7
+
+	Integrated Change 37449, 37450 from main branch. Improves error checking
+	on startup for console applications.
+
+Change 37887 on 2018/08/11 by MichalN@MICHALN_LINUX_PR
+
+	Integrated Change 37448: Attempting to undo damage from Change 37206
+	(uninitialized _RWD_env_map causing crashes)
+
+Change 37886 on 2018/08/09 by MichalN@MICHALN_LINUX_PR
+
+	Detect the case when wd can't launch xterm (not installed by default
+	e.g. on Ubuntu 18.04.1). Instead of just hanging, detect failure and
+	try the next console method (which is likely to work).
+
+Change 37885 on 2018/08/09 by MichalN@MICHALN_LINUX_PR
+
+	On Linux, also search /lib/termcap. Required on newer Debians (such
+	as Ubuntu 18.04.1).	
+
+Change 37884 on 2018/08/09 by MichalN@MICHALN_LINUX_PR
+
+	Reworked rc autodependency file info to use a flexible array
+	instead of a 1-sized fixed array. This works around spurious runtime
+	buffer overflow checks (Ubuntu 18.04.1, gcc 7.3.0).
+	
+	Note: There may be a tiny difference in the on-disk file format
+	because the final zeroed entry likely ends up one byte shorter.
+
+Change 37882 on 2018/08/09 by MichalN@MICHALN_LINUX_PR
+
+	Quick fix to allow building on a 64-bit Linux host.
+
+Change 37881 on 2018/08/09 by MichalN@MICHALN_LINUX_PR
+
+	Removed redundant/wrong argument to open().
+
+Change 37482 on 2012/11/16 by MichalN@MICHALN_I7
+
+	Updated V2 bootstrap batch file.
+
+Change 37466 on 2012/08/30 by MichalN@MICHALN_WATCOM_S11
+
+	Look for one more gcc location (on S11).
+
+Change 37465 on 2012/08/29 by MichalN@MICHALN_RHEL3
+
+	Clean out .grc files, too.
+
+Change 37464 on 2012/08/29 by MichalN@MICHALN_RHEL3
+
+	Fixed/improved cleanup script.
+
+Change 37463 on 2012/08/29 by MichalN@MICHALN_WATCOM_S10
+
+	Working on Solaris V2 bootstrap; still not quite there with Sun Studio.
+	Renamed 'sol' system designation to clearer 'solaris'.
+
+Change 37461 on 2012/08/28 by MichalN@MICHALN_RHEL3
+
+	Added a few pounds of paranoia to boot.sh.
+
+Change 37439 on 2012/08/13 by MichalN@MICHALN_WATCOM_OSX
+
+	Tiny fix to get V2 branch building on Mountain Lion.
+
+Change 37395 on 2012/05/23 by MichalN@MICHALN_WATCOM_S11
+
+	Workaround for building with gcc on Solaris 11. Needs more thought.
+
+Change 37393 on 2012/05/22 by MichalN@MICHALN_WATCOM_S11
+
+	Renamed function to avoid conflicts.
+
+Change 37392 on 2012/05/22 by MichalN@MICHALN_WATCOM_OSX
+
+	Temporary hack for non-ISO source file (a Very Bad Idea).
+
+Change 37377 on 2012/05/13 by MichalN@MICHALN_I7
+
+	Always use the same host_cl to facilitate cross-building.
+
+Change 37376 on 2012/05/13 by MichalN@MICHALN_I7
+
+	Fixed posix utilities bootstrap on Windows.
+
+Change 37375 on 2012/05/13 by MichalN@MICHALN_I7
+
+	Explicitly reference os2.lib.
+
+Change 37374 on 2012/05/13 by MichalN@MICHALN_I7
+
+	Added a quick build system overview.
+
+Change 37371 on 2012/05/13 by MichalN@MICHALN_I7
+
+	Added missing preprocessor switch.
+
+Change 37363 on 2012/05/12 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated dig/trap changes to V2 branch.
+
+Change 37361 on 2012/05/12 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated another set of changes related to commonui musical chairs to V2 branch.
+
+Change 37360 on 2012/05/12 by MichalN@MICHALN_WATCOM_OSX
+
+	Don't include non-portable malloc.h.
+
+Change 37356 on 2012/05/11 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated restructured SDK. Lot of pain for not much gain…
+
+Change 37355 on 2012/05/11 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated commonui library (split out from SDK) to V2 branch.
+
+Change 37354 on 2012/05/11 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated preprocessor updates to V2 branch.
+
+Change 37350 on 2012/05/09 by MichalN@MICHALN_WATCOM_OSX
+
+	More preprocessing option defines.
+
+Change 37349 on 2012/05/09 by MichalN@MICHALN_WATCOM_OSX
+
+	Makefile updates to get version resources building again.
+
+Change 37348 on 2012/05/09 by MichalN@MICHALN_WATCOM_OSX
+
+	GUI/UI updates to account for clib changes etc.
+
+Change 37347 on 2012/05/09 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated C++ warning "fixes".
+
+Change 37346 on 2012/05/09 by MichalN@MICHALN_WATCOM_OSX
+
+	Point to the right version resource skeletons.
+
+Change 37344 on 2012/05/09 by MichalN@MICHALN_WATCOM_OSX
+
+	Re-integrated omftools including portability fixes "lost" in Change 37294.
+
+Change 37343 on 2012/05/09 by MichalN@MICHALN_WATCOM_OSX
+
+	Fix for old rtdll structure to build.
+
+Change 37342 on 2012/05/09 by MichalN@MICHALN_I7
+
+	Integrate remaining warning-disable fixes (what's the point of -w8 anyway?).
+
+Change 37341 on 2012/05/09 by MichalN@MICHALN_I7
+
+	Integrate cpplib updates to disable certain warnings.
+
+Change 37340 on 2012/05/09 by MichalN@MICHALN_WATCOM_OSX
+
+	Structure the cc build the way it was originally designed (again).
+
+Change 37339 on 2012/05/09 by MichalN@MICHALN_WATCOM_OSX
+
+	Make sure clibext.obj is included if needed.
+
+Change 37338 on 2012/05/09 by MichalN@MICHALN_WATCOM_OSX
+
+	Fixed/added builder control files for bootstrap UNIX build broken by Change 37288.
+
+Change 37337 on 2012/05/08 by MichalN@MICHALN_WATCOM_OSX
+
+	Undid some changes to get non-Watcom bootstrap build going again.
+
+Change 37336 on 2012/05/08 by MichalN@MICHALN_I7
+
+	Avoid relying on wrc too early in bootstrap build.
+
+Change 37335 on 2012/05/08 by MichalN@MICHALN_I7
+
+	Put the top level V2 builder control file back the way I had it.
+
+Change 37334 on 2012/05/08 by MichalN@MICHALN_I7
+
+	'Bootclean' only cleans bootstrap bits, not the regular build.
+
+Change 37327 on 2012/05/07 by JiriM@MALAKJ_BUILDERWXP
+
+	disable bootstrap build for project which are not necessary and are not buildable on all platforms
+
+Change 37323 on 2012/05/07 by JiriM@MALAKJ_BUILDERLINUX
+
+	fix clib build make file for rdosdev target
+
+Change 37322 on 2012/05/07 by JiriM@MALAKJ_BUILDERWXP
+
+	Integrate latest V1 lib_misc and fe_misc changes
+
+Change 37321 on 2012/05/07 by JiriM@MALAKJ_BUILDERWXP
+
+	Integrate latest V1 clib, mathlib and emulators changes
+
+Change 37319 on 2012/05/07 by JiriM@MALAKJ_BUILDERWXP
+
+	Integrate latest V1 headers changes
+
+Change 37318 on 2012/05/07 by JiriM@MALAKJ_BUILDERWXP
+
+	fix V2 ssl project
+
+Change 37317 on 2012/05/07 by JiriM@MALAKJ_BUILDERWXP
+
+	Integrate latest V1 cc changes
+
+Change 37316 on 2012/05/07 by JiriM@MALAKJ_BUILDERWXP
+
+	Integrate latest cg V1 changes
+
+Change 37315 on 2012/05/07 by JiriM@MALAKJ_BUILDERWXP
+
+	Integrate wstrip V1 changes
+
+Change 37314 on 2012/05/07 by JiriM@MALAKJ_BUILDERWXP
+
+	Integrate latest V1 change for resource compiler
+
+Change 37313 on 2012/05/07 by JiriM@MALAKJ_BUILDERWXP
+
+	correct host build environment setup scripts
+
+Change 37312 on 2012/05/07 by JiriM@MALAKJ_BUILDERWXP
+
+	Integrate V1 makefile changes to V2 branch
+
+Change 37307 on 2012/05/06 by MichalN@MICHALN_WATCOM_OSX
+
+	A few more renaming fixes.
+
+Change 37306 on 2012/05/06 by MichalN@MICHALN_WATCOM_OSX
+
+	Fixed more instances of out of sync builder control files.
+
+Change 37305 on 2012/05/06 by MichalN@MICHALN_WATCOM_OSX
+
+	Another forgotten edit.
+
+Change 37302 on 2012/05/06 by JiriM@MALAKJ_BUILDERWXP
+
+	Integration of V1 changes to V2 branch.
+
+Change 37301 on 2012/05/06 by MichalN@MICHALN_WATCOM_OSX
+
+	Added forgotten modification.
+
+Change 37300 on 2012/05/06 by MichalN@MICHALN_WATCOM_OSX
+
+	Removed/fixed badly written non-portable code.
+
+Change 37299 on 2012/05/06 by MichalN@MICHALN_WATCOM_OSX
+
+	Host OS specifics have no place in booths.
+
+Change 37298 on 2012/05/06 by MichalN@MICHALN_WATCOM_OSX
+
+	Undid changes which broke V2 build on OS X and probably many other
+	UNIX platforms. Do not drag non-POSIX crap into boot.sh.
+
+Change 37295 on 2012/05/06 by JiriM@MALAKJ_BUILDERWXP
+
+	Integration wstrip V1 change to V2 branch.
+
+Change 37294 on 2012/05/06 by JiriM@MALAKJ_BUILDERWXP
+
+	Integration of V1 changes to V2 branch.
+
+Change 37292 on 2012/05/06 by JiriM@MALAKJ_BUILDERWXP
+
+	replace OBJDIR env.variable by OWOBJDIR
+	replace dev_dir by src_dir macro
+
+Change 37291 on 2012/05/06 by JiriM@MALAKJ_BUILDERWXP
+
+	fix clean batch file
+
+Change 37288 on 2012/05/06 by JiriM@MALAKJ_BUILDERLINUX
+
+	Fix builder control files after previous changes
+
+Change 37287 on 2012/05/06 by JiriM@MALAKJ_BUILDERWXP
+
+	update main build scripts
+	remove BOOT... variables and pass exceptions into appropriate builder.ctl files
+	move build messages to master.ctl
+	enable bootstrap by OW in scripts
+
+Change 37286 on 2012/05/06 by JiriM@MALAKJ_BUILDERLINUX
+
+	Integration change.
+
+Change 37283 on 2012/05/05 by JiriM@MALAKJ_BUILDERLINUX
+
+	Integration of latest V1 changes into V2 .
+
+Change 37280 on 2012/05/03 by JiriM@MALAKJ_BUILDERLINUX
+
+	enable detect Open Watcom if it is used for bootstrap build
+	add new macros used if bootstrap by Open Watcom
+
+Change 36777 on 2010/09/22 by MichalN@MICHALN_WATCOM
+
+	Brought linker fixes over to the V2 branch.
+
+Change 36773 on 2010/09/22 by MichalN@MICHALN_WATCOM
+
+	Integrated misc. core tools changes into V2 branch.
+
+Change 36610 on 2010/08/11 by MichalN@MICHALN_OSOL
+
+	The current directory need not be on the PATH and source shell
+	command is not guaranteed to search the current directory. Specify
+	the current directory explicitly.
+
+Change 36606 on 2010/08/10 by MichalN@MICHALN_OSOL
+
+	Fixed several minor warnings (mostly specific to old GCC versions).
+
+Change 36605 on 2010/08/10 by MichalN@MICHALN_WATCOM_OSX
+
+	Minor warning fix.
+
+Change 36598 on 2010/08/06 by MichalN@MICHALN_RHEL3
+
+	Avoid non-portable preprocessor directives within macro arguments.
+
+Change 36596 on 2010/08/05 by MichalN@MICHALN_WATCOM_OSX
+
+	Make sure directory is created.
+
+Change 36580 on 2010/07/28 by MichalN@MICHALN_WATCOM_OSX
+
+	Fixed some entirely harmless warnings.
+
+Change 36564 on 2010/07/24 by MichalN@MICHALN_WATCOM_OSX
+
+	Streamlined version resource generation.
+
+Change 36560 on 2010/07/23 by MichalN@MICHALN_WATCOM_OSX
+
+	Fixed misc. warnings.
+
+Change 36556 on 2010/07/23 by MichalN@MICHALN_WATCOM
+
+	Entirely removed redundant/dangerous casts.
+
+Change 36555 on 2010/07/22 by MichalN@MICHALN_WATCOM_LINUX
+
+	Fixed warnings/bad code for gcc 4.3.0. Needs further review.
+
+Change 36498 on 2010/07/11 by MichalN@MICHALN_WATCOM_OSX
+
+	Another batch of V2 branch updates.
+
+Change 36497 on 2010/07/11 by MichalN@MICHALN_WATCOM_OSX
+
+	Fixed a few warnings, mostly benign.
+
+Change 36386 on 2010/06/11 by MichalN@MICHALN_WATCOM
+
+	Integrated a required fix.
+
+Change 36383 on 2010/06/10 by MichalN@MICHALN_WATCOM
+
+	Integrated a few updates into V2 branch.
+
+Change 36233 on 2010/04/20 by MichalN@MICHALN_WATCOM_OSX
+
+	Drag cg dump routines into non-Watcom built executables. 
+
+Change 36232 on 2010/04/20 by MichalN@MICHALN_WATCOM_OSX
+
+	Fixed another instance of table fall-through.
+
+Change 36225 on 2010/04/19 by MichalN@MICHALN_WATCOM_OSX
+
+	Portability fixes for graphlib build utilities.
+
+Change 36224 on 2010/04/19 by MichalN@MICHALN_WATCOM
+
+	Fixed a few V2 branch build issues.
+
+Change 36223 on 2010/04/19 by MichalN@MICHALN_WATCOM
+
+	Completed graphlib integration into V2 branch.
+
+Change 36221 on 2010/04/18 by MichalN@MICHALN_WATCOM_OSX
+
+	Fixed a minor type mismatch (on 64-bit host only).
+
+Change 36217 on 2010/04/18 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated graphlib into V2 branch.
+
+Change 36214 on 2010/04/16 by MichalN@MICHALN_WATCOM
+
+	Updated V2 branch.
+
+Change 36014 on 2010/03/12 by MichalN@MICHALN_WATCOM
+
+	Cleaned up V2 build on Windows.
+
+Change 36013 on 2010/03/11 by MichalN@MICHALN_WATCOM
+
+	Integrated even more updates into V2 branch.
+
+Change 36012 on 2010/03/11 by MichalN@MICHALN_WATCOM
+
+	Integrated a ton of changes into V2 branch.
+
+Change 35976 on 2010/03/04 by MichalN@MICHALN_WATCOM
+
+	Fixed weird typo.
+
+Change 35803 on 2010/02/07 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated clib updates into V2 branch.
+
+Change 35778 on 2010/02/01 by MichalN@MICHALN_WATCOM
+
+	Small compile fix (unintentional prototype mismatch).
+
+Change 35771 on 2010/02/01 by MichalN@MICHALN_WATCOM_OSX
+
+	Fixed a few more warnings, mostly harmless.
+
+Change 35770 on 2010/02/01 by MichalN@MICHALN_WATCOM_OSX
+
+	Fixed warnings reported by g++ 4.2.
+
+Change 35767 on 2010/01/31 by MichalN@MICHALN_WATCOM_OSX
+
+	More misc 64-bit fixes. The V2 branch now builds as 64-bit
+	on Snow Leopard and produces apparently functioning executables
+	(at least nt386).
+
+Change 35766 on 2010/01/31 by MichalN@MICHALN_WATCOM_OSX
+
+	The bind utility and vi must use fixed-size types for the bound
+	data (and not just hope the types will match).
+
+Change 35762 on 2010/01/31 by MichalN@MICHALN_WATCOM_OSX
+
+	Fixed another alignment problem in 64-bit build. This has been
+	extremely painful... the PCH code is rather fragile.
+
+Change 35553 on 2010/01/13 by MichalN@MICHALN_WATCOM
+
+	Integrated several fixes into V2 branch.
+
+Change 35550 on 2010/01/13 by MichalN@MICHALN_WATCOM_OSX
+
+	Fixed more type mismatches which could cause crashes on 64-bit
+	hosts. Still more to come.
+
+Change 35543 on 2010/01/12 by MichalN@MICHALN_WATCOM_OSX
+
+	Watch out for 'stpcpy' name clashes (OS X 10.6).
+
+Change 35415 on 2009/12/09 by MichalN@MICHALN_WATCOM
+
+	Integrated FP related fixes to V2 branch.
+
+Change 35358 on 2009/12/01 by MichalN@MICHALN_WATCOM_LINUX
+
+	Fixed memory leak plus potential memory access fault.
+
+Change 35357 on 2009/12/01 by MichalN@MICHALN_WATCOM_LINUX
+
+	Better fix for the leak.
+
+Change 35356 on 2009/12/01 by MichalN@MICHALN_WATCOM_LINUX
+
+	Removed redundant trim which was operating on just-freed memory.
+
+Change 35355 on 2009/12/01 by MichalN@MICHALN_WATCOM_LINUX
+
+	Skip memcpy if src == dst.
+
+Change 35353 on 2009/12/01 by MichalN@MICHALN_WATCOM_LINUX
+
+	Fixed a small memory leak.
+
+Change 35345 on 2009/11/30 by MichalN@MICHALN_SOL64
+
+	Fixed crash during console resizing (not that the resize really
+	does anything now).
+
+Change 35344 on 2009/11/30 by MichalN@MICHALN_SOL64
+
+	Formatting tweaks (this file is rather bad).
+
+Change 35342 on 2009/11/30 by MichalN@MICHALN_WATCOM_LINUX
+
+	Integrated debugger fix.
+
+Change 35341 on 2009/11/30 by MichalN@MICHALN_WATCOM_LINUX
+
+	Commented out potentially dangerous unused code.
+
+Change 35339 on 2009/11/30 by MichalN@MICHALN_WATCOM
+
+	Integrated a few debugger related updates into V2 branch.
+
+Change 35338 on 2009/11/30 by MichalN@MICHALN_WATCOM
+
+	Modified floating-point tests to not require an FPU.
+
+Change 35334 on 2009/11/30 by MichalN@MICHALN_WATCOM_LINUX
+
+	Properly init the sigaction argument.
+
+Change 35333 on 2009/11/30 by MichalN@MICHALN_WATCOM_LINUX
+
+	Set debug/release flags for Linux bootstrap build.
+
+Change 35332 on 2009/11/30 by MichalN@MICHALN_WATCOM
+
+	Little tweak to build mad/dip DLLs in bootstrap mode.
+
+Change 35328 on 2009/11/29 by MichalN@MICHALN_SOL64
+
+	Use portable pragma pack.
+
+Change 35326 on 2009/11/29 by MichalN@MICHALN_WATCOM_OSX
+
+	Fixed another conditional (gui-on-ui semi-graphical characters).
+
+Change 35325 on 2009/11/29 by MichalN@MICHALN_WATCOM_OSX
+
+	Fixes to get debug ui lib built on UNIX.
+
+Change 35324 on 2009/11/29 by MichalN@MICHALN_WATCOM_OSX
+
+	Fixed conditional (xterm mouse breakage on non-Linux UNIX).
+
+Change 35319 on 2009/11/26 by MichalN@MICHALN_WATCOM_OSX
+
+	Straightened out UNIXy compiler settings a little.
+
+Change 35300 on 2009/11/20 by MichalN@MICHALN_WATCOM
+
+	Have to define NDEBUG for Windows bootstrap builds; the UNIX section
+	needs serious rework...
+
+Change 35266 on 2009/11/16 by MichalN@MICHALN_SOL64
+
+	Type fixes for 64-bit C++ compiler. PCHs still don't work right.
+
+Change 35265 on 2009/11/16 by MichalN@MICHALN_SOL64
+
+	Don't unconditionally define NDEBUG.
+
+Change 35221 on 2009/11/08 by MichalN@MICHALN_WATCOM_OSX
+
+	Tweaked build system to allow the wd front end to be built
+	on OS X (no trap files yet!).
+
+Change 35215 on 2009/11/08 by MichalN@MICHALN_WATCOM_OSX
+
+	The fallback has to be conservative; not that many C++ compilers
+	have <cstdint> these days!
+
+Change 35214 on 2009/11/08 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated wipfc changes to V2 branch.
+
+Change 35177 on 2009/11/02 by MichalN@MICHALN_SOL64
+
+	Disabled test again... now the wmake tests pass on Linux, OS X, Solaris.
+
+Change 35176 on 2009/11/02 by MichalN@MICHALN_WATCOM_LINUX
+
+	Sort LFN test output before validation because filesystem order
+	is unpredictable (and may even change between invocations).
+
+Change 35175 on 2009/11/02 by MichalN@MICHALN_WATCOM_LINUX
+
+	Restored test; hopefully with forcing bash it will behave reasonably.
+
+Change 35173 on 2009/11/02 by MichalN@MICHALN_WATCOM
+
+	Minor wmake regress test adjustment for V2 build environment.
+
+Change 35170 on 2009/11/01 by MichalN@MICHALN_SOL64
+
+	Use bash explicitly... too much hassle otherwise.
+
+Change 35169 on 2009/11/01 by MichalN@MICHALN_SOL64
+
+	Ensure 8-byte alignment in 64-bit builds.
+
+Change 35165 on 2009/11/01 by MichalN@MICHALN_WATCOM_OSX
+
+	Disabled problematic tests in wmake regress test; these relied on
+	the shell and external commands printing error messages in certain
+	format, which cannot be guaranteed. Now passes on OS X.
+
+Change 35164 on 2009/11/01 by MichalN@MICHALN_WATCOM_OSX
+
+	Fixed message order so that bootstrap build of wmake can properly
+	find all messages. Messages must be sorted by ascending id.
+
+Change 35159 on 2009/10/31 by MichalN@MICHALN_SOL64
+
+	Define NDEBUG macro for bootstrap wmake build.
+
+Change 35157 on 2009/10/30 by MichalN@MICHALN_WATCOM
+
+	V2 build on Windows was slow because the cl front end does not turn
+	on optimizations by default (just like MSVC doesn't). Optimized
+	C++ compiler runs twice as fast... duh.
+
+Change 35155 on 2009/10/27 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated wipfc changes to V2 branch.
+
+Change 35152 on 2009/10/24 by MichalN@MICHALN_SOL64
+
+	Only keep POSIX makefile for wmake, maintaining two is no good. Also
+	don't make .bat files executable on UNIX.
+
+Change 35151 on 2009/10/24 by MichalN@MICHALN_SOL64
+
+	More type fixes for C++ compiler. 64-bit build more or less works now,
+	but PCHs still broken.
+
+Change 35150 on 2009/10/24 by MichalN@MICHALN_SOL64
+
+	Modified carver to use larger blocks for 64-bit builds (64K limit was
+	no longer enough, pointers are twice as big so far fewer structures
+	would fit into a 64K block).
+
+Change 35147 on 2009/10/19 by MichalN@MICHALN_SOL64
+
+	Cleaned up C++ front end to allow bootstrap debug build.
+
+Change 35143 on 2009/10/18 by MichalN@MICHALN_WATCOM_OSX
+
+	Careful in bootstrap mode (no Watcom specific switches!).
+
+Change 35142 on 2009/10/18 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated some C++ compiler updates into V2 branch.
+
+Change 35141 on 2009/10/18 by MichalN@MICHALN_SOL64
+
+	Fixed some type sizes in cfe (explicitly use 32-bit integer instead
+	of assuming that 'long' is 32-bit).
+
+Change 35138 on 2009/10/17 by MichalN@MICHALN_SOL64
+
+	Fixed more type size problems in wlink. The fixup save code
+	in particular is a disaster.
+
+Change 35136 on 2009/10/16 by MichalN@MICHALN_SOL64
+
+	Small type size fixes. The wlink source is a real mess...
+
+Change 35132 on 2009/10/15 by MichalN@MICHALN_SOL64
+
+	Added sample environment setup scripts for UNIX.
+
+Change 35131 on 2009/10/15 by MichalN@MICHALN_SOL64
+
+	Fixed some pointer size problems (use unsigned_32 explicitly).
+
+Change 35130 on 2009/10/15 by MichalN@MICHALN_SOL64
+
+	Convert to boolean directly, without potentially truncating cast.
+
+Change 35129 on 2009/10/15 by MichalN@MICHALN_SOL64
+
+	Fixed a small constant overflow which the 32-bit compiler doesn't catch.
+
+Change 35128 on 2009/10/15 by MichalN@MICHALN_SOL64
+
+	Fixed code to properly work with any size unsigned long.
+
+Change 35127 on 2009/10/15 by MichalN@MICHALN_WATCOM
+
+	Included sys/types.h explicitly; this was done via clibext.h for
+	non-Watcom compilers, but everyone needs it now for wdump.
+
+Change 35124 on 2009/10/14 by MichalN@MICHALN_SOL64
+
+	Enabled 64-bit build on Solaris (by default everything is built as
+	32-bit, even with 64-bit kernel).
+
+Change 35123 on 2009/10/14 by MichalN@MICHALN_SOL64
+
+	Fixed some problems building on AMD64 host.
+
+Change 35122 on 2009/10/14 by MichalN@MICHALN_SOL64
+
+	Reversed condition, i86 is really the odd one out.
+
+Change 35121 on 2009/10/14 by MichalN@MICHALN_SOL64
+
+	Use off_t for file offsets instead of mismatching types.
+
+Change 35120 on 2009/10/14 by MichalN@MICHALN_SOL64
+
+	Fixed re2c to work on LP64 model. Doing foo[-bar] if bar is of type
+	unsigned int in such an environment has interesting effects...
+
+Change 35118 on 2009/10/14 by MichalN@MICHALN_WATCOM
+
+	Defined clpp macro so that re2c (possibly others) can be built outside bootstrap.
+
+Change 35087 on 2009/09/22 by MichalN@MICHALN_WATCOM
+
+	Integrated more updates into V2 branch.
+
+Change 35086 on 2009/09/22 by MichalN@MICHALN_WATCOM
+
+	Integrated another set of changes into V2 branch.
+
+Change 35080 on 2009/09/20 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated some changes into V2 branch.
+
+Change 34874 on 2009/08/07 by MichalN@MICHALN_SOL64
+
+	Branched IDE related projects into V2 branch, fixed some warnings.	
+
+Change 34872 on 2009/08/06 by MichalN@MICHALN_WATCOM
+
+	Integrated a few harmless files into V2 branch.
+
+Change 34868 on 2009/08/05 by MichalN@MICHALN_WATCOM
+
+	Integrated a number of changes into V2 tree.
+
+Change 34860 on 2009/08/04 by MichalN@MICHALN_WATCOM
+
+	Integrated version resource related changes to V2 branch, very slightly
+	more intelligently. The whole thing should really go into a separate
+	.mif file to prevent endless repetition.
+
+Change 34835 on 2009/07/29 by MichalN@MICHALN_WATCOM
+
+	Integrated small cg updates into the V2 branch.
+
+Change 34662 on 2009/06/10 by MichalN@MICHALN_SOL64
+
+	Fixed minor makefile problem.
+
+Change 34661 on 2009/06/10 by MichalN@MICHALN_WATCOM
+
+	Integrated changes into V2 branch.
+
+Change 34641 on 2009/06/05 by MichalN@MICHALN_WATCOM_LINUX
+
+	Fixed build breaks.
+
+Change 34639 on 2009/06/05 by MichalN@MICHALN_WATCOM_LINUX
+
+	Tweaked clib build so that we mostly build libs with their final name.
+
+Change 34638 on 2009/06/05 by MichalN@MICHALN_WATCOM_LINUX
+
+	Integrated CauseWay updates.
+
+Change 34636 on 2009/06/05 by MichalN@MICHALN_WATCOM_LINUX
+
+	Intergrated some updates into V2 branch.
+
+Change 34627 on 2009/06/03 by MichalN@MICHALN_WATCOM
+
+	Bootstrap exe2bin in a separate step.
+
+Change 34601 on 2009/05/29 by MichalN@MICHALN_WATCOM
+
+	Backported cg fix.
+
+Change 34597 on 2009/05/29 by MichalN@MICHALN_WATCOM_LINUX
+
+	Added local implementations of non-portable ultoa/ltoa/strrev
+	functions. The DWARF DIP can now be built as functioning .so with
+	glibc.
+
+Change 34596 on 2009/05/29 by MichalN@MICHALN_WATCOM_LINUX
+
+	Fixed a few warnings (mostly harmless).
+
+Change 34595 on 2009/05/29 by MichalN@MICHALN_WATCOM
+
+	Backported wasm abs segment fix.
+
+Change 34585 on 2009/05/27 by MichalN@MICHALN_WATCOM
+
+	Undid an accidental submit.
+
+Change 34584 on 2009/05/27 by MichalN@MICHALN_WATCOM_LINUX
+
+	Cleaned up a few harmless warnings in gui lib. We should really switch
+	to defining NULL as ((void *)0) for C!
+
+Change 34579 on 2009/05/27 by MichalN@MICHALN_WATCOM_LINUX
+
+	Cleaned up ui lib so that we don't try to display broken Unicode
+	characters on Linux.
+
+Change 34576 on 2009/05/26 by MichalN@MICHALN_WATCOM
+
+	Corrected prototype.
+
+Change 34575 on 2009/05/26 by MichalN@MICHALN_WATCOM_LINUX
+
+	Don't pass OW specific flags in bootstrap builds.
+
+Change 34574 on 2009/05/26 by MichalN@MICHALN_WATCOM_LINUX
+
+	Don't need _expand() callback for debugger.
+
+Change 34573 on 2009/05/26 by MichalN@MICHALN_WATCOM_LINUX
+
+	Tweaked to build with non-Watcom compilers.
+
+Change 34572 on 2009/05/26 by MichalN@MICHALN_WATCOM_LINUX
+
+	Reworked not-quite-portable usage of getopt() (caller modified optind
+	between invocations).
+
+Change 34571 on 2009/05/26 by MichalN@MICHALN_WATCOM_LINUX
+
+	Added/fixed build files.
+
+Change 34570 on 2009/05/26 by MichalN@MICHALN_WATCOM_LINUX
+
+	Removed more non-portable functions.
+
+Change 34569 on 2009/05/26 by MichalN@MICHALN_WATCOM_LINUX
+
+	Removed non-portable memicmp() and itoa() from demangler.
+
+Change 34568 on 2009/05/26 by MichalN@MICHALN_WATCOM_LINUX
+
+	Made export and CodeView DIPs more portable.
+
+Change 34566 on 2009/05/26 by MichalN@MICHALN_WATCOM_LINUX
+
+	Cleaned up warnings in Watcom DIP.
+
+Change 34562 on 2009/05/25 by MichalN@MICHALN_WATCOM_LINUX
+
+	Sorted build flags on Linux. __LINUX__ needs to be defined for
+	the ui lib to display graphical characters properly.
+
+Change 34561 on 2009/05/25 by MichalN@MICHALN_WATCOM_LINUX
+
+	Fixed potential double free caused by attempting to fclose() the
+	same stream twice.
+
+Change 34560 on 2009/05/25 by MichalN@MICHALN_WATCOM_LINUX
+
+	Reduced the number of #ifdefs.
+
+Change 34542 on 2009/05/19 by MichalN@MICHALN_WATCOM
+
+	Integrated linker change.
+
+Change 34537 on 2009/05/18 by MichalN@MICHALN_WATCOM_OSX
+
+	Made the exe2bin tool bootstrappable.
+
+Change 34508 on 2009/05/13 by MichalN@MICHALN_WATCOM_OSX
+
+	OS X headers define __alloca macro, sigh. Maybe we need to
+	reconsider the name.
+
+Change 34505 on 2009/05/13 by MichalN@MICHALN_WATCOM
+
+	Always use space as indent char in file dialogs. Modified comparison
+	function to handle leading indent chars in a special way.
+
+Change 34504 on 2009/05/13 by MichalN@MICHALN_WATCOM
+
+	Rearranged code to avoid need for (missing) prototype.
+
+Change 34503 on 2009/05/13 by MichalN@MICHALN_WATCOM_LINUX
+
+	Fixed spacing character and an uninited variable.
+
+Change 34500 on 2009/05/12 by MichalN@MICHALN_WATCOM_LINUX
+
+	Made DIPs slightly more portable (removed some instances of memicmp
+	and sorted out __alloca).
+
+Change 34499 on 2009/05/12 by MichalN@MICHALN_WATCOM_LINUX
+
+	Added machinery to bootstrap build DIP shared libs.
+
+Change 34498 on 2009/05/12 by MichalN@MICHALN_WATCOM_LINUX
+
+	Putting -fh switch in common flags is a really bad idea because it
+	breaks bootstrap builds.
+
+Change 34497 on 2009/05/12 by MichalN@MICHALN_WATCOM_LINUX
+
+	Reversed include order as a build break workaround.
+
+Change 34496 on 2009/05/12 by MichalN@MICHALN_WATCOM_LINUX
+
+	Define clpp macro for Linux host.
+
+Change 34495 on 2009/05/12 by MichalN@MICHALN_WATCOM_LINUX
+
+	Avoid some cases of curses.h and bool.h conflict.
+
+Change 34494 on 2009/05/12 by MichalN@MICHALN_WATCOM_LINUX
+
+	Added comment and removed potentially wrong check.
+
+Change 34493 on 2009/05/12 by MichalN@MICHALN_WATCOM_LINUX
+
+	Don't emit read_only_file pragma in generated headers. They are quite
+	likely to change, and it's not a portable pragma anyway.
+
+Change 34492 on 2009/05/12 by MichalN@MICHALN_WATCOM_LINUX
+
+	Fixed a mix-up of fpos_t and off_t; fpos_t is not a scalar!
+
+Change 34491 on 2009/05/12 by MichalN@MICHALN_WATCOM_LINUX
+
+	Always use .exe extension when building owcc.
+
+Change 34490 on 2009/05/12 by MichalN@MICHALN_WATCOM_LINUX
+
+	Remove _WCUNALIGNED definition from gcc command line, it's already
+	defined in a header.
+
+Change 34488 on 2009/05/11 by MichalN@MICHALN_WATCOM
+
+	More updates for V2 branch.
+
+Change 34487 on 2009/05/11 by MichalN@MICHALN_WATCOM
+
+	Picked up more changes into V2 branch.
+
+Change 34486 on 2009/05/11 by MichalN@MICHALN_WATCOM
+
+	Use relative path to avoid backslashes in filename; they may be
+	misinterpreted as metacharacters by awk and effectively deleted.
+
+Change 34452 on 2009/05/07 by MichalN@MICHALN_WATCOM
+
+	Updated V2 branch.
+
+Change 34303 on 2009/03/31 by MichalN@MICHALN_WATCOM_OSX
+
+	Make sure we can cross-build wstrip.
+
+Change 34300 on 2009/03/31 by MichalN@MICHALN_WATCOM_OSX
+
+	Corrected build order.
+
+Change 34296 on 2009/03/30 by MichalN@MICHALN_SOL64
+
+	Try using 'source' instead of '.'. Seems to work on Solaris and OS X.
+
+Change 34295 on 2009/03/30 by MichalN@MICHALN_SOL64
+
+	Fix mismatched enum; maybe we should have caught this?
+
+Change 34293 on 2009/03/30 by MichalN@MICHALN_SOL64
+
+	Got sampler building on Solaris. Very rough port.
+
+Change 34292 on 2009/03/30 by MichalN@MICHALN_SOL64
+
+	Simplified struct packing in dig; should be perhaps ditched altogether.
+
+Change 34291 on 2009/03/30 by MichalN@MICHALN_SOL64
+
+	Use external .res files only when directed instead of guessing.
+
+Change 34290 on 2009/03/30 by MichalN@MICHALN_SOL64
+
+	Renamed B_TRUE/B_FALSE to P_TRUE/P_FALSE to avoid conflicts on Solaris.
+
+Change 34280 on 2009/03/28 by MichalN@MICHALN_WATCOM_OSX
+
+	Another set of V2 branch updates.
+
+Change 34279 on 2009/03/28 by MichalN@MICHALN_WATCOM_OSX
+
+	Use short instead of char. Windows wider or taller than 127 cells
+	are not that unlikely.
+
+Change 34278 on 2009/03/27 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated another bunch of changes into branch.
+
+Change 34276 on 2009/03/26 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated some changes into V2 branch.
+
+Change 34041 on 2009/02/01 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated wipfc updates.
+
+Change 33990 on 2009/01/23 by MichalN@MICHALN_WATCOM_OSX
+
+	Branched wipfc for further processing.
+
+Change 33936 on 2009/01/10 by MichalN@MICHALN_WATCOM_OSX
+
+	Picked up a few updates for V2 branch.
+
+Change 33935 on 2009/01/10 by MichalN@MICHALN_WATCOM_OSX
+
+	Use getopt() in edbind to improve portability.
+
+Change 33836 on 2008/12/02 by MichalN@MICHALN_SOL64
+
+	Removed superfluous semicolons.
+
+Change 33830 on 2008/11/30 by MichalN@MICHALN_SOL64
+
+	Fixed stupid off-by-one error.
+
+Change 33826 on 2008/11/30 by MichalN@MICHALN_SOL64
+
+	Removed odd dependency.
+
+Change 33825 on 2008/11/30 by MichalN@MICHALN_SOL64
+
+	Reworked proclbc.awk to avoid multiline regex. The result also happens
+	to be much cleaner and simpler.
+
+Change 33823 on 2008/11/29 by MichalN@MICHALN_WATCOM_OSX
+
+	Corrected pmake keyword.
+
+Change 33822 on 2008/11/29 by MichalN@MICHALN_SOL64
+
+	Updated debug compiler makefiles.
+
+Change 33821 on 2008/11/29 by MichalN@MICHALN_SOL64
+
+	Eliminated anonymous structs from C/C++ compiler (SunPro C doesn't like them).
+
+Change 33819 on 2008/11/29 by MichalN@MICHALN_WATCOM_OSX
+
+	Brought over updates to V2 branch.
+
+Change 33810 on 2008/11/25 by MichalN@MICHALN_WATCOM
+
+	Updated branch.
+
+Change 33808 on 2008/11/25 by MichalN@MICHALN_WATCOM
+
+	Don't build IDE.
+
+Change 33807 on 2008/11/25 by MichalN@MICHALN_WATCOM
+
+	We really want to use loaddll if we can...
+
+Change 33804 on 2008/11/24 by MichalN@MICHALN_WATCOM
+
+	V2 build fixes.
+
+Change 33803 on 2008/11/24 by MichalN@MICHALN_WATCOM
+
+	Brought over updates to branch.
+
+Change 33772 on 2008/11/18 by MichalN@MICHALN_WATCOM
+
+	Integrated a few updates into the V2 branch.
+
+Change 33761 on 2008/11/16 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated linker fix.
+
+Change 33753 on 2008/11/15 by MichalN@MICHALN_WATCOM_OSX
+
+	Use enums instead of plain integer types.
+
+Change 33752 on 2008/11/15 by MichalN@MICHALN_WATCOM_OSX
+
+	Added cl and dmpobj projects to build.
+
+Change 33744 on 2008/11/14 by MichalN@MICHALN_WATCOM
+
+	Integrated updates, branched ctest.
+
+Change 33730 on 2008/11/12 by MichalN@MICHALN_WATCOM
+
+	Integrated wdis and wasm tests update into V2 branch.
+
+Change 33719 on 2008/11/11 by MichalN@MICHALN_WATCOM
+
+	Need to treat bytes as bytes, not plain chars.
+
+Change 33718 on 2008/11/11 by MichalN@MICHALN_WATCOM
+
+	Added missing host OS definitions.
+
+Change 33711 on 2008/11/10 by MichalN@MICHALN_WATCOM
+
+	Added missing quotes.
+
+Change 33707 on 2008/11/08 by MichalN@MICHALN_WATCOM_OSX
+
+	Fixed up a few control files.
+
+Change 33703 on 2008/11/08 by MichalN@MICHALN_WATCOM_OSX
+
+	Re-added inadvertently removed file.
+
+Change 33702 on 2008/11/07 by MichalN@MICHALN_WATCOM
+
+	A few osi related changes.
+
+Change 33701 on 2008/11/07 by MichalN@MICHALN_WATCOM
+
+	Branched (and renamed) w32loadr.
+
+Change 33700 on 2008/11/07 by MichalN@MICHALN_WATCOM
+
+	Removed unnecessary switch.
+
+Change 33699 on 2008/11/07 by MichalN@MICHALN_WATCOM
+
+	Redid makefile in a nicer way.
+
+Change 33697 on 2008/11/07 by MichalN@MICHALN_WATCOM_OSX
+
+	Added win386 and vi to V2 build.
+
+Change 33690 on 2008/11/05 by MichalN@MICHALN_WATCOM
+
+	Only keep one copy of awk scripts around.
+
+Change 33689 on 2008/11/05 by MichalN@MICHALN_WATCOM
+
+	Integrated another set of changes.
+
+Change 33680 on 2008/11/03 by MichalN@MICHALN_WATCOM
+
+	Cleaned up vi build somewhat (trunk uses -ai switch to hide problems!).
+
+Change 33677 on 2008/11/02 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated (or not, in some cases) a few changes.
+
+Change 33659 on 2008/10/30 by MichalN@MICHALN_WATCOM_OSX
+
+	Killed off old control files from branch.
+
+Change 33655 on 2008/10/30 by MichalN@MICHALN_WATCOM
+
+	Integrated most of the changes from trunk after correcting branch spec.
+
+Change 33653 on 2008/10/29 by MichalN@MICHALN_WATCOM
+
+	Redid include path changes in a more consistent way.
+
+Change 33649 on 2008/10/28 by JiriM@MALAKJ_ECOM4_NET
+
+	Correct run-time libraries include path to point to new (freshly created) header files.
+
+Change 33646 on 2008/10/28 by MichalN@MICHALN_WATCOM
+
+	Integrated w32api changes after updating branch mappings. Was
+	required in order to pick up important w32api fixes.
+
+Change 33643 on 2008/10/28 by JiriM@MALAKJ_ECOM4_NET
+
+	Correctly clean posix project V2 build.
+
+Change 33642 on 2008/10/28 by JiriM@MALAKJ_ECOM4_NET
+
+	Correct name of C++ compiler for i86 target.
+
+Change 33641 on 2008/10/28 by JiriM@MALAKJ_ECOM4_NET
+
+	Correct V2 build os2api project builder.ctl to work properly.
+
+Change 33638 on 2008/10/28 by JiriM@MALAKJ_LINUX
+
+	Integrate change #33634 into V2 build.
+
+Change 33637 on 2008/10/28 by MichalN@MICHALN_WATCOM
+
+	Corrected makefile.
+
+Change 33635 on 2008/10/28 by MichalN@MICHALN_WATCOM
+
+	Integrated a ton of GUI related changes.
+
+Change 33631 on 2008/10/28 by MichalN@MICHALN_WATCOM
+
+	Another stab at fixing nonportable line continuation junk.
+
+Change 33630 on 2008/10/28 by JiriM@MALAKJ_ECOM4_NET
+
+	Add next internal BOOT... variables to cleanup.
+
+Change 33628 on 2008/10/28 by MichalN@MICHALN_WATCOM_OSX
+
+	On OS X awk at least (Bell Labs awk version 20040207), line
+	continuation character seems to result in whitespace. Work
+	around that.
+
+Change 33627 on 2008/10/28 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated updated rtdll build.
+
+Change 33625 on 2008/10/27 by MichalN@MICHALN_WATCOM
+
+	Brought more changes over to V2 branch.
+
+Change 33624 on 2008/10/27 by MichalN@MICHALN_WATCOM
+
+	Brought over a few updates to the V2 branch.
+
+Change 33623 on 2008/10/27 by MichalN@MICHALN_WATCOM
+
+	Integrated wlib changes, some of which are required to build
+	cpplib (-pa switch).
+
+Change 33622 on 2008/10/27 by MichalN@MICHALN_WATCOM
+
+	Clear BOOTSUBDIR in the master include to keep things under control.
+
+Change 33621 on 2008/10/27 by MichalN@MICHALN_WATCOM
+
+	Consistently pass inc_dirs to host_cl (was only done on UNIX).
+
+Change 33619 on 2008/10/26 by MichalN@MICHALN_WATCOM_OSX
+
+	Branched cpplib into V2, deleted a few redundant files.
+
+Change 33617 on 2008/10/26 by MichalN@MICHALN_WATCOM_OSX
+
+	Branched C compiler updates.
+
+Change 33616 on 2008/10/26 by MichalN@MICHALN_WATCOM_OSX
+
+	Added 'normal' (non-devel) C++ compiler to V2 branch, adjusted
+	makefile structure to match C compiler.
+
+Change 33480 on 2008/09/20 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated a few tiny changes.
+
+Change 33455 on 2008/09/16 by JiriM@MALAKJ_W2K
+
+	Remove sed from builder build, it is part of POSIX tools build.
+
+Change 33451 on 2008/09/15 by JiriM@MALAKJ_W2K
+
+	Add POSIX tool for bootstrap if necessary.
+
+Change 33450 on 2008/09/15 by JiriM@MALAKJ_W2K
+
+	Fix V2 bootstrap linking commands.
+
+Change 33435 on 2008/09/10 by JiriM@MALAKJ_XP2
+
+	Integrate changes for posix tools from 1.8 trunk.
+
+Change 33068 on 2008/06/26 by MichalN@MICHALN_WATCOM_OSX
+
+	Added forgotten file.
+
+Change 33067 on 2008/06/26 by MichalN@MICHALN_SOL64
+
+	Corrected build order.
+
+Change 33063 on 2008/06/25 by MichalN@MICHALN_WATCOM
+
+	Added a few tweaks for bootstrapping with MSVC (far from working).
+
+Change 33059 on 2008/06/25 by MichalN@MICHALN_WATCOM
+
+	Reversed order of dependencies. Fixes annoying rebuilds caused by the
+	fact that building keyword2.obj overwrote the files generated for
+	building keyword.obj.
+
+Change 33058 on 2008/06/25 by MichalN@MICHALN_WATCOM
+
+	Integrated updates, fixed dbg build in V2 branch.
+
+Change 33049 on 2008/06/23 by MichalN@MICHALN_WATCOM
+
+	Removed debug option.
+
+Change 33048 on 2008/06/23 by MichalN@MICHALN_WATCOM
+
+	Integrated changes from trunk.
+
+Change 33019 on 2008/06/20 by MichalN@MICHALN_WATCOM
+
+	Modified builder to make it easy to add conditional processing
+	to builder control files based on build platform.
+
+Change 33018 on 2008/06/20 by MichalN@MICHALN_WATCOM
+
+	Added awk as a separate project to V2 branch.
+
+Change 33015 on 2008/06/19 by MichalN@MICHALN_WATCOM_OSX
+
+	Corrected .ctl files I forgot to check in earlier.
+
+Change 33012 on 2008/06/19 by MichalN@MICHALN_WATCOM
+
+	Brought over another set of changes.
+
+Change 33011 on 2008/06/19 by MichalN@MICHALN_WATCOM
+
+	Fixed/improved V2 build on Windows.
+
+Change 33006 on 2008/06/19 by MichalN@MICHALN_WATCOM
+
+	Fix/workaround for w32api and C++ compiler build conflict.
+
+Change 33005 on 2008/06/19 by MichalN@MICHALN_WATCOM
+
+	Reverted erroneous change.
+
+Change 33004 on 2008/06/19 by MichalN@MICHALN_WATCOM
+
+	Checked in forgotten file.
+
+Change 33001 on 2008/06/18 by MichalN@MICHALN_WATCOM_OSX
+
+	Build a bit more stuff.
+
+Change 32997 on 2008/06/18 by MichalN@MICHALN_WATCOM
+
+	Removed another set of signed/unsigned char related warnings.
+
+Change 32995 on 2008/06/17 by MichalN@MICHALN_WATCOM
+
+	Created a bootunix sort-of-target for bootstrap building utilities
+	which are UNIX specific (or built in an UNIX specific way).
+
+Change 32992 on 2008/06/16 by MichalN@MICHALN_WATCOM
+
+	Fixed a few mostly harmless char signedness issues.
+
+Change 32991 on 2008/06/16 by MichalN@MICHALN_SOL64
+
+	No need for token pasting here.
+
+Change 32990 on 2008/06/16 by MichalN@MICHALN_WATCOM
+
+	Another set of V2 branch build tweaks.
+
+Change 32987 on 2008/06/16 by MichalN@MICHALN_WATCOM
+
+	Integrated a few more fixes.
+
+Change 32986 on 2008/06/16 by MichalN@MICHALN_WATCOM
+
+	Improved bootstrap build on NT.
+
+Change 32985 on 2008/06/16 by MichalN@MICHALN_SOL64
+
+	Fixed the other header too.	
+
+Change 32984 on 2008/06/16 by MichalN@MICHALN_WATCOM
+
+	Use a portable method to generate macro definitions.
+
+Change 32977 on 2008/06/15 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated another set of changes to V2 branch.
+
+Change 32976 on 2008/06/15 by MichalN@MICHALN_WATCOM_OSX
+
+	Reworked cc build structure; made it more orthogonal and
+	got rid of funny stuff. Now it's much easier to bootstrap
+	build the C compiler.
+
+Change 32965 on 2008/06/13 by MichalN@MICHALN_SOL64
+
+	Stick with -O2 for Solaris builds; -O3 may generate bad code.
+
+Change 32963 on 2008/06/13 by MichalN@MICHALN_SOL64
+
+	Removed unnamed unions (not standard C).
+
+Change 32961 on 2008/06/12 by MichalN@MICHALN_WATCOM
+
+	No wonder builder never worked right on NT. It didn't bother to
+	get return code from child processes. Sigh.
+
+Change 32960 on 2008/06/12 by MichalN@MICHALN_WATCOM
+
+	Fixed horrible bug in NT builder which caused it to not fail when
+	it couldn't start child process.
+
+Change 32959 on 2008/06/11 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated updates into V2 branch.
+
+Change 32947 on 2008/06/07 by MichalN@MICHALN_WATCOM_OSX
+
+	Picked up another set of updates.
+
+Change 32916 on 2008/05/31 by MichalN@MICHALN_WATCOM_OSX
+
+	Workaround/fix for conflicting macro definitions.
+
+Change 32915 on 2008/05/31 by MichalN@MICHALN_WATCOM_OSX
+
+	David has been real busy!
+
+Change 32879 on 2008/05/28 by MichalN@MICHALN_SOL64
+
+	Passing null string pointers to printf() is not something that
+	every runtime likes.
+
+Change 32803 on 2008/05/24 by MichalN@MICHALN_WATCOM_OSX
+
+	Don't know how I managed to delete these files...
+
+Change 32797 on 2008/05/23 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated changes, especially w32api fixes.
+
+Change 32794 on 2008/05/23 by MichalN@MICHALN_WATCOM
+
+	Added a NMAKE makefile for wmake.
+
+Change 32745 on 2008/05/14 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated updates, adjusted a few makefiles in trap
+	project.
+
+Change 32707 on 2008/05/07 by MichalN@MICHALN_WATCOM_OSX
+
+	Got more of the V2 branch building on a Mac.
+
+Change 32705 on 2008/05/07 by MichalN@MICHALN_SOL64
+
+	A few rough fixes for building on Solaris.
+
+Change 32702 on 2008/05/05 by MichalN@MICHALN_WATCOM_OSX
+
+	Another bunch of projects integrated into V2 branch.
+
+Change 32695 on 2008/05/04 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated fixes.
+
+Change 32692 on 2008/05/04 by MichalN@MICHALN_WATCOM_OSX
+
+	Branched over more debugger stuff.
+
+Change 32689 on 2008/05/03 by MichalN@MICHALN_WATCOM_OSX
+
+	Got the sdk subtree building in V2 branch.
+
+Change 32687 on 2008/05/02 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated another bunch of source directories.
+
+Change 32674 on 2008/04/29 by MichalN@MICHALN_WATCOM_OSX
+
+	Cleaned up a few more warnings. Slowly running out...
+
+Change 32673 on 2008/04/29 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated updates from trunk.
+
+Change 32664 on 2008/04/28 by MichalN@MICHALN_SOL64
+
+	Cleaned up source to get V2 tools building on Solaris with gcc.
+
+Change 32656 on 2008/04/27 by MichalN@MICHALN_WATCOM_OSX
+
+	Another batch of V2 integrations/updates. The entire clib
+	can now be cross built on my Mac.
+
+Change 32644 on 2008/04/25 by MichalN@MICHALN_WATCOM
+
+	Integrated small change.
+
+Change 32643 on 2008/04/25 by MichalN@MICHALN_WATCOM
+
+	Small tweaks to make code more amenable to MSVC.
+
+Change 32641 on 2008/04/25 by MichalN@MICHALN_WATCOM
+
+	Varargs functions with #pragma aux aborts really need to be
+	consistently declared! Else the arguments will be messed up.
+
+Change 32638 on 2008/04/25 by MichalN@MICHALN_WATCOM_OSX
+
+	Some smartass made 'asm' a keyword by default in gcc.
+
+Change 32637 on 2008/04/25 by MichalN@MICHALN_WATCOM_OSX
+
+	Use hex constant instead of a non-portable character.
+
+Change 32636 on 2008/04/25 by MichalN@MICHALN_WATCOM_OSX
+
+	Added missed file.
+
+Change 32635 on 2008/04/24 by MichalN@MICHALN_WATCOM_OSX
+
+	More portability fixes (plain char strikes again, etc.).
+
+Change 32634 on 2008/04/24 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated a few more directories into V2 branch.
+
+Change 32633 on 2008/04/24 by MichalN@MICHALN_WATCOM_OSX
+
+	Integrated updates, fixed build on UNIX.
+
+Change 32631 on 2008/04/24 by MichalN@MICHALN_WATCOM
+
+	Another batch of V2 portability fixes.
+
+Change 32628 on 2008/04/24 by MichalN@MICHALN_WATCOM
+
+	Made makefile very slightly more portable.
+
+Change 32624 on 2008/04/23 by MichalN@MICHALN_WATCOM_OSX
+
+	Misc. portability fixes, esp. plain char signedness.
+
+Change 32615 on 2008/04/22 by MichalN@MICHALN_SOLARIS
+
+	Sorted out a few problems on Solaris build (still lots to solve).
+
+Change 32611 on 2008/04/22 by MichalN@MICHALN_WATCOM_OSX
+
+	Cleaned up a few more warnings.
+
+Change 32602 on 2008/04/21 by MichalN@MICHALN_SOLARIS
+
+	Cleaned up a few minor Solaris build problems (major ones still remain).
+
+Change 32599 on 2008/04/20 by MichalN@MICHALN_WATCOM_OSX
+
+	The V2 build system is slowly taking shape...
+
+Change 32587 on 2008/04/20 by MichalN@MICHALN_WATCOM_OSX
+
+	Added w16api to V2 branch.
+
+Change 32586 on 2008/04/19 by MichalN@MICHALN_WATCOM_OSX
+
+	Another V2 update/integration.
+
+Change 32581 on 2008/04/18 by MichalN@MICHALN_WATCOM_OSX
+
+	Another V2 build system revision.
+
+Change 32580 on 2008/04/17 by MichalN@MICHALN_SOLARIS
+
+	A bunch of tweaks to get the build system going on Solaris.
+
+Change 32576 on 2008/04/16 by MichalN@MICHALN_WATCOM_OSX
+
+	Additions/updates to V2 branch.
+
+Change 32573 on 2008/04/16 by MichalN@MICHALN_WATCOM
+
+	Minor code cleanup.
+
+Change 32571 on 2008/04/16 by MichalN@MICHALN_WATCOM
+
+	Slightly tweaked makefiles (part of portability enhancements).
+
+Change 32566 on 2008/04/14 by MichalN@MICHALN_WATCOM
+
+	Fixed up makefiles a bit so I could verify that things still build
+	on Windows with OW tools (they do).
+
+Change 32564 on 2008/04/13 by MichalN@MICHALN_WATCOM_OSX
+
+	Branched libs, more minor changes.
+
+Change 32561 on 2008/04/13 by MichalN@MICHALN_WATCOM_OSX
+
+	Added files to be deleted.
+
+Change 32560 on 2008/04/13 by MichalN@MICHALN_WATCOM_OSX
+
+	Minor tweaks, builder update, warnings cleanup.
+
+Change 32559 on 2008/04/12 by MichalN@MICHALN_WATCOM_OSX
+
+	First draft of V2 source tree.
+

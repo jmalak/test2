@@ -1,0 +1,9 @@
+#pmake: bootstrap 
+
+bootstrap = 1
+
+extra_files = $(unix)
+
+inc_dirs = -I"$(ncurses_dir)/h"
+
+!include ../../ui.mif

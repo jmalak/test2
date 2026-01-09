@@ -1,0 +1,8 @@
+#pmake: bootstrap
+
+bootstrap = 1
+
+host_os  = dos
+host_cpu = i86
+
+!include ../master.mif

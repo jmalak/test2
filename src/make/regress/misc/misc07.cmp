@@ -1,0 +1,10 @@
+(echo foo)
+foo
+echo (foo)
+(foo)
+echo foo & echo bar
+foo 
+bar
+set MYVAR=(text)
+echo (text)
+(text)

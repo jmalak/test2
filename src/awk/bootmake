@@ -1,0 +1,8 @@
+#pmake: bootstrap
+
+bootstrap = 1
+
+# Avoid local isblank() definition
+extra_c_flags = -DHAS_ISBLANK
+
+!include ../master.mif

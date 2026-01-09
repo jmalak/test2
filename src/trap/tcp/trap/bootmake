@@ -1,0 +1,21 @@
+#pmake: boot trap remote tcp
+
+bootstrap = 1
+
+os    = $(host_os)
+srv   = tcp
+cpu   = x86
+which = TRAP
+type  = remote_link
+
+builtin_trap = 1
+
+extra_objs = clibext.obj
+extra_c_flags = $(cflags_shared)
+
+!define substitute_linker
+
+!include $(trap_dir)/master.mif
+
+$(target) : $(libs) $(objs) $(__MAKEFILES__)
+    $(cl) $(clflags_shared) $(clflags) $(objs) $(cl_libs)

@@ -1,0 +1,28 @@
+
+extra_linker = lib os2386.lib &
+    segment 'port' IOPL export INPUT_PORT 2, OUTPUT_PORT 4 &
+    imp DOSPORTACCESS DOSCALLS.69
+
+# The -nd switch is used to prevent the creation of 16-bit
+# CONST/CONST2/_DATA segments which clash with 32-bit ones.
+extra_c_flags_portos22 = -nt=port -nc=IOPL_CODE -nd=xx -zls -zl
+
+# Special rule to build 16-bit objects in 32-bit projects
+
+cc16 = wcc
+cc16 += -zq
+
+mem16_model = -ms
+c16flags = $(cflags_all) $(fpu_flags) $(mem16_model) $(cflags_$(host_os)) $(cflags_$(host_os)_i86) $(proj_c_flags)
+
+.extensions: .c16
+
+.c16: ../../c
+
+.c16.obj: $($(proj_name)_autodepends)
+!ifeq verbose 1
+        $(cc16) $(c16flags) $(extra_c_flags_$[&) $(inc_path) $[@
+!else
+        @echo cc16 $@
+        @$(cc16) $(c16flags) $(extra_c_flags_$[&) $(inc_path) $[@
+!endif

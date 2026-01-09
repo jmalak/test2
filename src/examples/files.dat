@@ -1,0 +1,20 @@
+[ DEFAULT ]
+[ INCLUDE <OWROOT>/src/examples/clibexam/files.dat ]
+[ INCLUDE <OWROOT>/src/examples/cplbexam/files.dat ]
+[ INCLUDE <OWROOT>/src/examples/cppexamp/files.dat ]
+[ INCLUDE <OWROOT>/src/examples/dll/files.dat ]
+[ INCLUDE <OWROOT>/src/examples/goodies/files.dat ]
+[ INCLUDE <OWROOT>/src/examples/win/files.dat ]
+[ INCLUDE <OWROOT>/src/examples/startup/files.dat ]
+[ INCLUDE <OWROOT>/src/examples/misc/files.dat ]
+[ INCLUDE <OWROOT>/src/examples/os2/files.dat ]
+[ INCLUDE <OWROOT>/src/examples/directx/files.dat ]
+
+# CPPLIB/CONTAIN source code
+[ DEFAULT type="s" dir="src/cpplib/contain" cond="rtsource" where="c f77 ac" ]
+usr="wchash.cpp"
+usr="wclist.cpp"
+usr="wcskip.cpp"
+usr="wcexcept.cpp"
+
+#[ INCLUDE <DEVDIR>/src/p16/files.dat ]

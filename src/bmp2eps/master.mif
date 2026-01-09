@@ -1,0 +1,23 @@
+proj_name = bmp2eps
+bmp2eps_autodepends = .autodepend
+
+!include cproj.mif
+!include deftarg.mif
+!include defrule.mif
+
+# TODO: OW 1.9 doesn't include getpid() as it should. Hack around
+# the problem by reducing the warning level.
+# Remove when building with OW 1.9 is no longer a requirement.
+extra_wcc_flags = -w0
+
+inc_dirs = -I"../h"
+
+.c: ../c
+
+objs =                  &
+        bmeps.obj       &
+        bmepsm.obj      &
+        bmepsoe.obj     &
+        bmpeps.obj
+
+!include exetarg.mif
