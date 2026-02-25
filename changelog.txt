@@ -1,3 +1,8 @@
+Change 39003 on 2026/02/20 by MichalN@MICHALN_RYZEN
+
+	Integrated Change 38970 to V2 branch, restores setmode() calls in ntio.c
+	so that NT and OS/2 console input works again.
+
 Change 38993 on 2025/12/05 by MichalN@MICHALN_RYZEN
 
 	Fixed an obscure bug when emitting CodeView DBI for
