@@ -1,3 +1,33 @@
+Change 39015 on 2026/03/25 by MichalN@MICHALN_RYZEN
+
+	Integrated Change 39014 to V2 branch (fix for FPU detection
+	potentially hanging on 8086-class systems plus ditching
+	other harmful/useless WAIT instructions).
+
+Change 39013 on 2026/03/24 by MichalN@MICHALN_RYZEN
+
+	Integrated fixes related to running on hosts with no FPU to V2
+	branch. Includes Change 39008, 39009, 39011 as well as somewhat
+	unrelated Change 37201.
+
+Change 39012 on 2026/03/24 by MichalN@MICHALN_RYZEN
+
+	Print a bit more data from D16INFO.
+
+Change 39010 on 2026/03/24 by MichalN@MICHALN_RYZEN
+
+	Integrated makefile update to use wlink instead of GLU by default.
+
+Change 39007 on 2026/03/23 by MichalN@MICHALN_RYZEN
+
+	Build NT and OS/2 versions of cwc to reduce the chance that we'll
+	try to run cwc from the binw directory by mistake.
+
+Change 39005 on 2026/03/09 by MichalN@MICHALN_RYZEN
+
+	Made btclean.bat set its own PATH instead of relying on it being
+	already set.
+
 Change 39003 on 2026/02/20 by MichalN@MICHALN_RYZEN
 
 	Integrated Change 38970 to V2 branch, restores setmode() calls in ntio.c

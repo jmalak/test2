@@ -1,6 +1,33 @@
 @echo off
 rem Batch to clean a bootstrap build of Open Watcom tools.
 
+rem Verify that critical environment variables are set
+if not "%OWROOT%" == "" goto have_owroot
+echo The OWROOT environment variable must be set!
+goto end
+:have_owroot
+
+if not "%OWOBJDIR%" == "" goto have_owobjdir
+echo The OWOBJDIR environment variable must be set!
+goto finish
+:have_owobjdir
+
+if not "%OWBINDIR%" == "" goto have_owbindir
+echo The OWBINDIR environment variable must be set!
+goto finish
+:have_owbindir
+
+rem We do not want the changes to environment to persist
+setlocal
+
+rem Save the current environment
+set OWBLD_SAVED_PATH=%PATH%
+
+rem Set up the PATH without making any assumptions as to what
+rem is or isn't in it. Needed for builder and for makeinit.
+set PATH=%OWBINDIR%;%OWROOT%\build;%PATH%
+
+rem Check if builder is available, if not then just skip it.
 if exist %OWBINDIR%\builder.exe goto have_builder
 echo Cannot find builder - did you run boot.bat?
 goto no_builder
@@ -51,3 +78,12 @@ if exist %OWBINDIR%\true.exe del %OWBINDIR%\true.exe
 if exist %OWBINDIR%\uniq.exe del %OWBINDIR%\uniq.exe
 if exist %OWBINDIR%\wc.exe del %OWBINDIR%\wc.exe
 if exist %OWBINDIR%\which.exe del %OWBINDIR%\which.exe
+
+rem Restore original values of environment variables
+:restore_env
+set PATH=%OWBLD_SAVED_PATH%
+
+:finish
+cd %OWROOT%
+endlocal
+:end

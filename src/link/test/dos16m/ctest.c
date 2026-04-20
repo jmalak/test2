@@ -19,6 +19,10 @@ int main( int argc, char **argv )
     printf( "DOS/16M version: %Ws\n", _d16info.versionp );
     printf( "Executed as: %s\n", argv[0] );
 
+    /* A bit of info about the CPU. */
+    printf( "CPU type: %d, FPU present: %d\n",
+            _d16info.cpumod, _d16info.has_87 );
+
     /* Environment variables in the DOS/16M kernel. */
     f_env = _env16M;
     i = 4;
