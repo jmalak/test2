@@ -1,3 +1,57 @@
+Change 39033 on 2026/04/20 by MichalN@MICHALN_RYZEN
+
+	Integrated w16api/w32api awk script updates. No real change.
+
+Change 39032 on 2026/04/20 by MichalN@MICHALN_RYZEN
+
+	Integrated DIG updates to V2 branch (better error handling when
+	module load fails).
+
+Change 39031 on 2026/04/16 by MichalN@michaln-owc
+
+	Fixed function prototype to match passed in functions.
+
+Change 39030 on 2026/04/16 by MichalN@MICHALN_RYZEN
+
+	Integrated disassembler update to V2 branch.
+
+Change 39028 on 2026/04/15 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Don't pass needless arguments around; use correct RW_DEFAULT
+	vs W_DEFAULT constants in x64 disassembler core.
+
+Change 39027 on 2026/04/15 by MichalN@MICHALN_LINUX_64VM_RYZEN
+
+	Fixed some gcc warnings in wdis build.
+
+Change 39026 on 2026/04/15 by MichalN@MICHALN_RYZEN
+
+	Updated wdis test program in V2 branch, too.
+
+Change 39025 on 2026/04/15 by MichalN@MICHALN_RYZEN
+
+	Integrated disassembler related changes to MAD modules in V2 branch.
+
+Change 39024 on 2026/04/15 by MichalN@MICHALN_RYZEN
+
+	Integrated wdis changes from main branch to V2.
+
+Change 39023 on 2026/04/14 by MichalN@MICHALN_RYZEN
+
+	Integrated Change 39022, fix inverted fldcw/fstcw function numbers
+	when calling into 16-bit DOS FPU emulator.
+
+Change 39021 on 2026/04/14 by MichalN@MICHALN_RYZEN
+
+	Integrated Change 39020 to V2 branch, fixes wasm processing of FWAIT
+	depending on CPU/FPU settings. Fixes broken trig87 module in math library
+	which tried to execute WAIT instructions when running on 8086 with no 8087.
+
+Change 39018 on 2026/04/08 by MichalN@MICHALN_RYZEN
+
+	Integrated Change 38477 into V2 branch. Fixes overlay loader using
+	386 instructions in code that is meant to run on 8086/286.
+
 Change 39015 on 2026/03/25 by MichalN@MICHALN_RYZEN
 
 	Integrated Change 39014 to V2 branch (fix for FPU detection

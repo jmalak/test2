@@ -308,7 +308,7 @@ unsigned HandleAReference( dis_value value, int ins_size, ref_flags flags,
                                  flags );
             }
             break;
-        
+
         case ORL_RELOC_TYPE_REL_32_NOADJ:
             // this is a little kluge because Brian's ELF files seem to have
             // -4 in the implicit addend for calls and such BBB May 09, 1997
@@ -465,7 +465,7 @@ unsigned DisCliValueString( void *d, dis_dec_ins *ins, unsigned op_num,
         if( pd->r_entry != NULL ) {
             /* if there is an override we must avoid the frame
              */
-            if( ( ins->flags & DIS_X86_SEG_OR ) && IsIntelx86() ) {
+            if( ( ins->flags.u.x86 & DIS_X86_SEG_OR ) && IsIntelx86() ) {
                 rf |= RFLAG_NO_FRAME;
             }
             len = HandleAReference( op->value, ins->size, rf,
@@ -522,6 +522,28 @@ static void processDataInCode( section_ptr sec, unsigned_8 *contents, struct pas
     data->loop = offset;
 }
 
+static char *processFpuEmulatorFixup( ref_entry *r, orl_sec_offset loop )
+{
+    char    *fixup;
+
+    if( *r != NULL && (*r)->offset == loop ) {
+        fixup = SkipRef( *r );
+        if( fixup != NULL ) {
+            *r = (*r)->next;
+            // there can be second fixup per instruction with 1 byte offset
+            // it must be skipped too, displayed is first only
+            // first one is significant, second one is segment override only
+            if( *r && SkipRef( *r ) != NULL && ( (*r)->offset == loop + 1 ) ) {
+                *r = (*r)->next;
+            }
+            if( Options & PRINT_FPU_EMU_FIXUP ) {
+                return( fixup );
+            }
+        }
+    }
+    return( NULL );
+}
+
 num_errors DoPass2( section_ptr sec, unsigned_8 *contents, orl_sec_size size,
                     label_list sec_label_list, ref_list sec_ref_list )
 // perform pass 2 on one section
@@ -531,10 +553,12 @@ num_errors DoPass2( section_ptr sec, unsigned_8 *contents, orl_sec_size size,
     dis_dec_ins         decoded;
     char                name[ MAX_INS_NAME ];
     char                ops[ MAX_OBJ_NAME + 24 ];       // at most 1 label/relocation per instruction, plus room for registers, brackets and other crap
-    unsigned            flags;
+    dis_inst_flags      flags;
     scantab_ptr         st;
     int                 is_intel;
     sa_disasm_struct    sds;
+    char                *FPU_fixup;
+    int                 pos_tabs;
 
     routineBase = 0;
     st = sec->scan;
@@ -558,11 +582,11 @@ num_errors DoPass2( section_ptr sec, unsigned_8 *contents, orl_sec_size size,
     PrintHeader( sec );
     if( size && sec_label_list )
         PrintAssumeHeader( sec );
-    flags = 0;
+    flags.u.all = 0;
     if( GetMachineType() == ORL_MACHINE_TYPE_I386 ) {
         if( ( GetFormat() != ORL_OMF ) ||
             ( ORLSecGetFlags( sec->shnd ) & ORL_SEC_FLAG_USE_32 ) ) {
-            flags = DIF_X86_USE32_FLAGS;
+            flags.u.all = DIF_X86_USE32_FLAGS;
         }
         is_intel = 1;
     } else {
@@ -582,10 +606,10 @@ num_errors DoPass2( section_ptr sec, unsigned_8 *contents, orl_sec_size size,
         }
         // data may not be listed in scan table, but a fixup at this offset will
         // give it away
-        while( data.r_entry &&
-              ( (data.r_entry->offset < data.loop) || SkipRef(data.r_entry)) ) {
+        while( data.r_entry && ( data.r_entry->offset < data.loop ) ) {
             data.r_entry = data.r_entry->next;
         }
+        FPU_fixup = processFpuEmulatorFixup( &data.r_entry, data.loop );
         if( data.r_entry && ( data.r_entry->offset == data.loop ) ) {
             if( is_intel || IsDataReloc( data.r_entry ) ) {
                 // we just skip the data
@@ -600,7 +624,7 @@ num_errors DoPass2( section_ptr sec, unsigned_8 *contents, orl_sec_size size,
             MixSource( data.loop );
         }
         DisDecodeInit( &DHnd, &decoded );
-        decoded.flags |= flags;
+        decoded.flags.u.all |= flags.u.all;
         sds.offs = data.loop;
         DisDecode( &DHnd, &sds, &decoded );
         if( sec_label_list ) {
@@ -620,31 +644,42 @@ num_errors DoPass2( section_ptr sec, unsigned_8 *contents, orl_sec_size size,
             }
         }
         DisFormat( &DHnd, &data, &decoded, DFormat, name, ops );
+        if( FPU_fixup != NULL ) {
+            if( !(DFormat & DFF_ASM) ) {
+                BufferAlignToTab( PREFIX_SIZE_TABS );
+            }
+            BufferStore( "\t%sFPU fixup %s\n", CommentString, FPU_fixup );
+        }
         if( !(DFormat & DFF_ASM) ) {
-            unsigned_64     *tmp_64;
+            //unsigned_64     *tmp_64;
             unsigned_32     *tmp_32;
             unsigned_16     *tmp_16;
 
-            tmp_64 = (unsigned_64 *)(contents + data.loop);
+            //tmp_64 = (unsigned_64 *)(contents + data.loop);
             tmp_32 = (unsigned_32 *)(contents + data.loop);
             tmp_16 = (unsigned_16 *)(contents + data.loop);
             if( DHnd.need_bswap ) {
                 switch( DisInsSizeInc( &DHnd ) ) {
-                //case 8: SWAP_64( *tmp_64 ); 
+                //case 8: SWAP_64( *tmp_64 );
                 //    break;
-                case 4: SWAP_32( *tmp_32 ); 
+                case 4: SWAP_32( *tmp_32 );
                     break;
-                case 2: SWAP_16( *tmp_16 ); 
+                case 2: SWAP_16( *tmp_16 );
                     break;
                 default:
                     break;
                 }
             }
-            PrintLinePrefix( contents, data.loop, size,
-                             DisInsSizeInc( &DHnd ), decoded.size );
+            PrintLinePrefix( contents, data.loop, size, DisInsSizeInc( &DHnd ), decoded.size );
         }
-        BufferStore( "    %*s %s", -DisInsNameMax( &DHnd ), name, ops );
-        BufferStore("\n");
+        BufferStore( "\t%s", name );
+        pos_tabs = ( DisInsNameMax( &DHnd ) + TAB_WIDTH ) / TAB_WIDTH + 1;
+        if( !(DFormat & DFF_ASM) ) {
+            pos_tabs += PREFIX_SIZE_TABS;
+        }
+        BufferAlignToTab( pos_tabs );
+        BufferConcat( ops );
+        BufferConcatNL();
         BufferPrint();
     }
     if( sec_label_list ) {

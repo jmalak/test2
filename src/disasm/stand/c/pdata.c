@@ -24,8 +24,7 @@
 *
 *  ========================================================================
 *
-* Description:  WHEN YOU FIGURE OUT WHAT THIS FILE DOES, PLEASE
-*               DESCRIBE IT HERE!
+* Description:  Process the .pdata section.
 *
 ****************************************************************************/
 
@@ -136,7 +135,7 @@ return_val DumpPDataSection( section_ptr sec, unsigned_8 *contents,
     orl_sec_offset      loop;
     hash_data *         data_ptr;
     ref_list            r_list;
-    ref_entry           r_entry;
+    ref_entry           r_entry = NULL;
     descriptor_struct   descriptor;
 
     if( pass == 1 ) return( OKAY );
@@ -145,17 +144,15 @@ return_val DumpPDataSection( section_ptr sec, unsigned_8 *contents,
     data_ptr = HashTableQuery( HandleToRefListTable, (hash_value) sec->shnd );
     if( *data_ptr ) {
         r_list = (ref_list) *data_ptr;
-        if( r_list ) {
+        if( r_list )
             r_entry = r_list->first;
-        } else {
-            r_entry = NULL;
-        }
     }
     BufferConcatNL();
     PrintHeader( sec );
     BufferConcatNL();
     for( loop = 0; loop < size; loop += sizeof( descriptor_struct ) ) {
-        if( r_entry == NULL ) break;
+        if( r_entry == NULL )
+            break;
         memcpy( &descriptor, contents + loop, sizeof( descriptor_struct ) );
         if( DFormat & DFF_ASM ) {
             BufferStore( "\t\t" );

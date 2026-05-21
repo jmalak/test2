@@ -629,7 +629,7 @@ static return_val initORL( void )
 {
     orl_file_flags      flags;
     orl_machine_type    machine_type;
-    orl_return          error = OKAY;
+    return_val          error = OKAY;
     orl_file_format     type;
     bool                byte_swap;
 
@@ -720,14 +720,16 @@ static return_val initORL( void )
                     return( ERROR );
             }
         } else {
-            error = ORLGetError( ORLHnd );
+            orl_return  o_error = ORLGetError( ORLHnd );
             // An "out of memory" error is not necessarily what it seems.
             // The ORL returns this error when encountering a bad or
             // unrecognized object file record.
-            if( error == ORL_OUT_OF_MEMORY ) {
+            if( o_error == ORL_OUT_OF_MEMORY ) {
                 PrintErrorMsg( OUT_OF_MEMORY, WHERE_OPENING_ORL );
+                error = OUT_OF_MEMORY;
             } else {
                 PrintErrorMsg( ERROR, WHERE_OPENING_ORL );
+                error = ERROR;
             }
         }
         if( error != OKAY ) {

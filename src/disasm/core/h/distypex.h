@@ -93,6 +93,8 @@ typedef enum {
     DI_X86_SKIPBACK = DI_X86_FIRST - 1,
     #undef inspick
     #define inspick( idx, name, opcode, mask, handler ) DI_X86_##idx,
+    #undef inspckn
+    #define inspckn inspick
     #include "insx86.h"
     #include "insx86e1.h"
     #include "insx86e2.h"
@@ -104,7 +106,13 @@ typedef enum {
     DI_X64_SKIPBACK = DI_X64_FIRST - 1,
     #undef inspick
     #define inspick( idx, name, opcode, mask, handler ) DI_X64_##idx,
+    #undef inspckn
+    #define inspckn inspick
     #include "insx64.h"
+    #include "insx86e1.h"
+    #include "insx86e2.h"
+    #include "insx86e3.h"
+    #include "insx86e4.h"
 #endif
 #if DISCPU & DISCPU_jvm
     DI_JVM_FIRST,
@@ -202,19 +210,12 @@ typedef enum {
     #define refpick( idx, name ) DRT_PPC_##idx,
     #include "refppc.h"
 #endif
-#if DISCPU & DISCPU_x86
+#if DISCPU & (DISCPU_x86 | DISCPU_x64)
     DRT_X86_FIRST,
     DRT_X86_SKIPBACK = DRT_X86_FIRST - 1,
     #undef refpick
     #define refpick( idx, name ) DRT_X86_##idx,
     #include "refx86.h"
-#endif
-#if DISCPU & DISCPU_x64
-    DRT_X64_FIRST,
-    DRT_X64_SKIPBACK = DRT_X64_FIRST - 1,
-    #undef refpick
-    #define refpick( idx, name ) DRT_X64_##idx,
-    #include "refx64.h"
 #endif
 #if DISCPU & DISCPU_jvm
     DRT_JVM_FIRST,
@@ -241,8 +242,8 @@ typedef enum {
     DRT_LAST
 } dis_ref_type;
 
-typedef enum {
 #if DISCPU & DISCPU_axp
+typedef enum {
     DIF_AXP_C           = 0x01<<0,
     DIF_AXP_D           = 0x01<<1,
     DIF_AXP_I           = 0x01<<2,
@@ -250,14 +251,20 @@ typedef enum {
     DIF_AXP_S           = 0x01<<4,
     DIF_AXP_U           = 0x01<<5,
     DIF_AXP_V           = 0x01<<6,
+} dis_inst_flags_axp;
 #endif
+
 #if DISCPU & DISCPU_ppc
+typedef enum {
     DIF_PPC_OE          = 0x01<<0,
     DIF_PPC_RC          = 0x01<<1,
     DIF_PPC_AA          = 0x01<<2,
     DIF_PPC_LK          = 0x01<<3,
+} dis_inst_flags_ppc;
 #endif
+
 #if DISCPU & DISCPU_x86
+typedef enum {
     DIF_X86_CS          = 0x0001,
     DIF_X86_DS          = 0x0002,
     DIF_X86_ES          = 0x0004,
@@ -279,8 +286,11 @@ typedef enum {
     DIF_X86_FP_INS      = 0x8000,       /* not a prefix */
     DIF_X86_USE16_FLAGS = 0,
     DIF_X86_USE32_FLAGS = DIF_X86_OPND_LONG|DIF_X86_ADDR_LONG,
+} dis_inst_flags_x86;
 #endif
+
 #if DISCPU & DISCPU_x64
+typedef enum {
     DIF_X64_CS          = 0x0001,
     DIF_X64_DS          = 0x0002,
     DIF_X64_ES          = 0x0004,
@@ -297,15 +307,24 @@ typedef enum {
     DIF_X64_REX_X       = 0x2000,
     DIF_X64_REX_R       = 0x4000,
     DIF_X64_REX_W       = 0x8000,
+} dis_inst_flags_x64;
 #endif
+
 #if DISCPU & DISCPU_jvm
+typedef enum {
     DIF_JVM_WIDE        = 0x01<<0,
     DIF_JVM_QUICK       = 0x01<<1,
+} dis_inst_flags_jvm;
 #endif
+
 #if DISCPU & DISCPU_sparc
+typedef enum {
     DIF_SPARC_ANUL      = 0x01<<0,      /* for branch instructions - next ins anul'd */
+} dis_inst_flags_sparc;
 #endif
+
 #if DISCPU & DISCPU_mips
+typedef enum {
     DIF_MIPS_NULLIFD    = 0x0001,       /* for branch instructions - next ins nullified */
     DIF_MIPS_LINK       = 0x0002,       /* linked jump/branch (ie. a call) */
     DIF_MIPS_LIKELY     = 0x0004,       /* branch instruction likely */
@@ -315,8 +334,39 @@ typedef enum {
     DIF_MIPS_FF_L       = 0x0040,       /* fixed point, doubleword sized */
     DIF_MIPS_FF_PS      = 0x0080,       /* paired single precision floating point */
     DIF_MIPS_FF_FLAGS   = DIF_MIPS_FF_S | DIF_MIPS_FF_D | DIF_MIPS_FF_W | DIF_MIPS_FF_L | DIF_MIPS_FF_PS,
+} dis_inst_flags_mips;
 #endif
-    DIF_NONE            = 0
+
+typedef enum {
+    DIF_NONE            = 0,
+    DIF_ALL             = 0xFFFF
+} dis_inst_flags_all;
+
+typedef struct {
+    union {
+#if DISCPU & DISCPU_axp
+        dis_inst_flags_axp  axp;
+#endif
+#if DISCPU & DISCPU_ppc
+        dis_inst_flags_ppc  ppc;
+#endif
+#if DISCPU & DISCPU_x86
+        dis_inst_flags_x86  x86;
+#endif
+#if DISCPU & DISCPU_x64
+        dis_inst_flags_x64  x64;
+#endif
+#if DISCPU & DISCPU_jvm
+        dis_inst_flags_jvm  jvm;
+#endif
+#if DISCPU & DISCPU_sparc
+        dis_inst_flags_sparc    sparc;
+#endif
+#if DISCPU & DISCPU_mips
+        dis_inst_flags_mips mips;
+#endif
+        dis_inst_flags_all  all;
+    } u;
 } dis_inst_flags;
 
 typedef enum {
@@ -386,3 +436,4 @@ struct dis_handle {
 };
 
 #endif
+

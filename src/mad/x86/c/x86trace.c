@@ -42,7 +42,7 @@ unsigned        DIGENTRY MITraceSize( void )
 void            DIGENTRY MITraceInit( mad_trace_data *td, const mad_registers *mr )
 {
     td->prev_ins_type = -1;
-    td->prev_ins_flags = 0;
+    td->prev_ins_flags.u.x86 = DIF_NONE;
 }
 
 
@@ -119,8 +119,19 @@ static mad_trace_how DoTraceOne( mad_trace_data *td, mad_disasm_data *dd, mad_tr
 {
     switch( tk ) {
     case MTRK_OUT:
-        BreakRet( td, dd, mr );
-        return( MTRH_BREAK );
+        switch( dd->ins.type ) {
+        case DI_X86_ret:
+        case DI_X86_ret2:
+        case DI_X86_iret:
+        case DI_X86_iretd:
+        case DI_X86_retf:
+        case DI_X86_retf2:
+            BreakRet( td, dd, mr );
+            return( MTRH_BREAK );
+        default:
+            break;
+        }
+        return( MTRH_STEP );
     case MTRK_INTO:
         return( MTRH_STEP );
     case MTRK_OVER:
@@ -147,7 +158,7 @@ static mad_trace_how DoTraceOne( mad_trace_data *td, mad_disasm_data *dd, mad_tr
         case DI_X86_stos:
         case DI_X86_outs:
         case DI_X86_ins:
-            if( dd->ins.flags & (DIF_X86_REPE|DIF_X86_REPNE|DIF_X86_FWAIT) ) {
+            if( dd->ins.flags.u.x86 & (DIF_X86_REPE|DIF_X86_REPNE|DIF_X86_FWAIT) ) {
                 BreakNext( td, dd );
                 return( MTRH_BREAK );
             }
@@ -174,7 +185,7 @@ static mad_trace_how CheckSpecial( mad_trace_data *td, mad_disasm_data *dd, cons
     if( th != MTRH_STEP ) return( th );
     switch( dd->ins.type ) {
     case DI_X86_int:
-        if( dd->ins.flags & DIF_X86_EMU_INT )
+        if( dd->ins.flags.u.x86 & DIF_X86_EMU_INT )
             break;
         /* fall through */
     case DI_X86_into:
@@ -221,9 +232,9 @@ static mad_trace_how CheckSpecial( mad_trace_data *td, mad_disasm_data *dd, cons
             return( MTRH_STEP );
         break;
     default:
-        if( dd->ins.flags & DIF_X86_EMU_INT ) break;
-        if( ( dd->ins.flags & DIF_X86_FP_INS )
-            && ( ( dd->ins.flags & DIF_X86_FWAIT ) || ( MCSystemConfig()->fpu == X86_EMU ) ) )
+        if( dd->ins.flags.u.x86 & DIF_X86_EMU_INT ) break;
+        if( ( dd->ins.flags.u.x86 & DIF_X86_FP_INS )
+            && ( ( dd->ins.flags.u.x86 & DIF_X86_FWAIT ) || ( MCSystemConfig()->fpu == X86_EMU ) ) )
             break;
         return( MTRH_STEP );
     }
@@ -279,7 +290,7 @@ mad_trace_how   DIGENTRY MITraceOne( mad_trace_data *td, mad_disasm_data *dd, ma
         break;
     }
     td->prev_ins_type = dd->ins.type;
-    td->prev_ins_flags = dd->ins.flags;
+    td->prev_ins_flags.u.x86 = dd->ins.flags.u.x86;
     switch( th ) {
     case MTRH_BREAK:
         switch( td->prev_ins_type ) {
