@@ -1,3 +1,7 @@
+Change 39037 on 2026/04/23 by MichalN@MICHALN_RYZEN
+
+	Ported builder.ctl for installers. Disabled F77 installer build.
+
 Change 39033 on 2026/04/20 by MichalN@MICHALN_RYZEN
 
 	Integrated w16api/w32api awk script updates. No real change.

@@ -43,7 +43,7 @@ nulldevice = /dev/null
 nulldevice = nul
 !endif
 
-all : ../$(installer_c) ../$(installer_f77) .SYMBOLIC
+all : ../$(installer_c) .SYMBOLIC # disabled ../$(installer_f77)
 
 ../$(installer_c) : ../files.dat $(setup_c) .ALWAYS
     langdat -l filelist -c $[@ c
